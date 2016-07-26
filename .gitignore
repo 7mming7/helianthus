@@ -1,0 +1,16 @@
+### Java template
+*.class
+*.log
+*.iml
+
+.idea
+
+# Package Files #
+*.jar
+*.war
+*.ear
+target/
+log/
+*.classpath
+*.project
+*.eml
