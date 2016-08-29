@@ -35,8 +35,8 @@ public class SiteAccount extends BaseEntity{
     private String domain;
 
     @NotNull
-    @Column(name = "available",insertable = false,columnDefinition = "char default '1'")
-    private String  available;
+    @Column(name = "available",columnDefinition = "char default '1'")
+    private String available;
 
     public String getId() {
         return id;

@@ -44,23 +44,35 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="accountForm" th:action="@{'addAccount'}" method="post">
+                    <form role="form" id="accountForm" th:action="@{'addOrUpdateAccount'}" method="post">
                         <div class="form-body">
-
                             <div class="form-group">
                                 <label class="control-label">所属域名</label>
-                                <input type="text" class="form-control" name="domain"
+                                <input type="text" class="form-control" id="domain" name="domain"
                                        required="required"/>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">账户名称</label>
-                                <input type="text" class="form-control" name="userName"
+                                <input type="text" class="form-control" id="userName" name="userName"
                                         placeholder="输入用户名称"/>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">账户密码</label>
-                                <input type="password" class="form-control" name="passWord"
+                                <input type="password" class="form-control" id="passWord" name="passWord"
                                        placeholder="输入用户密码"/>
+                            </div>
+                            <div class="form-group">
+                                <label>是否可用</label>
+                                <div class="radio-list">
+                                    <label>
+                                        <input type="radio" name="available" id="available1" value="1" checked="true"/> 是</label>
+                                    <label>
+                                        <input type="radio" name="available" id="available2" value="0"/> 否 </label>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="id" name="id"/>
                             </div>
                         </div>
                     </form>
@@ -95,9 +107,36 @@
 
         $("#btn_add").click(function () {
             $('#accountForm')[0].reset();
+            $('#id').attr("value","");
+            $('input[name=available]').get(0).checked = true;
             $('#accountAddModal').modal({
                 keyboard: false
             });
+        });
+        $("#btn_edit").click(function () {
+            var selectedRows = $('#tb_accounts').bootstrapTable('getSelections');
+            if (selectedRows.length == 0){
+                bootbox.alert({
+                    size:'small',
+                    message: '请选择需要修改的记录'
+                });
+                return;
+            } else if (selectedRows.length >= 2){
+                bootbox.alert({
+                    size:'small',
+                    message: '请选择1条需要修改的记录'
+                });
+                return;
+            } else {
+                var account = selectedRows[0];
+                $('#id').val(account.id);
+                $('#domain').val(account.domain);
+                $('#userName').val(account.userName);
+                $('#passWord').val(account.passWord);
+                $('#accountAddModal').modal({
+                    keyboard: false
+                });
+            }
         });
         $("#btn_delete").click(function () {
             delItem(function () {
@@ -119,10 +158,10 @@
                         if (result == true)
                             $('#tb_accounts').bootstrapTable('refresh');
                         else
-                            alert("删除失败");
+                            bootbox.alert("删除失败");
                     },
                     error: function (msg) {
-                        alert(JSON.stringify(msg));
+                        bootbox.alert(JSON.stringify(msg));
                     }
                 });
             });

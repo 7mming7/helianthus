@@ -43,13 +43,13 @@ public class SiteAccountController {
         return result;
     }
 
-    @RequestMapping(value = "/addAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrUpdateAccount", method = RequestMethod.POST)
     @ResponseBody
     public Object addAccount(SiteAccount siteAccount) {
         if (StringUtils.isBlank(siteAccount.getDomain())) {
             return false;
         }
-        return iSiteAccountService.addAccount(siteAccount);
+        return iSiteAccountService.addOrUpdateAccount(siteAccount);
     }
 
     @RequestMapping(value = "/deleteAccounts", method = RequestMethod.POST)

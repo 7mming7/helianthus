@@ -20,7 +20,9 @@ public interface ISiteAccountService {
 
     public Page<SiteAccount> querySiteAccounts(int pageIndex, int pageSize);
 
-    public boolean addAccount(SiteAccount siteAccount);
+    public boolean addOrUpdateAccount(SiteAccount siteAccount);
 
     public boolean deleteAccountByIds(List<String> deleteIds);
+
+    public SiteAccount findById(String id);
 }

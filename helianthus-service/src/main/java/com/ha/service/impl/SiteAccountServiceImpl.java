@@ -34,7 +34,7 @@ public class SiteAccountServiceImpl implements ISiteAccountService{
     }
 
     @Override
-    public boolean addAccount(SiteAccount siteAccount) {
+    public boolean addOrUpdateAccount(SiteAccount siteAccount) {
         return siteAccountRepository.save(siteAccount) != null;
     }
 
@@ -46,5 +46,10 @@ public class SiteAccountServiceImpl implements ISiteAccountService{
             siteAccountRepository.delete(deleteId);
         }
         return true;
+    }
+
+    @Override
+    public SiteAccount findById(String id) {
+        return siteAccountRepository.findOne(id);
     }
 }
