@@ -2,6 +2,7 @@ package com.ha.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,4 +38,5 @@ public class HomeController {
         response.addCookie(cookie);
         return new ModelAndView("test");
     }
+
 }
