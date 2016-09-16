@@ -1,38 +1,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ha</groupId>
+    <artifactId>helianthus-quartz</artifactId>
+    <version>${helianthus.version}</version>
+    <packaging>jar</packaging>
+
+    <name>helianthus-quartz</name>
+    <url>http://maven.apache.org</url>
+
     <parent>
         <artifactId>helianthus</artifactId>
         <groupId>com.ha</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${helianthus.version}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>helianthus-quartz</artifactId>
-    <packaging>jar</packaging>
-
-    <name>quartz</name>
-    <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>
+            <groupId>com.ha</groupId>
+            <artifactId>helianthus-core</artifactId>
+            <version>${helianthus.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 </project>
