@@ -3,9 +3,6 @@ package com.ha.quartz.model;
 import java.io.Serializable;
 import java.util.UUID;
 
-/**
- * Created by ucs_yuananyun on 2016/6/6.
- */
 public class ScheduleJobInfo implements Serializable {
     /**
      * 任务id

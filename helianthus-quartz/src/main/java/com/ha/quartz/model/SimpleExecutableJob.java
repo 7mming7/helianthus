@@ -2,10 +2,6 @@ package com.ha.quartz.model;
 
 import org.quartz.JobExecutionContext;
 
-
-/**
- * Created by ucs_yuananyun on 2016/6/6.
- */
 public class SimpleExecutableJob extends AbstractExecutableJob  {
 
     public SimpleExecutableJob(ScheduleJobInfo jobInfo) {

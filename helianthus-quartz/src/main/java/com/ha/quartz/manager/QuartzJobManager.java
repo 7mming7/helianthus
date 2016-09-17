@@ -7,9 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ucs_yuananyun on 2016/6/6.
- */
 public class QuartzJobManager {
 
     private QuartzDao quartzDao;

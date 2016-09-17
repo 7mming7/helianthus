@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by ucs_yuananyun on 2016/6/6.
- */
 @Service
 public class QuartzScheduleService {
 

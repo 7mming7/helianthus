@@ -11,7 +11,6 @@ import com.ha.quartz.model.IExecutable;
 
 /**
  * 有状态的Job工厂类
- * Created by ucs_yuananyun on 2016/6/6.
  */
 @DisallowConcurrentExecution
 public class QuartzJobFactory implements Job {

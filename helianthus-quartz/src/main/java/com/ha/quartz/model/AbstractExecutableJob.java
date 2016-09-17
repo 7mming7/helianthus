@@ -2,9 +2,6 @@ package com.ha.quartz.model;
 
 import java.io.Serializable;
 
-/**
- * Created by ucs_yuananyun on 2016/6/6.
- */
 public abstract class AbstractExecutableJob implements IExecutable,Serializable {
     private ScheduleJobInfo jobInfo;
 
