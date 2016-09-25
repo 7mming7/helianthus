@@ -7,12 +7,9 @@
 <body>
 <div class="container">
     <div class="row">
-        <!--<div class="col-md-4">-->
-        <!--</div>-->
         <div class="col-md-12">
             <table id="tb_jobs"></table>
         </div>
-
     </div>
 
     <div th:include="master::itemDel"></div>
@@ -59,13 +56,12 @@
                     method: 'get',                      //请求方式（*）
                     uniqueId: "jobId",
                     sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
-                    detailView: false,          //是否显示父子表
-                    cardView: true,                    //是否显示详细视图
+                    detailView: false,                  //是否显示父子表
+                    cardView: true,                     //是否显示详细视图
                     columns: [{
                         field: 'jobName',
                         title: '作业名称'
-                    },
-                        {
+                        }, {
                             field: 'jobGroup',
                             title: '组名'
                         }, {

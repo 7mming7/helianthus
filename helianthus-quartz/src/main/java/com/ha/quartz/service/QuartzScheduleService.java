@@ -222,9 +222,6 @@ public class QuartzScheduleService {
         }
     }
 
-
-
-
     private JobKey getJobKey(String jobName, String jobGroup) {
         return JobKey.jobKey(jobName, jobGroup);
     }

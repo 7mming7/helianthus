@@ -29,7 +29,7 @@ public class HomeController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping("/testCookie")
+    /*@RequestMapping("/testCookie")
     @ResponseBody
     public ModelAndView testCookie(HttpServletRequest request,HttpServletResponse response) {
         request.getSession().setAttribute("openid","11111111");
@@ -37,6 +37,6 @@ public class HomeController {
         cookie.setMaxAge(3600*24*30);
         response.addCookie(cookie);
         return new ModelAndView("test");
-    }
+    }*/
 
 }

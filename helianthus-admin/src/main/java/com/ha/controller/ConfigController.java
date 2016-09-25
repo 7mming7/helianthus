@@ -18,8 +18,5 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ConfigController {
 
-    @RequestMapping("/accountManagement")
-    public ModelAndView accountManagement() {
-        return new ModelAndView("account_management");
-    }
+
 }

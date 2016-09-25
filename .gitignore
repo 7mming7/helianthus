@@ -11,4 +11,4 @@ target/
 log/
 .idea/
 */target/
-catalina.base_IS_UNDEFINED
+admin-logs

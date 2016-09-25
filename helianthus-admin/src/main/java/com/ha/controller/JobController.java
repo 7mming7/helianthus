@@ -28,12 +28,6 @@ public class JobController {
     @Autowired
     private QuartzScheduleService quartzScheduleService;
 
-    @RequestMapping(value = {"/workerList"}, method = RequestMethod.GET)
-    public ModelAndView workerList() {
-        ModelAndView mv = new ModelAndView("worker_list");
-        return mv;
-    }
-
     @RequestMapping("/viewPlannedJobs")
     public ModelAndView viewScheduledJobs() {
         return new ModelAndView("planned_job_list");

@@ -82,6 +82,14 @@ public class ScheduleJobInfo implements Serializable {
         this.jobId = jobId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "ScheduleJobInfo{" +
@@ -90,13 +98,5 @@ public class ScheduleJobInfo implements Serializable {
                 ", cronExpression='" + cronExpression + '\'' +
                 ", desc='" + description + '\'' +
                 '}';
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
