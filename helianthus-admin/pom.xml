@@ -26,11 +26,6 @@
             <artifactId>helianthus-service</artifactId>
             <version>${helianthus.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.ha</groupId>
-            <artifactId>helianthus-quartz</artifactId>
-            <version>${helianthus.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

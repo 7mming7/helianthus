@@ -17,6 +17,10 @@
     </parent>
 
     <dependencies>
-
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${common-configuration.version}</version>
+        </dependency>
     </dependencies>
 </project>
