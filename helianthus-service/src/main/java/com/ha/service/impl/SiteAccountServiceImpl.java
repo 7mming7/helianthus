@@ -41,8 +41,6 @@ public class SiteAccountServiceImpl implements ISiteAccountService{
     @Override
     public boolean deleteAccountByIds(List<String> deleteIds) {
         for (String deleteId : deleteIds) {
-            //先删除cookies
-            System.out.println(deleteId);
             siteAccountRepository.delete(deleteId);
         }
         return true;
