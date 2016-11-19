@@ -100,7 +100,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.ha.admin" level="DEBUG" additivity="false">
+    <logger name="com.ha" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ERROR-OUT"/>
         <appender-ref ref="INFO-OUT"/>

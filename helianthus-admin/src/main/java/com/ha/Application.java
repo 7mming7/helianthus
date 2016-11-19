@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * Application startup.
  * User: shuiqing
  * DateTime: 16/8/17 下午2:20
  * Email: annuus.sq@gmail.com
