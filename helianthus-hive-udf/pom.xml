@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ha</groupId>
     <artifactId>helianthus-hive-udf</artifactId>
-    <version>${helianthus.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>helianthus-service</name>
+    <name>helianthus--hive-udf</name>
     <url>http://maven.apache.org</url>
 
     <parent>
         <artifactId>helianthus</artifactId>
         <groupId>com.ha</groupId>
-        <version>${helianthus.version}</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
 

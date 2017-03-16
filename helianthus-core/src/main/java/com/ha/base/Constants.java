@@ -14,22 +14,17 @@ package com.ha.base;
 public interface Constants {
 
     // ================================
-
-    // 任务正在运行
+    /* 1-任务正在运行
+       2-任务完成
+       3-任务失败
+       4-任务被kill掉
+       5-任务延期
+     */
     public static final int JOB_RUNNING = 1;
-
-    // 任务完成
     public static final int JOB_SUCCESS = 2;
-
-    // 任务失败
     public static final int JOB_ERROR = 3;
-
-    // 任务被kill掉
     public static final int JOB_KILL = 4;
-
-    // 任务延期
     public static final int JOB_DELAY = 5;
-
     // ================================
 
 
