@@ -1,9 +1,5 @@
 package com.ha.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 /**
  * User: shuiqing
  * DateTime: 16/8/23 下午10:14
@@ -15,6 +11,5 @@ import javax.persistence.Id;
  * | o| (_
  */
 public class BaseEntity {
-
 
 }

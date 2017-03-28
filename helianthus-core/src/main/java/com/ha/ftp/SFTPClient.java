@@ -1,4 +1,4 @@
-package com.ha.tools.ftp;
+package com.ha.ftp;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -18,7 +18,7 @@ import java.io.*;
  * |_)._ _
  * | o| (_
  */
-public class SFTPClient implements RemoteFileClient{
+public class SFTPClient implements BaseFtpClient {
 
 
     @Override

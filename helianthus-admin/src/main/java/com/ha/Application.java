@@ -2,7 +2,9 @@ package com.ha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 @SpringBootApplication
 @RestController
 @ImportResource(locations = {"classpath*:spring/*.xml"})
+@EnableJpaRepositories("com.ha.repository")
 public class Application {
 
     @RequestMapping("/")

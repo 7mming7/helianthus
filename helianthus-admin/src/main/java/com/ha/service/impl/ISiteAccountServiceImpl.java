@@ -4,10 +4,10 @@ import com.ha.domain.SiteAccount;
 import com.ha.repository.SiteAccountRepository;
 import com.ha.service.ISiteAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,7 +23,8 @@ import java.util.List;
  * | o| (_
  */
 @Service
-public class SiteAccountServiceImpl implements ISiteAccountService{
+@Transactional
+public class ISiteAccountServiceImpl implements ISiteAccountService{
 
     @Autowired
     private SiteAccountRepository siteAccountRepository;

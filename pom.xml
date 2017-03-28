@@ -14,11 +14,11 @@
     <modules>
         <module>helianthus-core</module>
         <module>helianthus-api</module>
-        <module>helianthus-service</module>
         <module>helianthus-job-sharding</module>
         <module>helianthus-bdrt</module>
         <module>helianthus-hive-udf</module>
         <module>helianthus-admin</module>
+        <module>helianthus-init</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -32,6 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- spring版本号 -->
         <spring-session.version>1.2.0.RELEASE</spring-session.version>
+        <spring.data.jpa.version>1.9.0.RELEASE</spring.data.jpa.version>
         <spring-data-redis.version>1.7.2.RELEASE</spring-data-redis.version>
 
         <junit.version>4.7</junit.version>
@@ -45,6 +46,7 @@
         <httpclient.version>4.3.1</httpclient.version>
         <ehcache.version>2.10.2</ehcache.version>
         <guava.version>15.0</guava.version>
+        <jedis.version>2.8.1</jedis.version>
 
         <commons-lang3.version>3.1</commons-lang3.version>
         <common-collections4.version>4.0</common-collections4.version>
@@ -94,6 +96,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- spring jpa -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.data.jpa.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- hadoop -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -109,6 +124,12 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
 
         <!-- apache common 相关jar包 -->

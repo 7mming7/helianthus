@@ -1,4 +1,4 @@
-package com.ha.tools.ftp;
+package com.ha.ftp;
 
 import java.io.InputStream;
 
@@ -13,7 +13,7 @@ import java.io.InputStream;
  * |_)._ _
  * | o| (_
  */
-public interface RemoteFileClient {
+public interface BaseFtpClient {
 
     /**
      * 上传文件

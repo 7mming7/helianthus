@@ -1,4 +1,4 @@
-package com.ha.tools.ftp;
+package com.ha.ftp;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPFile;
@@ -17,7 +17,7 @@ import java.io.*;
  * |_)._ _
  * | o| (_
  */
-public class FTPClient implements RemoteFileClient {
+public class FTPClient implements BaseFtpClient {
 
     private static org.apache.commons.net.ftp.FTPClient ftpClient = new org.apache.commons.net.ftp.FTPClient();
 
@@ -57,8 +57,7 @@ public class FTPClient implements RemoteFileClient {
             ftpClient.setControlEncoding(encoding);
             // 检验是否连接成功
             reply = ftpClient.getReplyCode();
-            if (!FTPReply.isPositiveCompletion(reply))
-            {
+            if (!FTPReply.isPositiveCompletion(reply)){
                 System.out.println("连接失败");
                 ftpClient.disconnect();
                 return result;
@@ -66,28 +65,22 @@ public class FTPClient implements RemoteFileClient {
             // 转移工作目录至指定目录下
             boolean change = ftpClient.changeWorkingDirectory(path);
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            if (change)
-            {
+            if (change){
                 result = ftpClient.storeFile(new String(filename.getBytes(encoding), "iso-8859-1"), input);
-                if (result)
-                {
+                if (result){
                     System.out.println("上传成功!");
                 }
             }
             input.close();
             ftpClient.logout();
-        } catch (IOException e)
-        {
+        } catch (IOException e){
             e.printStackTrace();
-        } finally
-        {
-            if (ftpClient.isConnected())
-            {
-                try
-                {
+        } finally{
+            if (ftpClient.isConnected()){
+                try{
                     ftpClient.disconnect();
-                } catch (IOException ioe)
-                {
+                } catch (IOException ioe){
+                    ioe.printStackTrace();
                 }
             }
         }
@@ -119,8 +112,7 @@ public class FTPClient implements RemoteFileClient {
                             String remotePath, String fileName,
                             String localPath){
         boolean result = false;
-        try
-        {
+        try{
             int reply;
             ftpClient.setControlEncoding(encoding);
             /*
@@ -136,8 +128,7 @@ public class FTPClient implements RemoteFileClient {
             // 获取ftp登录应答代码
             reply = ftpClient.getReplyCode();
             // 验证是否登陆成功
-            if (!FTPReply.isPositiveCompletion(reply))
-            {
+            if (!FTPReply.isPositiveCompletion(reply)){
                 ftpClient.disconnect();
                 System.err.println("FTP server refused connection.");
                 return result;
@@ -146,10 +137,8 @@ public class FTPClient implements RemoteFileClient {
             ftpClient.changeWorkingDirectory(new String(remotePath.getBytes(encoding), "iso-8859-1"));
             // 获取文件列表
             FTPFile[] fs = ftpClient.listFiles();
-            for (FTPFile ff : fs)
-            {
-                if (ff.getName().equals(fileName))
-                {
+            for (FTPFile ff : fs){
+                if (ff.getName().equals(fileName)){
                     File localFile = new File(localPath + "/" + ff.getName());
                     OutputStream is = new FileOutputStream(localFile);
                     ftpClient.retrieveFile(ff.getName(), is);
@@ -158,23 +147,17 @@ public class FTPClient implements RemoteFileClient {
             }
             ftpClient.logout();
             result = true;
-        } catch (IOException e)
-        {
+        } catch (IOException e){
             e.printStackTrace();
-        } finally
-        {
-            if (ftpClient.isConnected())
-            {
-                try
-                {
+        } finally{
+            if (ftpClient.isConnected()){
+                try{
                     ftpClient.disconnect();
-                } catch (IOException ioe)
-                {
+                } catch (IOException ioe){
                     ioe.printStackTrace();
                 }
             }
         }
         return result;
     }
-
 }

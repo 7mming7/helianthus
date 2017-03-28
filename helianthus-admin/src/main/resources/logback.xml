@@ -78,14 +78,14 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.ha" level="DEBUG" additivity="false">
+    <logger name="com.ha" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ERROR-OUT"/>
         <appender-ref ref="INFO-OUT"/>
         <appender-ref ref="DEBUG-OUT"/>
     </logger>
 
-    <logger name="org.thymeleaf" level="WARN" additivity="false">
+    <logger name="org.thymeleaf" level="ERROR" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 

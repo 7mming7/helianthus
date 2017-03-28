@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Account repository
  * User: shuiqing
  * DateTime: 16/8/24 上午10:13
  * Email: helianthus301@163.com
@@ -18,5 +19,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SiteAccountRepository extends CrudRepository<SiteAccount, String> {
+
     Page<SiteAccount> findAll(Pageable pageable);
 }

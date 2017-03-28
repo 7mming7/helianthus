@@ -1,7 +1,7 @@
 package com.ha.base;
 
 /**
- * 常量
+ * 全局常量
  * User: shuiqing
  * DateTime: 17/3/5 下午1:21
  * Email: annuus.sq@gmail.com
@@ -11,7 +11,7 @@ package com.ha.base;
  * |_)._ _
  * | o| (_
  */
-public interface Constants {
+public interface GlobalConstants {
 
     // ================================
     /* 1-任务正在运行
@@ -26,7 +26,4 @@ public interface Constants {
     public static final int JOB_KILL = 4;
     public static final int JOB_DELAY = 5;
     // ================================
-
-
-
 }
