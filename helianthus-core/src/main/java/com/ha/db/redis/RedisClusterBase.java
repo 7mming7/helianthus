@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * redis集群base
  * User: shuiqing
  * DateTime: 17/3/27 上午11:00
  * Email: annuus.sq@gmail.com

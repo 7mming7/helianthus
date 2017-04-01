@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 @SpringBootApplication
 @RestController
 @ImportResource(locations = {"classpath*:spring/*.xml"})
-@EnableJpaRepositories("com.ha.repository")
 public class Application {
 
     @RequestMapping("/")

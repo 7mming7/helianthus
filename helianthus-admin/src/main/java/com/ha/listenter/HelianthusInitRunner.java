@@ -27,6 +27,7 @@ public class HelianthusInitRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         LOG.info(">>>>>>>>>>>>>>>Init ->> 服务启动执行，执行初始化配置等操作 <<<<<<<<<<<<<");
 
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg start<<<<<<<<<<<<<<<<<<<<<<<<");

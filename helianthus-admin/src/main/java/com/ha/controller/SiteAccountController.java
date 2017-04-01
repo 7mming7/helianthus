@@ -3,6 +3,8 @@ package com.ha.controller;
 import com.ha.domain.SiteAccount;
 import com.ha.service.ISiteAccountService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ import java.util.Map;
  */
 @Controller
 public class SiteAccountController {
+
+    private static Logger LOG = LoggerFactory.getLogger(SiteAccountController.class);
 
     @Autowired
     private ISiteAccountService iSiteAccountService;
