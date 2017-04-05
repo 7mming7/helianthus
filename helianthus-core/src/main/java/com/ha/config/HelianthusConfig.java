@@ -138,7 +138,7 @@ public class HelianthusConfig implements Serializable {
             if(value == null){
                 return defaultValue;
             } else {
-                return Double.parseDouble(value.trim());
+                return Double.  parseDouble(value.trim());
             }
         }
 
