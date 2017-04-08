@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 /**
+ * 系统参数service
  * User: shuiqing
  * DateTime: 17/3/29 下午4:02
  * Email: annuus.sq@gmail.com

@@ -16,9 +16,10 @@
         <module>helianthus-api</module>
         <module>helianthus-job-sharding</module>
         <module>helianthus-bdrt</module>
-        <module>helianthus-hive-udf</module>
         <module>helianthus-admin</module>
         <module>helianthus-init</module>
+        <module>helianthus-hive</module>
+        <module>helianthus-disruptor</module>
     </modules>
     <packaging>pom</packaging>
 

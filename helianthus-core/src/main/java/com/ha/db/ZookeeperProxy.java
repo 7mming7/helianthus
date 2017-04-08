@@ -1,6 +1,7 @@
 package com.ha.db;
 
 import com.google.common.collect.Lists;
+import com.ha.base.TaskType;
 import com.ha.util.DateUtils;
 import com.ha.util.RowUtil;
 import org.apache.curator.framework.CuratorFramework;
@@ -17,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * zk proxy
  * User: shuiqing
  * DateTime: 17/4/5 下午6:16
  * Email: helianthus301@163.com
@@ -157,9 +159,10 @@ public class ZookeeperProxy {
             // TODO: handle exception
             LOG.error(e.getMessage());
         }
-        if (type==0) {
+
+        if (type == TaskType.STORM.getValue()) {
             tempPath=tempPath+"/storm";
-        }else {
+        }else if(type == TaskType.HADOOP.getValue()) {
             tempPath=tempPath+"/hadoop";
         }
         try {
@@ -173,9 +176,9 @@ public class ZookeeperProxy {
             if(zkClient.checkExists().forPath(nodePath) == null){
                 zkClient.create().withMode(CreateMode.PERSISTENT).forPath(nodePath);
             }
-            if (type==0) {
+            if (type == TaskType.STORM.getValue()) {
                 nodePath = nodePath+"/storm";
-            }else {
+            }else if(type == TaskType.HADOOP.getValue()) {
                 nodePath = nodePath+"/hadoop";
             }
             String today = DateUtils.getToday();

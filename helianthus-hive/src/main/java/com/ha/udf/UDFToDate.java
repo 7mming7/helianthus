@@ -2,7 +2,7 @@ package com.ha.udf;
 
 import org.apache.hadoop.hive.ql.exec.UDF;
 
-public class ToDate6UDF extends UDF {
+public class UDFToDate extends UDF {
 
 	public String evaluate(String datetime, String type) {
         try {
@@ -64,21 +64,16 @@ public class ToDate6UDF extends UDF {
 				} else {
 					return datetime;
 				}
-
 			} else {
 				return null;
 			}
-
 		} catch (Exception e) {
-
 			return null;
-
 		}
-
 	}
 
 	public static void main(String args[]) {
-        ToDate6UDF toDate6UDF = new ToDate6UDF();
+        UDFToDate toDate6UDF = new UDFToDate();
 		String datetime = "201501";
 		String type = "YYYY-MM-dd";
         System.out.print(toDate6UDF.evaluate("   2   ", type));

@@ -31,14 +31,14 @@ public class HelianthusConfig implements Serializable {
      * hdfs地址
      */
     private static String hdfsClusterName;		//hdfs的集群名
-    private static String hdfsAddr;			//hdfs namenode, secondary namenode地址，ip:port,ip:port
+    private static String hdfsAddr;			    //hdfs namenode, secondary namenode地址，ip:port,ip:port
 
     /**
      * hbase地址
      */
     private static String zookeeper;			//zookeeper地址
     private static int hbasePoolSize;			//hbase线程池大小
-    private static int hbaseHConnectionNum;	//hbase hconnection数量
+    private static int hbaseHConnectionNum;	    //hbase hconnection数量
 
     /**
      * api端口
@@ -48,16 +48,25 @@ public class HelianthusConfig implements Serializable {
     /**
      * mapreduce配置
      */
-    private static long  mrInputSplitSize;     //mapreduce中map输入分片的最大大小(单位：byte)
-    private static int   mrMaxMapNum;          //mapreduce中map的最大个数
-    private static float mrMapReduceNumRate;   //mapreduce中map个数与reduce个数的比值
+    private static long  mrInputSplitSize;      //mapreduce中map输入分片的最大大小(单位：byte)
+    private static int   mrMaxMapNum;           //mapreduce中map的最大个数
+    private static float mrMapReduceNumRate;    //mapreduce中map个数与reduce个数的比值
 
-    private static int maxKpiMapSize;          //缓存数量
-    private static int maxDistinctMapSize;     //Bitmap,基数估算，hashset数据缓存数量
-    private static int maxDistinctFieldSize;   //Hashset最大数据量阈值
+    private static int maxKpiMapSize;           //缓存数量
+    private static int maxDistinctMapSize;      //Bitmap,基数估算，hashset数据缓存数量
+    private static int maxDistinctFieldSize;    //Hashset最大数据量阈值
 
     private static long storeBoltFlushExecutorPeriod;		//KpiStore top flush定时器时间间隔,单位毫秒
     private static long cacheBoltRedisBatchSize;			//cacheBolt中与redis交互的批量大小
+
+    /**
+     * hive配置
+     */
+    private static String hiveDatabaseName;     //hive数据库名称
+    private static String hiveDatabaseDir;      //hive数据库存储目录
+    private static String hiveDatabaseTmpDir;   //hive临时库存储目录
+    private static String hiveSourceDir;        //源数据存放目录
+    private static String hiveHdfsDir;          //转化后压缩文件的HDFS存储目录
 
     /**
      * 初始化配置
@@ -95,6 +104,13 @@ public class HelianthusConfig implements Serializable {
         this.mrInputSplitSize = Long.parseLong(props.getString("mapreduce.input.split.size", "2000000000"));     //默认2G
         this.mrMaxMapNum = props.getInt("mapreduce.map.tasks.maxnum", 8);	               						 //默认8个map
         this.mrMapReduceNumRate = Float.parseFloat(props.getString("mapreduce.mapandreduce.tasks.rate", "0.3")); //默认0.3
+
+        //hive
+        this.hiveDatabaseName = props.getString("hive.database.name");
+        this.hiveDatabaseDir = props.getString("hive.database.dir");
+        this.hiveDatabaseTmpDir = props.getString("hive.database.tmpDir");
+        this.hiveSourceDir = props.getString("hive.source.dir");
+        this.hiveHdfsDir = props.getString("hive.hdfs.dir");
     }
 
     /**

@@ -18,7 +18,7 @@
 
 package com.ha.udf;
 
-import com.annuus.utils.DateUtils;
+import com.ha.util.DateUtils;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.IntWritable;
 
