@@ -18,5 +18,4 @@ public class HiveProxy {
 
     private static final Logger LOG = LoggerFactory.getLogger(HiveProxy.class);
 
-
 }

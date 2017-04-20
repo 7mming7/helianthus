@@ -1,5 +1,6 @@
 package com.ha.base;
 
+import com.ha.config.HelianthusConfig;
 import com.ha.util.TableUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,12 +24,9 @@ import java.util.Properties;
  */
 public class HiveTableCreate extends AbstractTableCreate{
 
-    private static final String DATABASE = "CIB_IDA";
-    private static final Properties tableConfig = new Properties();
-
     static{
         try {
-            tableConfig.load(TableUtils.getResourceAsStream("/tables/config.properties"));
+            HelianthusConfig.loadConfig();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,11 +59,11 @@ public class HiveTableCreate extends AbstractTableCreate{
      */
     private static final void writeHeader(OutputStream out,String tn)throws IOException {
         if(StringUtils.isBlank(tn)){
-            out.write(("-- 创建" + DATABASE + "数据库\n").getBytes());
-            out.write(("create database " + DATABASE + ";\n\n").getBytes());
+            out.write(("-- 创建" + HelianthusConfig.getHiveDatabaseName() + "数据库\n").getBytes());
+            out.write(("create database " + HelianthusConfig.getHiveDatabaseName() + ";\n\n").getBytes());
         }
-        out.write(("-- 使用" + DATABASE + "数据库\n").getBytes());
-        out.write(("use " + DATABASE + ";\n\n").getBytes());
+        out.write(("-- 使用" + HelianthusConfig.getHiveDatabaseName() + "数据库\n").getBytes());
+        out.write(("use " + HelianthusConfig.getHiveDatabaseName() + ";\n\n").getBytes());
     }
 
     /**
@@ -94,9 +92,8 @@ public class HiveTableCreate extends AbstractTableCreate{
             }
             table.setName(tableName);// 表名称
             table.setExternal(true);// 是外部表
-            table.setLocation(tableConfig.getProperty("hive.table.location","/user/hive/warehouse/cib.db") + "/" + tableName); // 存储路径
-            table.setTerminated(tableConfig.getProperty("hive.table.terminated","\001")); // 分隔符
-            table.setComment(tableConfig.getProperty("hive.table." + tableName + ".comment")); // 表的描述
+            table.setLocation(HelianthusConfig.getHiveTableLocation() + "/" + tableName); // 存储路径
+            table.setTerminated(HelianthusConfig.getHiveTableTerminated()); // 分隔符
 
             List<BaseField> bfs = TableUtils.loadBaseField(file);
             for(BaseField bf : bfs){
@@ -137,8 +134,8 @@ public class HiveTableCreate extends AbstractTableCreate{
         TableInfo tableInfo = new TableInfo();
         File[] files = TableUtils.listTablesFiles();
 
-        out.write(("-- 使用" + DATABASE + "数据库\n").getBytes());
-        out.write(("use " + DATABASE + ";\n\n").getBytes());
+        out.write(("-- 使用" + HelianthusConfig.getHiveDatabaseName() + "数据库\n").getBytes());
+        out.write(("use " + HelianthusConfig.getHiveDatabaseName() + ";\n\n").getBytes());
 
         for(File file : files){
             Table table = new HiveTable();
@@ -149,7 +146,6 @@ public class HiveTableCreate extends AbstractTableCreate{
                     continue;
                 }
             }
-            table.setComment(tableConfig.getProperty("hive.table." + tableName + ".comment")); // 表的描述
 
             if(!StringUtils.isBlank(table.getComment())){ // 如果表的描述不为空，则输出表的描述
                 out.write(("-- " + table.getComment() + "\n").getBytes());

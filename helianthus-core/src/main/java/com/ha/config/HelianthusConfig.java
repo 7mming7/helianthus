@@ -67,6 +67,8 @@ public class HelianthusConfig implements Serializable {
     private static String hiveDatabaseTmpDir;   //hive临时库存储目录
     private static String hiveSourceDir;        //源数据存放目录
     private static String hiveHdfsDir;          //转化后压缩文件的HDFS存储目录
+    private static String hiveTableLocation;    //hive表存储位置
+    private static String hiveTableTerminated;  //hive表分隔符
 
     /**
      * 初始化配置
@@ -111,6 +113,8 @@ public class HelianthusConfig implements Serializable {
         this.hiveDatabaseTmpDir = props.getString("hive.database.tmpDir");
         this.hiveSourceDir = props.getString("hive.source.dir");
         this.hiveHdfsDir = props.getString("hive.hdfs.dir");
+        this.hiveTableLocation = props.getString("hive.table.location");
+        this.hiveTableTerminated = props.getString("hive.table.terminated");
     }
 
     /**
@@ -314,5 +318,61 @@ public class HelianthusConfig implements Serializable {
 
     public static void setCacheBoltRedisBatchSize(long cacheBoltRedisBatchSize) {
         HelianthusConfig.cacheBoltRedisBatchSize = cacheBoltRedisBatchSize;
+    }
+
+    public static String getHiveDatabaseName() {
+        return hiveDatabaseName;
+    }
+
+    public static void setHiveDatabaseName(String hiveDatabaseName) {
+        HelianthusConfig.hiveDatabaseName = hiveDatabaseName;
+    }
+
+    public static String getHiveDatabaseDir() {
+        return hiveDatabaseDir;
+    }
+
+    public static void setHiveDatabaseDir(String hiveDatabaseDir) {
+        HelianthusConfig.hiveDatabaseDir = hiveDatabaseDir;
+    }
+
+    public static String getHiveDatabaseTmpDir() {
+        return hiveDatabaseTmpDir;
+    }
+
+    public static void setHiveDatabaseTmpDir(String hiveDatabaseTmpDir) {
+        HelianthusConfig.hiveDatabaseTmpDir = hiveDatabaseTmpDir;
+    }
+
+    public static String getHiveSourceDir() {
+        return hiveSourceDir;
+    }
+
+    public static void setHiveSourceDir(String hiveSourceDir) {
+        HelianthusConfig.hiveSourceDir = hiveSourceDir;
+    }
+
+    public static String getHiveHdfsDir() {
+        return hiveHdfsDir;
+    }
+
+    public static void setHiveHdfsDir(String hiveHdfsDir) {
+        HelianthusConfig.hiveHdfsDir = hiveHdfsDir;
+    }
+
+    public static String getHiveTableLocation() {
+        return hiveTableLocation;
+    }
+
+    public static void setHiveTableLocation(String hiveTableLocation) {
+        HelianthusConfig.hiveTableLocation = hiveTableLocation;
+    }
+
+    public static String getHiveTableTerminated() {
+        return hiveTableTerminated;
+    }
+
+    public static void setHiveTableTerminated(String hiveTableTerminated) {
+        HelianthusConfig.hiveTableTerminated = hiveTableTerminated;
     }
 }

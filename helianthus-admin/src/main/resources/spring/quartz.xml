@@ -10,6 +10,6 @@
             <ref bean="dataSource" />
         </property>
         <property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
-        <property name="configLocation" value="classpath:quartz.properties" />
+        <property name="configLocation" value="classpath:/conf/quartz.properties" />
     </bean>
 </beans>

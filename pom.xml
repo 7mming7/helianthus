@@ -14,8 +14,6 @@
     <modules>
         <module>helianthus-core</module>
         <module>helianthus-api</module>
-        <module>helianthus-job-sharding</module>
-        <module>helianthus-bdrt</module>
         <module>helianthus-admin</module>
         <module>helianthus-init</module>
         <module>helianthus-hive</module>
@@ -61,6 +59,7 @@
         <common-beanutils.version>1.8.3</common-beanutils.version>
         <common-configuration.version>1.6</common-configuration.version>
 
+        <simplejavamail.version>4.2.1</simplejavamail.version>
         <httpcomponents.version>4.3.3</httpcomponents.version>
         <codecraft.version>0.3.1</codecraft.version>
         <quartz.version>2.2.1</quartz.version>
@@ -259,6 +258,12 @@
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
             <version>${jcraft.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.simplejavamail</groupId>
+            <artifactId>simple-java-mail</artifactId>
+            <version>${simplejavamail.version}</version>
         </dependency>
 
         <!-- quartz依赖 -->

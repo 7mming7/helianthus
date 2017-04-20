@@ -32,10 +32,12 @@ public class TableUtils {
     private static Map<String,LinkedHashMap<String, Integer>> mapping;
     private static final String encoding = "utf-8";
 
-    private static final String TABLE_CONF_DIR = "/tables/";
+    private static final String TABLE_CONF_DIR = "tables/";
     private static final String DEFINE_SUFFIX = ".cfg";
+
     //字段name上的分割区分是否分区和唯一主键
     private static final String SPLIT = "===";
+
     // 分区字段的前缀，分区字段以 "P_" 为前缀
     public static final String PARTITION_PREFIX = "P_";
 
@@ -44,7 +46,7 @@ public class TableUtils {
     private static final FilenameFilter cfgFileFilter = new FilenameFilter() {
         @Override
         public boolean accept(File dir, String name) {
-            return name.endsWith(DEFINE_SUFFIX); // 只需要所有以'.cfg'结尾的文件
+        return name.endsWith(DEFINE_SUFFIX); // 只需要所有以'.cfg'结尾的文件
         }
     };
 

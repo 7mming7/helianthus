@@ -10,15 +10,12 @@ import redis.clients.util.JedisClusterCRC16;
 import redis.clients.util.SafeEncoder;
 
 import java.io.Closeable;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
- * redis集群pipeline
+ * redis pipeline 操作方式
  * User: shuiqing
- * DateTime: 17/3/27 上午10:54
+ * DateTime: 17/4/13 下午4:58
  * Email: annuus.sq@gmail.com
  * GitHub: https://github.com/shuiqing301
  * Blog: http://shuiqing301.github.io/
@@ -81,4 +78,31 @@ public class JedisClusterPipeline extends PipelineBase implements Closeable {
         clients.add(client);
         return client;
     }
+
+    /**
+     * redis 获取redis槽信息
+     * @param node
+     * @return
+     */
+    public static TreeMap<Long, String> getSlotHostMap(String node) {
+        TreeMap<Long, String> hostMap = new TreeMap<Long, String>();
+        try {
+            String[] tmp = node.split(":");
+            Jedis jedis = new Jedis(tmp[0], Integer.parseInt(tmp[1]));
+            List<Object> slots = jedis.clusterSlots();
+            for (Object obj : slots) {
+                List<Object> list = (List<Object>) obj;
+                List<Object> master = (List<Object>) list.get(2);
+                String hostPort = new String((byte[]) master.get(0)) + ":" + master.get(1);
+                hostMap.put((Long) list.get(0), hostPort);
+                hostMap.put((Long) list.get(1), hostPort);
+            }
+            jedis.close();
+        } catch (Exception e) {
+            return null;
+        }
+        return hostMap;
+    }
+
+
 }
