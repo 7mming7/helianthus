@@ -3,6 +3,7 @@ package com.ha.quartz.service;
 import com.ha.quartz.base.QuartzConstants;
 import com.ha.quartz.domain.AbstractExecutableJob;
 import com.ha.quartz.domain.ScheduleJobInfo;
+import com.ha.quartz.domain.SimpleExecutableJob;
 import com.ha.quartz.manager.QuartzJobFactory;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
@@ -115,10 +116,16 @@ public class QuartzScheduleService {
             for (JobKey jobKey : jobKeys) {
                 List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);
                 for (Trigger trigger : triggers) {
+                    JobDetail jobDetail = scheduler.getJobDetail(jobKey);
                     ScheduleJobInfo job = new ScheduleJobInfo();
                     job.setJobName(jobKey.getName());
                     job.setJobGroup(jobKey.getGroup());
                     job.setDescription(trigger.getDescription());
+                    job.setJobClass(jobDetail.getJobDataMap().get(QuartzConstants.JOB_PARAM_KEY).getClass().getName());
+
+                  /*  JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+                    System.out.println(((AbstractExecutableJob)
+                        jobDetail.getJobDataMap().get(QuartzConstants.JOB_PARAM_KEY)).getJobInfo().toString());*/
                     Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
                     job.setJobStatus(triggerState.name());
                     if (trigger instanceof CronTrigger) {

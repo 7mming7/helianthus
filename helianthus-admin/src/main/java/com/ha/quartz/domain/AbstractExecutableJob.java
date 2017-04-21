@@ -15,6 +15,8 @@ import java.io.Serializable;
  */
 public abstract class AbstractExecutableJob implements IExecutable,Serializable {
 
+    private static final long serialVersionUID = 7691425541728109280l;
+
     private ScheduleJobInfo jobInfo;
 
     public AbstractExecutableJob(ScheduleJobInfo jobInfo) {
@@ -39,5 +41,9 @@ public abstract class AbstractExecutableJob implements IExecutable,Serializable 
 
     public String getCronExpression() {
         return jobInfo.getCronExpression();
+    }
+
+    public String getJobClass(){
+        return jobInfo.getJobClass();
     }
 }

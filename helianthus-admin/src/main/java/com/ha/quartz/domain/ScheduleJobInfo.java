@@ -16,6 +16,8 @@ import java.util.UUID;
  */
 public class ScheduleJobInfo implements Serializable {
 
+    private static final long serialVersionUID = -2743821189476049974l;
+
     /**
      * 任务id
      */
@@ -28,6 +30,10 @@ public class ScheduleJobInfo implements Serializable {
      * 任务分组
      */
     private String jobGroup;
+    /**
+     * 任务执行类
+     */
+    private String jobClass;
     /**
      * 任务状态 0禁用 1启用 2删除
      */
@@ -46,10 +52,11 @@ public class ScheduleJobInfo implements Serializable {
         jobId = UUID.randomUUID().toString();
     }
 
-    public ScheduleJobInfo(String jobName, String jobGroup, String cronExpression) {
+    public ScheduleJobInfo(String jobName, String jobGroup,String jobClass, String cronExpression) {
         this();
         this.jobName = jobName;
         this.jobGroup = jobGroup;
+        this.jobClass = jobClass;
         this.cronExpression = cronExpression;
     }
 
@@ -99,6 +106,14 @@ public class ScheduleJobInfo implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getJobClass() {
+        return jobClass;
+    }
+
+    public void setJobClass(String jobClass) {
+        this.jobClass = jobClass;
     }
 
     @Override

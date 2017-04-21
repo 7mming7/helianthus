@@ -45,11 +45,11 @@ public class HelianthusInitRunner implements CommandLineRunner {
         LOG.info("HdfsAddr" + HelianthusConfig.getHdfsAddr());
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg end<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
-        /*ScheduleJobInfo scheduleJobInfo = new ScheduleJobInfo("data_import","dataWork","0/5 * * * * ?");
+       /* ScheduleJobInfo scheduleJobInfo = new ScheduleJobInfo("data_import","dataWork","0/5 22 * * * ?");
         SimpleExecutableJob simpleExecutableJob = new SimpleExecutableJob(scheduleJobInfo);
         quartzScheduleService.addJob(simpleExecutableJob);*/
 
-        quartzScheduleService.deleteJob("data_import","dataWork");
+        /*quartzScheduleService.deleteJob("data_import","dataWork");*/
 
         List<ScheduleJobInfo> scheduleJobInfoList = quartzScheduleService.getScheduledJobList();
         for(ScheduleJobInfo sji:scheduleJobInfoList){

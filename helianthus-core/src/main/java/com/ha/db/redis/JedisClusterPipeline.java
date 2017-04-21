@@ -103,6 +103,4 @@ public class JedisClusterPipeline extends PipelineBase implements Closeable {
         }
         return hostMap;
     }
-
-
 }
