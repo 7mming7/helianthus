@@ -43,8 +43,8 @@ public class EhCacheConfig extends CachingConfigurerSupport {
     }
 
     /*
-  * ehcache 主要的管理器
-  */
+     * ehcache 主要的管理器
+     */
     @Bean(name = "appEhCacheCacheManager")
     public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean ehCacheManagerFactoryBean){
         return new EhCacheCacheManager (ehCacheManagerFactoryBean.getObject ());

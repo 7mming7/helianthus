@@ -1,4 +1,4 @@
-package com.ha.system.model;
+package com.ha.system.domain;
 
 import com.ha.base.domain.BaseEntity;
 

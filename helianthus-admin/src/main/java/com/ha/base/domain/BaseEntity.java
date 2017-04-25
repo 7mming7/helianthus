@@ -1,5 +1,7 @@
 package com.ha.base.domain;
 
+import java.io.Serializable;
+
 /**
  * User: shuiqing
  * DateTime: 16/8/23 下午10:14
@@ -10,6 +12,6 @@ package com.ha.base.domain;
  * |_)._ _
  * | o| (_
  */
-public class BaseEntity {
+public class BaseEntity implements Serializable {
 
 }

@@ -2,10 +2,12 @@ package com.ha.listenter;
 
 import com.ha.base.AdminConstants;
 import com.ha.config.HelianthusConfig;
+import com.ha.mail.service.IEmailSenderService;
 import com.ha.quartz.domain.AbstractExecutableJob;
 import com.ha.quartz.domain.ScheduleJobInfo;
 import com.ha.quartz.domain.SimpleExecutableJob;
 import com.ha.quartz.service.QuartzScheduleService;
+import org.simplejavamail.email.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import javax.activation.FileDataSource;
+import javax.mail.Message;
 import java.util.List;
 
 /**
@@ -35,6 +39,9 @@ public class HelianthusInitRunner implements CommandLineRunner {
     @Autowired
     private QuartzScheduleService quartzScheduleService;
 
+    @Autowired
+    private IEmailSenderService iEmailSenderService;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -51,10 +58,20 @@ public class HelianthusInitRunner implements CommandLineRunner {
 
         /*quartzScheduleService.deleteJob("data_import","dataWork");*/
 
-        List<ScheduleJobInfo> scheduleJobInfoList = quartzScheduleService.getScheduledJobList();
+        /*List<ScheduleJobInfo> scheduleJobInfoList = quartzScheduleService.getScheduledJobList();
         for(ScheduleJobInfo sji:scheduleJobInfoList){
             System.out.println(sji.toString());
-        }
+        }*/
+
+        Email emailNormal = new Email();
+        emailNormal.setFromAddress("水清", "793885652@qq.com");
+        emailNormal.addRecipient("helianthus301", "helianthus301@163.com", Message.RecipientType.TO);
+        emailNormal.setTextHTML("<b>We should meet up!</b><img src='cid:thumbsup'>");
+        emailNormal.setSubject("wolegeca!");
+
+        FileDataSource fds = new FileDataSource("/Users/gemingming/Downloads/88E58PICixT_1024.jpg");
+        emailNormal.addEmbeddedImage("thumbsup",fds);
+        iEmailSenderService.sendMail(emailNormal);
 
         LOG.info(">>>>>>>>>>>>>>>Init ->> 服务启动执行，执行初始化配置等操作--END <<<<<<<<<<<<<");
     }

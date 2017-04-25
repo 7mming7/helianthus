@@ -1,14 +1,12 @@
 package com.ha.system.repository;
 
-import com.ha.system.domain.Parameter;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.ha.system.domain.FileStore;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  * User: shuiqing
- * DateTime: 17/3/29 下午4:00
+ * DateTime: 17/4/25 下午2:14
  * Email: annuus.sq@gmail.com
  * GitHub: https://github.com/shuiqing301
  * Blog: http://shuiqing301.github.io/
@@ -17,7 +15,5 @@ import org.springframework.stereotype.Repository;
  * | o| (_
  */
 @Repository
-public interface ParameterRespository extends CrudRepository<Parameter, String> {
-
-    Page<Parameter> findAll(Pageable pageable);
+public interface FileStoreRespository extends CrudRepository<FileStore, String> {
 }

@@ -1,6 +1,6 @@
 package com.ha.system.controller;
 
-import com.ha.system.model.Parameter;
+import com.ha.system.domain.Parameter;
 import com.ha.system.service.IParameterService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

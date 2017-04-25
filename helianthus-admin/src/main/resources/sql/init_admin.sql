@@ -1,6 +1,6 @@
 CREATE DATABASE helianthus;
 
-CREATE TABLE t_site_account (
+CREATE TABLE t_siteAccount (
   id int(11) NOT NULL AUTO_INCREMENT,
   userName varchar(100) NOT NULL,
   passWord varchar(100) NOT NULL,

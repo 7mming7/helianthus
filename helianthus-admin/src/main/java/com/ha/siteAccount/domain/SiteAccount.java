@@ -17,7 +17,7 @@ import javax.persistence.*;
  * | o| (_
  */
 @Entity
-@Table(name = "t_site_account")
+@Table(name = "t_SiteAccount")
 public class SiteAccount extends BaseEntity {
 
     @Id

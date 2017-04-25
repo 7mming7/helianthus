@@ -1,6 +1,6 @@
 package com.ha.system.service.impl;
 
-import com.ha.system.model.Parameter;
+import com.ha.system.domain.Parameter;
 import com.ha.system.repository.ParameterRespository;
 import com.ha.system.service.IParameterService;
 import org.springframework.beans.factory.annotation.Autowired;

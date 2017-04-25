@@ -46,8 +46,6 @@ export HADOOP_CLASSPATH="${BIGDATA_CLASSPATH}"
 # figure out which class to run
 if [ "$COMMAND" = "generateHiveScript" ] ; then
   CLASS="com.sky.table.main.HiveTableTools"
-elif [ "$COMMAND" = "importBdtqBySplit" ] ; then
-   CLASS="com.sky.cib.bdtq.main.SplitLineImportMain"
 else
   CLASS=$COMMAND
 fi

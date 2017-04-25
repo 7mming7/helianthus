@@ -1,6 +1,6 @@
 package com.ha.system.service;
 
-import com.ha.system.model.Parameter;
+import com.ha.system.domain.Parameter;
 import org.springframework.data.domain.Page;
 
 /**

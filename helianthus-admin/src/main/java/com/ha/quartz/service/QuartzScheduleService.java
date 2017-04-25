@@ -123,9 +123,6 @@ public class QuartzScheduleService {
                     job.setDescription(trigger.getDescription());
                     job.setJobClass(jobDetail.getJobDataMap().get(QuartzConstants.JOB_PARAM_KEY).getClass().getName());
 
-                  /*  JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-                    System.out.println(((AbstractExecutableJob)
-                        jobDetail.getJobDataMap().get(QuartzConstants.JOB_PARAM_KEY)).getJobInfo().toString());*/
                     Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
                     job.setJobStatus(triggerState.name());
                     if (trigger instanceof CronTrigger) {
