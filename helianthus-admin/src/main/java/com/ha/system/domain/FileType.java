@@ -13,15 +13,13 @@ package com.ha.system.domain;
  */
 public enum FileType {
 
-    IMAGE(1, "照片"),
-    VIDEO(2, "视频");
+    IMAGE(1),
+    VIDEO(2);
 
     private int value;
-    private String name;
 
-    private FileType(int value, String name){
+    private FileType(int value){
         this.value = value;
-        this.name = name;
     }
 
     public int getValue() {
@@ -30,14 +28,6 @@ public enum FileType {
 
     public void setValue(int value) {
         this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public static FileType valueOf(int value){

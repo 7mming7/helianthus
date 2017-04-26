@@ -24,6 +24,8 @@ public abstract class EmailRecord implements Serializable{
     private String subject;
     //正文内容
     private String content;
+    //cid内容
+    private String cidContent;
     //正文类型
     private ContentType contentType;
     //执行时间
@@ -32,13 +34,6 @@ public abstract class EmailRecord implements Serializable{
     private boolean success;
     //返回消息
     private String msg;
-
-    public EmailRecord(String reciver, String subject, String content, ContentType contentType) {
-        this.reciver = reciver;
-        this.subject = subject;
-        this.content = content;
-        this.contentType = contentType;
-    }
 
     public String getReciver() {
         return reciver;
@@ -94,5 +89,13 @@ public abstract class EmailRecord implements Serializable{
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getCidContent() {
+        return cidContent;
+    }
+
+    public void setCidContent(String cidContent) {
+        this.cidContent = cidContent;
     }
 }

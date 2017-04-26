@@ -1,6 +1,5 @@
 package mail;
 
-import org.simplejavamail.converter.EmailConverter;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.config.ServerConfig;
@@ -8,9 +7,6 @@ import org.simplejavamail.mailer.config.TransportStrategy;
 
 import javax.activation.FileDataSource;
 import javax.mail.Message;
-import javax.mail.internet.MimeMessage;
-
-import static javax.xml.bind.DatatypeConverter.parseBase64Binary;
 
 /**
  * User: shuiqing

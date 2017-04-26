@@ -1,5 +1,7 @@
 package com.ha.system.service;
 
+import com.ha.system.domain.FileStore;
+
 /**
  * User: shuiqing
  * DateTime: 17/4/25 下午2:17
@@ -12,4 +14,7 @@ package com.ha.system.service;
  */
 public interface IFileStoreService {
 
+    public boolean addOrUpdateFileStore(FileStore fileStore);
+
+    public Iterable<FileStore> findAll();
 }

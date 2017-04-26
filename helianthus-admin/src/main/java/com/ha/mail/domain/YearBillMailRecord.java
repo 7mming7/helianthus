@@ -27,18 +27,6 @@ public class YearBillMailRecord extends EmailRecord {
     //账单日
     private String billDate;
 
-    public YearBillMailRecord(String reciver, String subject, String content, ContentType contentType) {
-        super(reciver, subject, content, contentType);
-    }
-
-    public YearBillMailRecord(String reciver, String subject, String content,
-                              ContentType contentType, String year, BillType billType, String billDtae) {
-        super(reciver, subject, content, contentType);
-        this.year = year;
-        this.billType = billType;
-        this.billDate = billDtae;
-    }
-
     public Long getId() {
         return id;
     }

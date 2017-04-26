@@ -1,15 +1,12 @@
 package com.ha.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import com.ha.mail.base.EmailHelper;
 import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.config.ServerConfig;
 import org.simplejavamail.mailer.config.TransportStrategy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
 
 /**
  * 邮件配置
@@ -39,6 +36,8 @@ public class EmailConfig {
     private Integer defaultPoolsize;
     @Value("${email.transportModeLoggingOnly}")
     private Boolean transportModeLoggingOnly;
+    @Value("${email.sendName}")
+    private String sendName;
 
     @Bean(name = "mailer")
     public Mailer configureMailer() {
@@ -49,5 +48,13 @@ public class EmailConfig {
         mailer.setTransportModeLoggingOnly(transportModeLoggingOnly);
 
         return mailer;
+    }
+
+    @Bean(name = "emailHelper")
+    public EmailHelper configEmailHelper(){
+        EmailHelper emailHelper = new EmailHelper();
+        emailHelper.setSendName(sendName);
+        emailHelper.setSmtpUsername(smtpUsername);
+        return emailHelper;
     }
 }

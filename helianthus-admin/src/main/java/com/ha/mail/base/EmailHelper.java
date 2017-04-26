@@ -17,10 +17,27 @@ import java.util.Properties;
  * |_)._ _
  * | o| (_
  */
-@Component
 public class EmailHelper {
 
     private static final Logger log = LoggerFactory.getLogger(EmailHelper.class);
 
-    private Properties props;
+    private String sendName;
+
+    private String smtpUsername;
+
+    public String getSendName() {
+        return sendName;
+    }
+
+    public void setSendName(String sendName) {
+        this.sendName = sendName;
+    }
+
+    public String getSmtpUsername() {
+        return smtpUsername;
+    }
+
+    public void setSmtpUsername(String smtpUsername) {
+        this.smtpUsername = smtpUsername;
+    }
 }

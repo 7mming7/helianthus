@@ -1,5 +1,6 @@
 package com.ha.system.service.impl;
 
+import com.ha.system.domain.FileStore;
 import com.ha.system.repository.FileStoreRespository;
 import com.ha.system.service.IFileStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,15 @@ public class IFileStoreServiceImpl implements IFileStoreService {
 
     public void setFileStoreRespository(FileStoreRespository fileStoreRespository) {
         this.fileStoreRespository = fileStoreRespository;
+    }
+
+    @Override
+    public boolean addOrUpdateFileStore(FileStore fileStore) {
+        return fileStoreRespository.save(fileStore) != null;
+    }
+
+    @Override
+    public Iterable<FileStore> findAll(){
+        return fileStoreRespository.findAll();
     }
 }

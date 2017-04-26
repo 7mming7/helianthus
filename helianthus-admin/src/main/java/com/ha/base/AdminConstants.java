@@ -15,4 +15,7 @@ public interface AdminConstants {
 
     //初始化执行runner的顺序
     public static final int STARTUP_RUNNER_INIT = 1;
+
+    //初始化加载标签图片的缓存
+    public static final int STARTUP_RUNNER_IMAGECACHE = 2;
 }

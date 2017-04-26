@@ -24,11 +24,17 @@ public class FileStore extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private FileType fileType;
+    @Column(name = "fileType", nullable = false)
+    private int fileType = FileType.IMAGE.getValue();
 
-    private String content;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name=" content", columnDefinition = "mediumtext", nullable = true)
+    private byte[] content;
 
     private Calendar uploadTime;
+
+    private String cid;
 
     public String getId() {
         return id;
@@ -38,20 +44,28 @@ public class FileStore extends BaseEntity {
         this.id = id;
     }
 
-    public FileType getFileType() {
+    public int getFileType() {
         return fileType;
     }
 
-    public void setFileType(FileType fileType) {
+    public void setFileType(int fileType) {
         this.fileType = fileType;
     }
 
-    public String getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
     public Calendar getUploadTime() {

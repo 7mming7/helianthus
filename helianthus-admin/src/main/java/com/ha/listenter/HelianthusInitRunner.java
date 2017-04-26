@@ -1,12 +1,18 @@
 package com.ha.listenter;
 
 import com.ha.base.AdminConstants;
+import com.ha.config.EmailConfig;
 import com.ha.config.HelianthusConfig;
+import com.ha.mail.base.EmailHelper;
 import com.ha.mail.service.IEmailSenderService;
 import com.ha.quartz.domain.AbstractExecutableJob;
 import com.ha.quartz.domain.ScheduleJobInfo;
 import com.ha.quartz.domain.SimpleExecutableJob;
 import com.ha.quartz.service.QuartzScheduleService;
+import com.ha.system.domain.FileStore;
+import com.ha.system.domain.FileType;
+import com.ha.system.service.IFileStoreService;
+import com.ha.util.FileUtil;
 import org.simplejavamail.email.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +23,8 @@ import org.springframework.stereotype.Component;
 
 import javax.activation.FileDataSource;
 import javax.mail.Message;
+import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -39,9 +47,6 @@ public class HelianthusInitRunner implements CommandLineRunner {
     @Autowired
     private QuartzScheduleService quartzScheduleService;
 
-    @Autowired
-    private IEmailSenderService iEmailSenderService;
-
     @Override
     public void run(String... args) throws Exception {
 
@@ -63,15 +68,13 @@ public class HelianthusInitRunner implements CommandLineRunner {
             System.out.println(sji.toString());
         }*/
 
-        Email emailNormal = new Email();
-        emailNormal.setFromAddress("水清", "793885652@qq.com");
-        emailNormal.addRecipient("helianthus301", "helianthus301@163.com", Message.RecipientType.TO);
-        emailNormal.setTextHTML("<b>We should meet up!</b><img src='cid:thumbsup'>");
-        emailNormal.setSubject("wolegeca!");
+        /*FileStore fileStore = new FileStore();
+        fileStore.setFileType(FileType.IMAGE.getValue());
+        fileStore.setUploadTime(Calendar.getInstance());
+        fileStore.setCid("thumbsup");
+        fileStore.setContent(FileUtil.file2byte("/Users/gemingming/Downloads/88E58PICixT_1024.jpg"));
 
-        FileDataSource fds = new FileDataSource("/Users/gemingming/Downloads/88E58PICixT_1024.jpg");
-        emailNormal.addEmbeddedImage("thumbsup",fds);
-        iEmailSenderService.sendMail(emailNormal);
+        iFileStoreService.addOrUpdateFileStore(fileStore);*/
 
         LOG.info(">>>>>>>>>>>>>>>Init ->> 服务启动执行，执行初始化配置等操作--END <<<<<<<<<<<<<");
     }
