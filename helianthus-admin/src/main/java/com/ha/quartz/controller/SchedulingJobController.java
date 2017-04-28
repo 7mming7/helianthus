@@ -3,6 +3,7 @@ package com.ha.quartz.controller;
 import com.ha.quartz.domain.AbstractExecutableJob;
 import com.ha.quartz.domain.ScheduleJobInfo;
 import com.ha.quartz.domain.SimpleExecutableJob;
+import com.ha.quartz.domain.YearBillEmailSendJob;
 import com.ha.quartz.service.QuartzScheduleService;
 import com.ha.quartz.util.CronExpressionUtil;
 import org.apache.commons.collections.MapUtils;
@@ -74,8 +75,19 @@ public class SchedulingJobController {
 
         jobInfo = new ScheduleJobInfo(jobInfo.getJobName(), jobInfo.getJobGroup(), jobInfo.getJobClass(), cronExpression);
 
-        SimpleExecutableJob simpleExecutableJob = new SimpleExecutableJob(jobInfo);
-        return quartzScheduleService.addJob(simpleExecutableJob);
+        AbstractExecutableJob abstractExecutableJob = null;
+        try {
+            Class<?> executableJob = Class.forName(jobInfo.getJobClass());
+            if(executableJob == SimpleExecutableJob.class){
+                abstractExecutableJob = new SimpleExecutableJob(jobInfo);
+            }else if(executableJob == YearBillEmailSendJob.class){
+                abstractExecutableJob = new YearBillEmailSendJob(jobInfo);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return quartzScheduleService.addJob(abstractExecutableJob);
     }
 
     @RequestMapping(value = "/updateJob", method = RequestMethod.POST)

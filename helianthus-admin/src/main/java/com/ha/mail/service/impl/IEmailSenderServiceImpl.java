@@ -65,7 +65,7 @@ public class IEmailSenderServiceImpl implements IEmailSenderService {
         email.setSubject(yearBillMailRecord.getSubject());
         if(yearBillMailRecord.getContentType() == ContentType.HTML){
             email.setTextHTML(yearBillMailRecord.getContent());
-        }else if(yearBillMailRecord.getContentType() == ContentType.HTML){
+        }else if(yearBillMailRecord.getContentType() == ContentType.TEXT){
             email.setText(yearBillMailRecord.getContent());
         }
 
@@ -73,7 +73,7 @@ public class IEmailSenderServiceImpl implements IEmailSenderService {
         String[] cidArr = cidContent.split(",");
         for(String cid:cidArr){
             byte[] buffer = ImageCacheHelper.getImageCache(cid);
-            email.addEmbeddedImage("thumbsup",buffer,"image/png");
+            email.addEmbeddedImage(cid,buffer,"image/png");
         }
         sendMail(email);
     }

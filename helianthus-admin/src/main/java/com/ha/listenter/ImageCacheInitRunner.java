@@ -78,9 +78,9 @@ public class ImageCacheInitRunner implements CommandLineRunner {
                 ContentType.HTML);
         yearBillMailRecordRepository.save(yearBillMailRecord);*/
 
-        List<YearBillMailRecord> yearBillMailRecordList = (List<YearBillMailRecord>) yearBillMailRecordRepository.findAll();
+        /*List<YearBillMailRecord> yearBillMailRecordList = (List<YearBillMailRecord>) yearBillMailRecordRepository.findAll();
         for(YearBillMailRecord yearBillMailRecord:yearBillMailRecordList){
             iEmailSenderService.sendYearBillMail(yearBillMailRecord);
-        }
+        }*/
     }
 }

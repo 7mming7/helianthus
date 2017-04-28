@@ -33,6 +33,25 @@ CREATE TABLE t_YearBillMailRecord (
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `t_ImportTableYear` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255)  DEFAULT NULL,
+  `userid` varchar(255)  DEFAULT NULL,
+  `billType` int(11) DEFAULT NULL,
+  `year` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `t_YearBillWechatRecord` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255)  DEFAULT NULL,
+  `id_no` varchar(255)  DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `billType` int(11) DEFAULT NULL,
+  `year` varchar(255)  DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE t_fileStore (
   id int(11) NOT NULL AUTO_INCREMENT,
   cid VARCHAR(255) NOT NULL,
