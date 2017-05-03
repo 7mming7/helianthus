@@ -3,6 +3,7 @@ package com.ha.listenter;
 import com.ha.base.AdminConstants;
 import com.ha.config.EmailConfig;
 import com.ha.config.HelianthusConfig;
+import com.ha.db.redis.JedisClusterBase;
 import com.ha.mail.base.EmailHelper;
 import com.ha.mail.service.IEmailSenderService;
 import com.ha.quartz.domain.AbstractExecutableJob;
@@ -54,7 +55,17 @@ public class HelianthusInitRunner implements CommandLineRunner {
 
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg start<<<<<<<<<<<<<<<<<<<<<<<<");
         HelianthusConfig.loadConfig();
-        LOG.info("HdfsAddr" + HelianthusConfig.getHdfsAddr());
+
+        LOG.info("Redis: " + HelianthusConfig.getRedisCluster().toString());
+        LOG.info("HdfsAddr: " + HelianthusConfig.getHdfsAddr());
+
+        JedisClusterBase jedisClusterBase = new JedisClusterBase();
+        String o = (String)jedisClusterBase.handRedisClusetData("aaa", JedisClusterBase.RedisOperateType.GET_KV);
+        LOG.info("aaa->>>>" + o);
+        String o1 = (String)jedisClusterBase.handRedisClusetData("bbb", JedisClusterBase.RedisOperateType.GET_KV);
+        LOG.info("bbb->>>>" + o1);
+        String o2 = (String)jedisClusterBase.handRedisClusetData("ccc", JedisClusterBase.RedisOperateType.GET_KV);
+        LOG.info("ccc->>>>" + o2);
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg end<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
        /* ScheduleJobInfo scheduleJobInfo = new ScheduleJobInfo("data_import","dataWork","0/5 22 * * * ?");

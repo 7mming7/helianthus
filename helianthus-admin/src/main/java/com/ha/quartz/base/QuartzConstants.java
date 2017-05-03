@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class QuartzConstants {
 
-    public static final String 	TRIGGERNAME = "triggerName";
-    public static final String 	TRIGGERGROUP = "triggerGroup";
+    public static final String TRIGGERNAME = "triggerName";
+    public static final String TRIGGERGROUP = "triggerGroup";
     public static final String STARTTIME = "startTime";
     public static final String ENDTIME = "endTime";
     public static final String REPEATCOUNT = "repeatCount";

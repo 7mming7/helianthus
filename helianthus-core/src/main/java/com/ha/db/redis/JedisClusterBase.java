@@ -98,10 +98,10 @@ public class JedisClusterBase {
                     e.printStackTrace();
                 }
             }
-            if (this.slotHostMap.size() != masterCount*2) {
+            /*if (this.slotHostMap.size() != masterCount*2) {
                 LOG.info("checkAndInitClusterState 3 masterCount:"+masterCount+" slotHostMap size:"+slotHostMap.size()+" slotHostMap json:"+ JsonUtil.toJson(this.slotHostMap));
                 return false;
-            }
+            }*/
             //检查集群能否读写数据
             /*try {
                 String state = jedisCluster.set("state", "1");
