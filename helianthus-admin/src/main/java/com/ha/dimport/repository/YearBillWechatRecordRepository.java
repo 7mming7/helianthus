@@ -1,6 +1,7 @@
 package com.ha.dimport.repository;
 
 import com.ha.dimport.domain.YearBillWechatRecord;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -14,4 +15,9 @@ import org.springframework.data.repository.CrudRepository;
  * | o| (_
  */
 public interface YearBillWechatRecordRepository extends CrudRepository<YearBillWechatRecord, String> {
+
+    /** 根据编码查询测点 */
+    @Query("select m from YearBillWechatRecord m where id_no = ?1")
+    YearBillWechatRecord fetchBillByIdNo(String id_no);
+
 }

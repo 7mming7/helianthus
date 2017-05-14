@@ -18,6 +18,7 @@
         <module>helianthus-init</module>
         <module>helianthus-hive</module>
         <module>helianthus-disruptor</module>
+        <module>helianthus-bgjob</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -70,6 +71,7 @@
         <cxf.version>2.7.14</cxf.version>
         <jcraft.version>0.1.53</jcraft.version>
         <slf4j.version>1.7.6</slf4j.version>
+        <lombok.version>1.16.4</lombok.version>
     </properties>
 
     <dependencies>
@@ -351,6 +353,12 @@
             <groupId>us.codecraft</groupId>
             <artifactId>xsoup</artifactId>
             <version>${codecraft.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>

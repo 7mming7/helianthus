@@ -1,25 +1,25 @@
-package com.ha.base;
+package com.ha.api;
 
 /**
- * 任务类型
+ * 作业类型
  * User: shuiqing
- * DateTime: 17/4/6 下午3:15
- * Email: helianthus301@163.com
+ * DateTime: 17/5/9 下午2:09
+ * Email: annuus.sq@gmail.com
  * GitHub: https://github.com/shuiqing301
  * Blog: http://shuiqing301.github.io/
  * _
  * |_)._ _
  * | o| (_
  */
-public enum TaskType {
+public enum JobType {
 
-    HADOOP(1),
-    STORM(2),
-    SPARK(3);
+    SIMPLE(1),
+    DATAFLOW(2),
+    SCRIPT(3);
 
     private final int value;	//类型值
 
-    private TaskType(int value) {
+    private JobType(int value) {
         this.value = value;
     }
 
@@ -32,14 +32,14 @@ public enum TaskType {
      * @param value	类型值
      * @return
      */
-    public static TaskType findByValue(int value) {
+    public static JobType findByValue(int value) {
         switch (value) {
             case 1:
-                return HADOOP;
+                return SIMPLE;
             case 2:
-                return STORM;
+                return DATAFLOW;
             case 3:
-                return SPARK;
+                return SCRIPT;
             default:
                 return null;
         }

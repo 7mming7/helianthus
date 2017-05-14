@@ -1,7 +1,7 @@
 package com.ha.base;
 
 /**
- * 日期类型藐视
+ * 日期类型
  * User: shuiqing
  * DateTime: 17/4/5 下午6:22
  * Email: helianthus301@163.com

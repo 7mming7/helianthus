@@ -59,7 +59,7 @@ public class HelianthusInitRunner implements CommandLineRunner {
         LOG.info("Redis: " + HelianthusConfig.getRedisCluster().toString());
         LOG.info("HdfsAddr: " + HelianthusConfig.getHdfsAddr());
 
-        JedisClusterBase jedisClusterBase = new JedisClusterBase();
+        /*JedisClusterBase jedisClusterBase = new JedisClusterBase();
         String o = (String)jedisClusterBase.handRedisClusetData("aaa", JedisClusterBase.RedisOperateType.GET_KV);
         LOG.info("aaa->>>>" + o);
         String o1 = (String)jedisClusterBase.handRedisClusetData("bbb", JedisClusterBase.RedisOperateType.GET_KV);
@@ -67,7 +67,7 @@ public class HelianthusInitRunner implements CommandLineRunner {
         String o2 = (String)jedisClusterBase.handRedisClusetData("ccc", JedisClusterBase.RedisOperateType.GET_KV);
         LOG.info("ccc->>>>" + o2);
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg end<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
+*/
        /* ScheduleJobInfo scheduleJobInfo = new ScheduleJobInfo("data_import","dataWork","0/5 22 * * * ?");
         SimpleExecutableJob simpleExecutableJob = new SimpleExecutableJob(scheduleJobInfo);
         quartzScheduleService.addJob(simpleExecutableJob);*/
