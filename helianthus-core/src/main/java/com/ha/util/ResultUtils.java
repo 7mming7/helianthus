@@ -1,7 +1,7 @@
 package com.ha.util;
 
-import com.ha.domain.ListResult;
-import com.ha.domain.SingleResult;
+import com.ha.basic.ListResult;
+import com.ha.basic.SingleResult;
 
 import java.util.List;
 

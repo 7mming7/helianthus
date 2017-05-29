@@ -18,7 +18,7 @@
         <module>helianthus-init</module>
         <module>helianthus-hive</module>
         <module>helianthus-disruptor</module>
-        <module>helianthus-bgjob</module>
+        <module>helianthus-import</module>
     </modules>
     <packaging>pom</packaging>
 

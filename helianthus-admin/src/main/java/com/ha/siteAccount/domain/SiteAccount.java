@@ -1,6 +1,6 @@
 package com.ha.siteAccount.domain;
 
-import com.ha.base.domain.BaseEntity;
+import com.ha.base.BaseEntity;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;

@@ -1,6 +1,6 @@
 package com.ha.system.domain;
 
-import com.ha.base.domain.BaseEntity;
+import com.ha.base.BaseEntity;
 
 import javax.persistence.*;
 
