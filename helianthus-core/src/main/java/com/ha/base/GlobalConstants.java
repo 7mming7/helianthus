@@ -13,6 +13,9 @@ package com.ha.base;
  */
 public interface GlobalConstants {
 
+    /** 默认每页显示20条数据. */
+    public static final int DEFAULT_PAGE_SIZE = 20;
+
     // ================================
     /* 1-任务正在运行
        2-任务完成

@@ -1,6 +1,6 @@
 CREATE DATABASE helianthus;
 
-CREATE TABLE t_siteAccount (
+CREATE TABLE t_SiteAccount (
   id int(11) NOT NULL AUTO_INCREMENT,
   userName varchar(100) NOT NULL,
   passWord varchar(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE t_siteAccount (
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE t_parameter (
+CREATE TABLE t_Parameter (
   id int(11) NOT NULL AUTO_INCREMENT,
   attribute varchar(100) NOT NULL,
   description varchar(100) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `t_YearBillWechatRecord` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE t_fileStore (
+CREATE TABLE t_FileStore (
   id int(11) NOT NULL AUTO_INCREMENT,
   cid VARCHAR(255) NOT NULL,
   fileType int(1) NOT NULL,

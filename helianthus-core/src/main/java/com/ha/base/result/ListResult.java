@@ -1,4 +1,4 @@
-package com.ha.basic;
+package com.ha.base.result;
 
 import java.util.List;
 

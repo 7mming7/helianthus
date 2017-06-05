@@ -1,4 +1,4 @@
-package com.ha.basic;
+package com.ha.base.result;
 
 /**
  * 返回json的基类

@@ -16,7 +16,7 @@ import javax.persistence.*;
  * | o| (_
  */
 @Entity
-@Table(name = "t_parameter")
+@Table(name = "t_Parameter")
 public class Parameter extends BaseEntity {
 
     @Id
