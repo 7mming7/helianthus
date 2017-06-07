@@ -1,8 +1,8 @@
-package com.ha.project;
+package com.ha.job;
 
+import com.ha.entity.search.Searchable;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * User: shuiqing
- * DateTime: 17/6/2 下午4:06
+ * DateTime: 17/6/7 下午2:28
  * Email: annuus.sq@gmail.com
  * GitHub: https://github.com/shuiqing301
  * Blog: http://shuiqing301.github.io/
@@ -25,32 +25,33 @@ import java.util.Map;
  * | o| (_
  */
 @Controller
-@Slf4j
-@Setter
 @Getter
-public class ProjectController {
+@Setter
+public class JobController {
 
     @Autowired
-    private ProjectService projectService;
+    private JobService jobService;
 
-    @RequestMapping("/projectManagement")
-    public ModelAndView projectManagement() {
-        return new ModelAndView("project_management");
+    @RequestMapping("/jobManagement")
+    public ModelAndView jobManagement() {
+        return new ModelAndView("job_management");
     }
 
-    @RequestMapping(value = "/queryPageProjects", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryPageJobs", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryPageProjects(int pageIndex, int pageSize) {
+    public Object queryPageJobs(int pageIndex, int pageSize) {
         Map<String, Object> result = new HashMap<String, Object>();
-        Page<Project> data = projectService.fetchAllProjects(pageIndex,pageSize);
+        Searchable searchable = Searchable.newSearchable();
+        searchable.setPage(pageIndex,pageSize);
+        Page<Job> data = jobService.findAll(searchable);
         result.put("rows", data.getContent());
         result.put("total", data.getTotalElements());
         return result;
     }
 
-    @RequestMapping(value = "/addAndUpdateProject", method = RequestMethod.POST)
+    @RequestMapping(value = "/addAndUpdateJob", method = RequestMethod.POST)
     @ResponseBody
-    public Object addProject(Project project) {
-        return projectService.saveAndFlush(project);
+    public Object addJob(Job job) {
+        return jobService.saveAndFlush(job);
     }
 }

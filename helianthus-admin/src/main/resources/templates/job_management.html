@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head xmlns:th="http://www.thymeleaf.org" th:include="master::head">
-    <title>Project管理配置</title>
+    <title>Job管理配置</title>
     <style type="text/css">
         table td {
             max-width: 40px;
@@ -24,11 +24,11 @@
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
                 </button>
             </div>
-            <table id="tb_projects"></table>
+            <table id="tb_jobs"></table>
         </div>
     </div>
 
-    <div class="modal fade" id="projectAddModal" tabindex="-1" role="dialog"
+    <div class="modal fade" id="jobAddModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -36,21 +36,31 @@
                     <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">×
                     </button>
-                    <h4 class="modal-title" id="projectModalLabel">
-                        添加Project
+                    <h4 class="modal-title" id="jobModalLabel">
+                        添加job
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="projectForm" th:action="@{'addAndUpdateProject'}" method="post">
+                    <form role="form" id="jobForm" th:action="@{'addAndUpdateJob'}" method="post">
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label">project名称</label>
+                                <label class="control-label">job名称</label>
                                 <input type="text" class="form-control" id="name" name="name"
                                        required="required"/>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">描述</label>
                                 <input type="text" class="form-control" id="description" name="description"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">任务类型</label>
+                                <input type="text" class="form-control" id="jobType" name="jobType"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">任务依赖</label>
+                                <input type="text" class="form-control" id="depends" name="depends"
                                        required="required"/>
                             </div>
                             <div class="form-group">
@@ -69,7 +79,7 @@
                             data-dismiss="modal">
                         关闭
                     </button>
-                    <button id="btnProjectSubmit" type="button" class="btn btn-primary">
+                    <button id="btnJobSubmit" type="button" class="btn btn-primary">
                         保存
                     </button>
                 </div>
@@ -82,25 +92,25 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(function () {
-        $("#btnProjectSubmit").click(function () {
+        $("#btnJobSubmit").click(function () {
 
-            $("#projectForm").ajaxSubmit({
+            $("#jobForm").ajaxSubmit({
                 success: function (data) {
-                    $('#projectAddModal').modal('hide');
-                    $('#tb_projects').bootstrapTable('refresh');
+                    $('#jobAddModal').modal('hide');
+                    $('#tb_jobs').bootstrapTable('refresh');
                 }
             });
         });
 
         $("#btn_add").click(function () {
-            $('#projectForm')[0].reset();
+            $('#jobForm')[0].reset();
             $('#id').attr("value","");
-            $('#projectAddModal').modal({
+            $('#jobAddModal').modal({
                 keyboard: false
             });
         });
         $("#btn_edit").click(function () {
-            var selectedRows = $('#tb_projects').bootstrapTable('getSelections');
+            var selectedRows = $('#tb_jobs').bootstrapTable('getSelections');
             if (selectedRows.length == 0){
                 bootbox.alert({
                     size:'small',
@@ -114,12 +124,14 @@
                 });
                 return;
             } else {
-                var project = selectedRows[0];
-                $('#id').val(project.id);
-                $('#name').val(project.name);
-                $('#description').val(project.description);
-                $('#active').val(project.active);
-                $('#projectAddModal').modal({
+                var job = selectedRows[0];
+                $('#id').val(job.id);
+                $('#name').val(job.name);
+                $('#description').val(job.description);
+                $('#active').val(job.active);
+                $('#jobType').val(job.jobType);
+                $('#depends').val(job.depends);
+                $('#jobAddModal').modal({
                     keyboard: false
                 });
             }
@@ -130,17 +142,23 @@
             var oTableInit = new Object();
             //初始化Table
             oTableInit.Init = function () {
-                $('#tb_projects').bootstrapTable($.extend(global.bootstrapTableOptions, {
-                    url: global.contextPath + '/queryPageProjects',         //请求后台的URL（*）
+                $('#tb_jobs').bootstrapTable($.extend(global.bootstrapTableOptions, {
+                    url: global.contextPath + '/queryPageJobs',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）,
                     columns: [{
                         checkbox: true
                     }, {
                         field: 'name',
-                        title: 'Project名称'
+                        title: 'job名称'
                     }, {
                         field: 'description',
                         title: '描述'
+                    }, {
+                        field: 'jobType',
+                        title: 'job类型'
+                    }, {
+                        field: 'depends',
+                        title: '任务依赖'
                     }, {
                         field: 'active',
                         title: '是否有效'

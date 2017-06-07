@@ -1,6 +1,8 @@
 package com.ha.project;
 
+import com.ha.base.BaseService;
 import com.ha.exception.ProjectManagerException;
+import com.ha.inject.annotation.BaseComponent;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import java.util.List;
 
 /**
  * User: shuiqing
- * DateTime: 17/6/1 下午5:08
+ * DateTime: 17/6/6 上午10:15
  * Email: annuus.sq@gmail.com
  * GitHub: https://github.com/shuiqing301
  * Blog: http://shuiqing301.github.io/
@@ -20,24 +22,16 @@ import java.util.List;
  * |_)._ _
  * | o| (_
  */
+@Service
 @Getter
 @Setter
-@Service
-public class IProjectServiceImpl implements IProjectService {
+public class ProjectService extends BaseService<Project, Long> {
 
+    @BaseComponent
     @Autowired
     private ProjectRepository projectRepository;
 
-    @Override
     public Page<Project> fetchAllProjects(int pageIndex, int pageSize) throws ProjectManagerException {
         return projectRepository.findAll(new PageRequest(pageIndex,pageSize));
     }
-
-    public List<Project> fetchAllActiveProjects() throws ProjectManagerException {
-        return projectRepository.fetchActiveProjects();
-    };
-
-    public Project fetchProjectById(String id) throws ProjectManagerException{
-        return projectRepository.findOne(id);
-    };
 }

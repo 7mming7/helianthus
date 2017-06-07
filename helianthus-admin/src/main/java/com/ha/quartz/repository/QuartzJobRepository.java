@@ -38,34 +38,34 @@ public class QuartzJobRepository{
         long val = 0;
         String temp = null;
         for (Map<String, Object> map : results) {
-            temp = MapUtils.getString(map, "trigger_name");
+            temp = MapUtils.getString(map, QuartzConstants.TRIGGERNAME);
             if (StringUtils.indexOf(temp, "&") != -1) {
-                map.put("display_name", StringUtils.substringBefore(temp, "&"));
+                map.put(QuartzConstants.DISPLAYNAME, StringUtils.substringBefore(temp, "&"));
             } else {
-                map.put("display_name", temp);
+                map.put(QuartzConstants.DISPLAYNAME, temp);
             }
 
-            val = MapUtils.getLongValue(map, "next_fire_time");
+            val = MapUtils.getLongValue(map, QuartzConstants.NEXTFIRETIME);
             if (val > 0) {
-                map.put("next_fire_time", DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
+                map.put(QuartzConstants.NEXTFIRETIME, DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
             }
 
-            val = MapUtils.getLongValue(map, "prev_fire_time");
+            val = MapUtils.getLongValue(map, QuartzConstants.PREVFIRETIME);
             if (val > 0) {
-                map.put("prev_fire_time", DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
+                map.put(QuartzConstants.PREVFIRETIME, DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
             }
 
-            val = MapUtils.getLongValue(map, "start_time");
+            val = MapUtils.getLongValue(map, QuartzConstants.STARTTIME);
             if (val > 0) {
-                map.put("start_time", DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
+                map.put(QuartzConstants.STARTTIME, DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
             }
 
-            val = MapUtils.getLongValue(map, "end_time");
+            val = MapUtils.getLongValue(map, QuartzConstants.ENDTIME);
             if (val > 0) {
-                map.put("end_time", DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
+                map.put(QuartzConstants.ENDTIME, DateFormatUtils.format(val, "yyyy-MM-dd HH:mm:ss"));
             }
 
-            map.put("status", QuartzConstants.status.get(MapUtils.getString(map, "trigger_state")));
+            map.put("status", QuartzConstants.status.get(MapUtils.getString(map, QuartzConstants.TRIGGERSTATE)));
         }
 
         return results;

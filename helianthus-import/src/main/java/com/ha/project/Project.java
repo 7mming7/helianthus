@@ -1,10 +1,11 @@
 package com.ha.project;
 
-import com.ha.base.BaseEntity;
+import com.ha.entity.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * import project.
@@ -21,11 +22,11 @@ import javax.persistence.*;
 @Table(name = "t_Project")
 @Getter
 @Setter
-public class Project extends BaseEntity {
+public class Project extends AbstractEntity<Long> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String name;
 

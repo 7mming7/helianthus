@@ -20,8 +20,13 @@ public class QuartzConstants {
     public static final String TRIGGERGROUP = "triggerGroup";
     public static final String STARTTIME = "startTime";
     public static final String ENDTIME = "endTime";
+    public static final String NEXTFIRETIME = "next_fire_time";
+    public static final String PREVFIRETIME = "prev_fire_time";
+    public static final String DISPLAYNAME = "display_name";
     public static final String REPEATCOUNT = "repeatCount";
     public static final String REPEATINTERVEL = "repeatInterval";
+    public static final String TRIGGERSTATE = "trigger_state";
+
 
     public static final Map<String,String> status = new HashMap<String,String>();
 

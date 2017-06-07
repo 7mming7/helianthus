@@ -1,10 +1,12 @@
 package com.ha.job;
 
 import com.ha.base.BaseEntity;
+import com.ha.entity.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 调度执行任务
@@ -21,11 +23,11 @@ import javax.persistence.*;
 @Table(name = "t_Job")
 @Getter
 @Setter
-public class Job extends BaseEntity {
+public class Job extends AbstractEntity<Long> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -36,10 +38,6 @@ public class Job extends BaseEntity {
     private Long projectId;
 
     private Long flowId;
-
-    private Long startTime;
-
-    private Long endTime;
 
     private String jobType;
 

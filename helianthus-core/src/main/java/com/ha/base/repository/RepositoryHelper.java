@@ -3,12 +3,14 @@ package com.ha.base.repository;
 import com.ha.base.repository.callback.SearchCallback;
 import com.ha.base.repository.support.annotation.EnableQueryCache;
 import com.ha.entity.search.Searchable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.SharedEntityManagerCreator;
 import org.springframework.util.Assert;
 
@@ -56,8 +58,8 @@ public class RepositoryHelper {
     }
 
     public static EntityManager getEntityManager() {
-        Assert.notNull(entityManager, "entityManager must null, please see " +
-                "[com.sq.common.repository.RepositoryHelper#setEntityManagerFactory]");
+        Assert.notNull(entityManager, "entityManager must not null, please see " +
+                "[com.ha.base.repository.RepositoryHelper#setEntityManagerFactory]");
 
         return entityManager;
     }
@@ -74,10 +76,6 @@ public class RepositoryHelper {
 
     /**
      * <p>ql条件查询<br/>
-     * searchCallback默认实现请参考 {@see com.sishuok.es.common.repository.callback.DefaultSearchCallback}<br/>
-     * <p/>
-     * 测试用例请参考：{@see com.sishuok.es.common.repository.UserRepositoryImplForCustomSearchIT}
-     * 和{@see com.sishuok.es.common.repository.UserRepositoryImplForDefaultSearchIT}
      *
      * @param ql
      * @param searchable     查询条件、分页 排序
