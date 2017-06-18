@@ -1,8 +1,7 @@
 package com.ha.system.domain;
 
-import com.ha.base.BaseEntity;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Calendar;
  */
 @Entity
 @Table(name = "t_FileStore")
-public class FileStore extends BaseEntity {
+public class FileStore implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

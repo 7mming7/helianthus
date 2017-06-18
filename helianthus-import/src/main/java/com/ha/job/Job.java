@@ -1,6 +1,5 @@
 package com.ha.job;
 
-import com.ha.base.BaseEntity;
 import com.ha.entity.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;

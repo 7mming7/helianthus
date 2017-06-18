@@ -1,10 +1,10 @@
 package com.ha.flow;
 
-import com.ha.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 调度图对象
@@ -21,7 +21,7 @@ import javax.persistence.*;
 @Table(name = "t_Flow")
 @Getter
 @Setter
-public class Flow extends BaseEntity {
+public class Flow implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

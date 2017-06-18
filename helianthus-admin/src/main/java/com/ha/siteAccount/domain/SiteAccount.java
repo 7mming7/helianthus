@@ -1,9 +1,9 @@
 package com.ha.siteAccount.domain;
 
-import com.ha.base.BaseEntity;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 账户信息
@@ -18,7 +18,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_SiteAccount")
-public class SiteAccount extends BaseEntity {
+public class SiteAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

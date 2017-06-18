@@ -1,8 +1,7 @@
 package com.ha.system.domain;
 
-import com.ha.base.BaseEntity;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 系统参数
@@ -17,7 +16,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_Parameter")
-public class Parameter extends BaseEntity {
+public class Parameter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

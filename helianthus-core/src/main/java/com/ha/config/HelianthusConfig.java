@@ -1,5 +1,8 @@
 package com.ha.config;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,8 @@ import java.util.Properties;
  * |_)._ _
  * | o| (_
  */
+@Getter
+@Setter
 public class HelianthusConfig implements Serializable {
 
     private static final long serialVersionUID = 6211344970724898565L;
