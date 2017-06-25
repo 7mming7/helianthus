@@ -1,4 +1,4 @@
-package com.ha.db.redis;
+package com.ha.store.redis;
 
 import com.google.common.collect.Maps;
 import redis.clients.jedis.Client;

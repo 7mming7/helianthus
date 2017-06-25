@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head xmlns:th="http://www.thymeleaf.org" th:include="master::head">
-    <title>Job管理配置</title>
+    <title>Flow管理配置</title>
     <style type="text/css">
         table td {
             max-width: 40px;
@@ -24,11 +24,11 @@
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
                 </button>
             </div>
-            <table id="tb_jobs"></table>
+            <table id="tb_flows"></table>
         </div>
     </div>
 
-    <div class="modal fade" id="jobAddModal" tabindex="-1" role="dialog"
+    <div class="modal fade" id="flowAddModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -36,15 +36,15 @@
                     <button type="button" class="close" data-dismiss="modal"
                             aria-hidden="true">×
                     </button>
-                    <h4 class="modal-title" id="jobModalLabel">
-                        添加job
+                    <h4 class="modal-title" id="flowModalLabel">
+                        添加Flow
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="jobForm" th:action="@{'addAndUpdateJob'}" method="post">
+                    <form role="form" id="flowForm" th:action="@{'addAndUpdateFlow'}" method="post">
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label">job名称</label>
+                                <label class="control-label">Flow名称</label>
                                 <input type="text" class="form-control" id="name" name="name"
                                        required="required"/>
                             </div>
@@ -54,20 +54,16 @@
                                        required="required"/>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">任务类型</label>
-                                <input type="text" class="form-control" id="jobType" name="jobType"
-                                       required="required"/>
+                                <label class="control-label">所属Project</label>
+                                <select class="selectpicker form-control" data-live-search="false" name="projectId" id="projectId">
+
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">任务依赖</label>
-                                <input type="text" class="form-control" id="depends" name="depends"
-                                       required="required"/>
-                            </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="control-label">是否有效</label>
-                                <input type="text" class="form-control" id="active" name="active"
-                                       required="required"/>
-                            </div>
+                                <input type="radio" class="form-control" id="active" name="active"
+                                       required="required" value="1"/>
+                            </div>-->
                             <div class="form-group">
                                 <input type="hidden" class="form-control" id="id" name="id"/>
                             </div>
@@ -79,7 +75,7 @@
                             data-dismiss="modal">
                         关闭
                     </button>
-                    <button id="btnJobSubmit" type="button" class="btn btn-primary">
+                    <button id="btnFlowSubmit" type="button" class="btn btn-primary">
                         保存
                     </button>
                 </div>
@@ -92,46 +88,44 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(function () {
-        $("#btnJobSubmit").click(function () {
-
-            $("#jobForm").ajaxSubmit({
+        $("#btnFlowSubmit").click(function () {
+            $("#flowForm").ajaxSubmit({
                 success: function (data) {
-                    $('#jobAddModal').modal('hide');
-                    $('#tb_jobs').bootstrapTable('refresh');
+                    $('#flowAddModal').modal('hide');
+                    $('#tb_flows').bootstrapTable('refresh');
                 }
             });
         });
 
         $("#btn_add").click(function () {
-            $('#jobForm')[0].reset();
+            $('#flowForm')[0].reset();
             $('#id').attr("value","");
-            $('#jobAddModal').modal({
+            $('#flowAddModal').modal({
                 keyboard: false
             });
         });
         $("#btn_edit").click(function () {
-            var selectedRows = $('#tb_jobs').bootstrapTable('getSelections');
+            var selectedRows = $('#tb_flows').bootstrapTable('getSelections');
             if (selectedRows.length == 0){
                 bootbox.alert({
                     size:'small',
                     message: '请选择需要修改的记录'
                 });
-                return;
+
             } else if (selectedRows.length >= 2){
                 bootbox.alert({
                     size:'small',
                     message: '只能选择1条需要修改的记录'
                 });
-                return;
+
             } else {
-                var job = selectedRows[0];
-                $('#id').val(job.id);
-                $('#name').val(job.name);
-                $('#description').val(job.description);
-                $('#active').val(job.active);
-                $('#jobType').val(job.jobType);
-                $('#depends').val(job.depends);
-                $('#jobAddModal').modal({
+                var node = selectedRows[0];
+                $('#id').val(node.id);
+                $('#name').val(node.name);
+                $('#description').val(node.description);
+                $('#active').val(node.active);
+                $('#projectId').val(node.projectId);
+                $('#flowAddModal').modal({
                     keyboard: false
                 });
             }
@@ -139,26 +133,23 @@
 
         //1.初始化Table
         var TableInit = function () {
-            var oTableInit = new Object();
+            var oTableInit = {};
             //初始化Table
             oTableInit.Init = function () {
-                $('#tb_jobs').bootstrapTable($.extend(global.bootstrapTableOptions, {
-                    url: global.contextPath + '/queryPageJobs',         //请求后台的URL（*）
+                $('#tb_flows').bootstrapTable($.extend(global.bootstrapTableOptions, {
+                    url: global.contextPath + '/queryPageFlows',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）,
                     columns: [{
                         checkbox: true
                     }, {
-                        field: 'name',
-                        title: 'job名称'
+                        field: 'flowName',
+                        title: 'Flow名称'
                     }, {
-                        field: 'description',
+                        field: 'projectName',
+                        title: '所属Project'
+                    }, {
+                        field: 'flowDescription',
                         title: '描述'
-                    }, {
-                        field: 'jobType',
-                        title: 'job类型'
-                    }, {
-                        field: 'depends',
-                        title: '任务依赖'
                     }, {
                         field: 'active',
                         title: '是否有效'
@@ -171,6 +162,31 @@
         var oTable = new TableInit();
         oTable.Init();
     });
+
+    $(function() {
+        $.ajax({
+            url: global.contextPath + "/queryProjects",//写你自己的方法，返回map，我返回的map包含了两个属性：data：集合，total：集合记录数量，所以后边会有data.data的写法。。。
+            // 数据发送方式
+            type: "get",
+            // 接受数据格式
+            dataType: "json",
+            // 要传递的数据
+            data: 'data',
+            // 回调函数，接受服务器端返回给客户端的值，即result值
+            success: function (data) {
+                $.each(data.projectList, function (i) {
+                    $('#projectId.selectpicker').append("<option value=" + data.projectList[i].id + ">" + data.projectList[i].name + "</option>");
+                });
+
+                $('#projectId').selectpicker('refresh');
+            },
+
+            error: function (data) {
+                alert("查询Project失败" + data);
+            }
+        })
+    });
+
     /*]]>*/
 </script>
 

@@ -1,32 +1,14 @@
 package com.ha.listenter;
 
 import com.ha.base.AdminConstants;
-import com.ha.config.EmailConfig;
 import com.ha.config.HelianthusConfig;
-import com.ha.db.redis.JedisClusterBase;
-import com.ha.mail.base.EmailHelper;
-import com.ha.mail.service.IEmailSenderService;
-import com.ha.quartz.domain.AbstractExecutableJob;
-import com.ha.quartz.domain.ScheduleJobInfo;
-import com.ha.quartz.domain.SimpleExecutableJob;
 import com.ha.quartz.service.QuartzScheduleService;
-import com.ha.system.domain.FileStore;
-import com.ha.system.domain.FileType;
-import com.ha.system.service.IFileStoreService;
-import com.ha.util.FileUtil;
-import org.simplejavamail.email.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import javax.activation.FileDataSource;
-import javax.mail.Message;
-import java.io.File;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * application初始化执行器

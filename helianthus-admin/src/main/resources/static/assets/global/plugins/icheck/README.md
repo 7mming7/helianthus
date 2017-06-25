@@ -209,7 +209,7 @@ Indeterminate
 
 HTML5 allows specifying [indeterminate](http://css-tricks.com/indeterminate-checkboxes/) ("partially" checked) state for checkboxes. iCheck supports this for both checkboxes and radio buttons.
 
-You can make an input indeterminate through HTML using additional attributes (supported by iCheck). Both do the same job, but `indeterminate="true"` may not work in some browsers (like IE7):
+You can make an input indeterminate through HTML using additional attributes (supported by iCheck). Both do the same node, but `indeterminate="true"` may not work in some browsers (like IE7):
 
 ```html
 indeterminate="true"

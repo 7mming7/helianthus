@@ -1,9 +1,8 @@
-package com.ha.db.redis;
+package com.ha.store.redis;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.ha.config.HelianthusConfig;
-import com.ha.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.*;
@@ -298,7 +297,7 @@ public class JedisClusterBase {
     }
 
     public void setJedisCluster(JedisCluster jedisCluster) {
-        this.jedisCluster = jedisCluster;
+        JedisClusterBase.jedisCluster = jedisCluster;
     }
 
     public Set<HostAndPort> getClusterNodes() {
@@ -312,7 +311,7 @@ public class JedisClusterBase {
     /**
      * redis操作类型
      */
-    public static enum RedisOperateType {
+    public enum RedisOperateType {
         SET_KV("key-value格式的数据put到redis中", 1),
         SET_HM("hash-map格式的数据put到redis中", 2),
         GET_KV("key-value格式的数据从redis读取", 3),
@@ -322,7 +321,7 @@ public class JedisClusterBase {
         private int value;
 
         // 构造方法
-        private RedisOperateType(String name, int value) {
+        RedisOperateType(String name, int value) {
             this.name = name;
             this.value = value;
         }
