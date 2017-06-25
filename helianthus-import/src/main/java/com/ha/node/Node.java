@@ -1,4 +1,4 @@
-package com.ha.job;
+package com.ha.node;
 
 import com.ha.entity.AbstractEntity;
 import lombok.Getter;
@@ -19,10 +19,10 @@ import java.io.Serializable;
  * | o| (_
  */
 @Entity
-@Table(name = "t_Job")
+@Table(name = "t_Node")
 @Getter
 @Setter
-public class Job extends AbstractEntity<Long> implements Serializable {
+public class Node extends AbstractEntity<Long> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +40,6 @@ public class Job extends AbstractEntity<Long> implements Serializable {
 
     private String jobType;
 
-    //job 依赖 ->> 以#分割
+    //Node 依赖 ->> 以#分割
     private String depends;
 }

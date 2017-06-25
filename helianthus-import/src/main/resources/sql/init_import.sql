@@ -1,10 +1,12 @@
-CREATE TABLE t_Job (
+CREATE TABLE t_Node (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100) NOT NULL,
   description varchar(1000) NOT NULL,
   active tinyint NOT NULL DEFAULT 1,
   projectId int(11) NOT NULL,
   flowId int(11) NOT NULL,
+  jobType int(2) NOT NULL,
+  depends varchar(1000),
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

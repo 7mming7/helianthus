@@ -1,8 +1,9 @@
-package com.ha.job;
+package com.ha.node;
 
 import com.ha.entity.search.Searchable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -27,31 +28,32 @@ import java.util.Map;
 @Controller
 @Getter
 @Setter
-public class JobController {
+@Slf4j
+public class NodeController {
 
     @Autowired
-    private JobService jobService;
+    private NodeService nodeService;
 
-    @RequestMapping("/jobManagement")
-    public ModelAndView jobManagement() {
-        return new ModelAndView("job_management");
+    @RequestMapping("/nodeManagement")
+    public ModelAndView nodeManagement() {
+        return new ModelAndView("node_management");
     }
 
-    @RequestMapping(value = "/queryPageJobs", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryPageNodes", method = RequestMethod.GET)
     @ResponseBody
-    public Object queryPageJobs(int pageIndex, int pageSize) {
+    public Object queryPageNodes(int pageIndex, int pageSize) {
         Map<String, Object> result = new HashMap<String, Object>();
         Searchable searchable = Searchable.newSearchable();
         searchable.setPage(pageIndex,pageSize);
-        Page<Job> data = jobService.findAll(searchable);
+        Page<Node> data = nodeService.findAll(searchable);
         result.put("rows", data.getContent());
         result.put("total", data.getTotalElements());
         return result;
     }
 
-    @RequestMapping(value = "/addAndUpdateJob", method = RequestMethod.POST)
+    @RequestMapping(value = "/addAndUpdateNode", method = RequestMethod.POST)
     @ResponseBody
-    public Object addJob(Job job) {
-        return jobService.saveAndFlush(job);
+    public Object addNode(Node node) {
+        return nodeService.saveAndFlush(node);
     }
 }

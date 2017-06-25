@@ -1,4 +1,4 @@
-package com.ha.job;
+package com.ha.node;
 
 import com.ha.base.BaseService;
 import com.ha.inject.annotation.BaseComponent;
@@ -20,10 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @Setter
-public class JobService extends BaseService<Job, Long> {
+public class NodeService extends BaseService<Node, Long> {
 
     @BaseComponent
     @Autowired
-    private JobRepository jobRepository;
+    private NodeRepository nodeRepository;
 
 }

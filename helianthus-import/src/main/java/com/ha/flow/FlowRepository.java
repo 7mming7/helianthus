@@ -1,5 +1,6 @@
 package com.ha.flow;
 
+import com.ha.base.repository.BaseRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,11 +18,7 @@ import java.util.List;
  * | o| (_
  */
 @Repository
-public interface FlowRepository extends JpaRepository<Flow, String> {
+public interface FlowRepository extends BaseRepository<Flow, Long> {
 
-    @Query("select p from Flow p where active = 1")
-    List<Flow> fetchActiveFlows();
 
-    @Query("select p from Flow p where active = 1 and projectId = ?1")
-    List<Flow> fetchActiveFlowsByProjectId(Long projectId);
 }

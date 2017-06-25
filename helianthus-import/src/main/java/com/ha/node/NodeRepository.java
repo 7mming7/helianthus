@@ -1,4 +1,4 @@
-package com.ha.job;
+package com.ha.node;
 
 import com.ha.base.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * | o| (_
  */
 @Repository
-public interface JobRepository extends BaseRepository<Job, Long> {
+public interface NodeRepository extends BaseRepository<Node, Long> {
 
 }
