@@ -19,6 +19,7 @@
         <module>helianthus-hive</module>
         <module>helianthus-disruptor</module>
         <module>helianthus-import</module>
+        <module>helianthus-bdrt</module>
     </modules>
     <packaging>pom</packaging>
 
