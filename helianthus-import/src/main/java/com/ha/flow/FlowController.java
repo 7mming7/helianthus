@@ -71,6 +71,16 @@ public class FlowController {
         return result;
     }
 
+    @RequestMapping(value = "/queryFlows", method = RequestMethod.GET)
+    @ResponseBody
+    public Object queryFlows() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<Flow> flowList = flowService.findAll();
+        result.put("flowList",flowList);
+        result.put("total",flowList.size());
+        return result;
+    }
+
     @RequestMapping(value = "/addAndUpdateFlow", method = RequestMethod.POST)
     @ResponseBody
     public Object addFlow(String projectId,Flow flow) {

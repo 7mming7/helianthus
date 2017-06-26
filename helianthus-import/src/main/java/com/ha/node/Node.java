@@ -1,11 +1,18 @@
 package com.ha.node;
 
 import com.ha.entity.AbstractEntity;
+import com.ha.flow.Flow;
+import com.ha.project.Project;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 调度执行任务
@@ -34,9 +41,17 @@ public class Node extends AbstractEntity<Long> implements Serializable {
 
     private Boolean active = true;
 
-    private Long projectId;
+    @ManyToOne(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
+    @JoinColumn(name="projectId")
+    @org.hibernate.annotations.ForeignKey(name="fk_pn_projectId")
+    @NotFound(action= NotFoundAction.IGNORE)
+    private Project project;
 
-    private Long flowId;
+    @ManyToOne(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
+    @JoinColumn(name="flowId")
+    @org.hibernate.annotations.ForeignKey(name="fk_fn_flowId")
+    @NotFound(action= NotFoundAction.IGNORE)
+    private Flow flow;
 
     private String jobType;
 

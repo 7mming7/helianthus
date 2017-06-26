@@ -53,13 +53,13 @@
                                 <input type="text" class="form-control" id="description" name="description"
                                        required="required"/>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="control-label">是否有效</label>
                                 <label class="radio-inline">是</label>
-                                <input type="radio" class="form-group" value="true" name="active" checked="checked" required="required"/>
+                                <input type="radio" value="true" id="active1" name="active" required="required"/>
                                 <label class="radio-inline">否</label>
-                                <input type="radio" class="form-group" value="false" name="active" required="required"/>
-                            </div>
+                                <input type="radio" value="false" id="active2" name="active" required="required"/>
+                            </div>-->
                             <div class="form-group">
                                 <input type="hidden" class="form-control" id="id" name="id"/>
                             </div>
@@ -115,17 +115,16 @@
                 });
 
             } else {
-                $('#projectForm')[0].reset();
                 var project = selectedRows[0];
                 $('#id').val(project.id);
                 $('#name').val(project.name);
                 $('#description').val(project.description);
-                alert($("input:radio[name='active']:checked").val());
-                alert('active----' + project.active);
+                console.log($("input:radio[name='active']:checked").val());
+                console.log('active----' + project.active);
                 /*alert('0--' + $("input:radio[name='active'][value='true']").prop("checked"));
                 alert('1--' + $("input:radio[name='active'][value='false']").prop("checked"));*/
-                $("input:radio[name='active'][value='"+ project.active +"']").prop("checked","checked");
-                alert($("input:radio[name='active']:checked").val());
+                $("input:radio[name='active'][value='"+ project.active +"']").iCheck("check");
+                console.log($("input:radio[name='active']:checked").val());
                 $('#projectAddModal').modal({
                     keyboard: false
                 });
@@ -148,9 +147,6 @@
                     }, {
                         field: 'description',
                         title: '描述'
-                    }, {
-                        field: 'active',
-                        title: '是否有效'
                     }
                     ]
                 }));
