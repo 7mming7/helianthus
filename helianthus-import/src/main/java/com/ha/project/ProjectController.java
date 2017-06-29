@@ -6,12 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,5 +55,12 @@ public class ProjectController {
     @ResponseBody
     public Object addProject(Project project) {
         return projectService.saveAndFlush(project);
+    }
+
+    @RequestMapping(value = "/deleteProjects", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deleteProjects(@RequestBody List<String> deleteIds) {
+        Assert.notNull(deleteIds);
+        return projectService.deleteByIds(deleteIds);
     }
 }

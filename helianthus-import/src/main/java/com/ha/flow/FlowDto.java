@@ -38,8 +38,8 @@ public class FlowDto implements Serializable {
         this.flowId = flow.getId().toString();
         this.flowName = flow.getName();
         this.flowDescription = flow.getDescription();
-        this.projectId = flow.getProject().getId().toString();
-        this.projectName = flow.getProject().getName();
-        this.active = flow.getActive() == true ? "是" : "否";
+        this.projectId = flow.getProject() != null?flow.getProject().getId().toString():"";
+        this.projectName = flow.getProject() != null?flow.getProject().getName():"";
+        this.active = flow.getActive() == true ? "1" : "0";
     }
 }

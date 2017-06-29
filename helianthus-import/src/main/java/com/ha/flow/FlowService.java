@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * User: shuiqing
  * DateTime: 17/6/21 下午4:57
@@ -25,4 +27,11 @@ public class FlowService extends BaseService<Flow, Long> {
     @BaseComponent
     @Autowired
     private FlowRepository flowRepository;
+
+    public Object deleteByIds(List<String> ids){
+        for(String id:ids){
+            delete(Long.parseLong(id));
+        }
+        return true;
+    }
 }

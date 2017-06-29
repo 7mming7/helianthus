@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -87,5 +88,12 @@ public class FlowController {
         Project project = projectService.findOne(Long.parseLong(projectId));
         flow.setProject(project);
         return flowService.saveAndFlush(flow);
+    }
+
+    @RequestMapping(value = "/deleteFlows", method = RequestMethod.POST)
+    @ResponseBody
+    public Object deleteFlows(@RequestBody List<String> deleteIds) {
+        Assert.notNull(deleteIds);
+        return flowService.deleteByIds(deleteIds);
     }
 }

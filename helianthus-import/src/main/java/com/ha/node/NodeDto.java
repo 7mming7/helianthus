@@ -43,7 +43,7 @@ public class NodeDto implements Serializable {
         this.nodeId = node.getId().toString();
         this.nodeName = node.getName();
         this.nodeDesc = node.getDescription();
-        this.active = node.getActive() == true ? "是" : "否";
+        this.active = node.getActive() == true ? "1" : "0";
         this.jobType = node.getJobType();
         this.dependsNode = node.getDepends();
         this.projectId = node.getProject() == null ? "":node.getProject().getId().toString();
