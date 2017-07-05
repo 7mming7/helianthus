@@ -36,7 +36,7 @@
         <spring.data.jpa.version>1.9.0.RELEASE</spring.data.jpa.version>
         <spring-data-redis.version>1.7.2.RELEASE</spring-data-redis.version>
 
-        <junit.version>4.7</junit.version>
+        <junit.version>4.9</junit.version>
         <mockito.version>1.9.5</mockito.version>
 
         <hadoop.version>2.6.0</hadoop.version>

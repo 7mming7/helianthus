@@ -14,12 +14,20 @@ import org.slf4j.Logger;
  * |_)._ _
  * | o| (_
  */
+
 public class NoopJob implements Hjob {
 
     private String jobId;
 
     public NoopJob(String jobid, Props props, Props jobProps, Logger log) {
         this.jobId = jobid;
+    }
+
+    public static String COMMAND = "noop";
+
+    @Override
+    public String getCommand() {
+        return COMMAND;
     }
 
     @Override

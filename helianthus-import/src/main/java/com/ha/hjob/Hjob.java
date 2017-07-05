@@ -15,6 +15,8 @@ public interface Hjob {
 
     String getId();
 
+    String getCommand();
+
     void run() throws Exception;
 
     void cancel() throws Exception;

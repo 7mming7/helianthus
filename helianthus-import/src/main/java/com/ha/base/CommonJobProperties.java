@@ -13,6 +13,21 @@ package com.ha.base;
 public class CommonJobProperties {
 
     /**
+     * The executing job id
+     */
+    public static final String JOB_ID = "import.job.id";
+
+    /**
+     * The executing flow id
+     */
+    public static final String FLOW_ID = "import.flow.flowid";
+
+    /**
+     * The numerical project id identifier.
+     */
+    public static final String PROJECT_NAME = "import.flow.projectname";
+
+    /**
      * The following are Common properties that can be set in a job file
      */
 
