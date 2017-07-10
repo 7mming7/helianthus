@@ -1,8 +1,8 @@
-package com.ha.node;
+package com.ha.graph.node;
 
 import com.ha.entity.AbstractEntity;
-import com.ha.flow.Flow;
-import com.ha.project.Project;
+import com.ha.graph.flow.Flow;
+import com.ha.graph.project.Project;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.*;
@@ -12,7 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 调度执行任务
@@ -54,6 +53,9 @@ public class Node extends AbstractEntity<Long> implements Serializable {
     private Flow flow;
 
     private String jobType;
+
+    //node level
+    private Integer level;
 
     //Node 依赖 ->> 以#分割
     private String depends;

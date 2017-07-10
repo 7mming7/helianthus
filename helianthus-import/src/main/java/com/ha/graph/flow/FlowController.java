@@ -1,9 +1,8 @@
-package com.ha.flow;
+package com.ha.graph.flow;
 
 import com.ha.entity.search.Searchable;
-import com.ha.node.Node;
-import com.ha.project.Project;
-import com.ha.project.ProjectService;
+import com.ha.graph.project.Project;
+import com.ha.graph.project.ProjectService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

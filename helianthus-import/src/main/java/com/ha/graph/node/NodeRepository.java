@@ -1,15 +1,11 @@
-package com.ha.flow;
+package com.ha.graph.node;
 
 import com.ha.base.repository.BaseRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * User: shuiqing
- * DateTime: 17/6/1 下午5:40
+ * DateTime: 17/6/1 下午5:57
  * Email: annuus.sq@gmail.com
  * GitHub: https://github.com/shuiqing301
  * Blog: http://shuiqing301.github.io/
@@ -18,7 +14,6 @@ import java.util.List;
  * | o| (_
  */
 @Repository
-public interface FlowRepository extends BaseRepository<Flow, Long> {
-
+public interface NodeRepository extends BaseRepository<Node, Long> {
 
 }

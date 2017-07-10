@@ -2,7 +2,6 @@ package com.ha.hjob;
 
 import com.ha.TestCase;
 import com.ha.base.CommonJobProperties;
-import com.ha.hjob.hjobType.HjobTypeManager;
 import com.ha.utils.Props;
 import org.junit.Before;
 import org.junit.Rule;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 
@@ -24,13 +22,10 @@ import java.io.File;
  * |_)._ _
  * | o| (_
  */
-public class HjobTypeExecuteTest extends TestCase {
+public class ProcessJobExecuteTest extends TestCase {
 
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
-
-    @Autowired
-    private HjobTypeManager hjobTypeManager;
 
     private ProcessJob job = null;
     private Props props = new Props();
@@ -56,10 +51,5 @@ public class HjobTypeExecuteTest extends TestCase {
         // Initialize the Props
         props.put(ProcessJob.COMMAND, "df -h");
         job.run();
-    }
-
-    @Test
-    public void testJavaProcessHjob() throws Exception {
-
     }
 }

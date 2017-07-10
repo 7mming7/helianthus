@@ -1,6 +1,5 @@
-package com.ha.flow;
+package com.ha.graph.flow;
 
-import com.ha.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 

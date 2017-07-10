@@ -1,4 +1,4 @@
-package com.ha.project;
+package com.ha.graph.project;
 
 import com.ha.base.BaseService;
 import com.ha.exception.ProjectManagerException;

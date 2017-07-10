@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 public class ScriptJob extends LongArgJob {
 
     private static final String DEFAULT_EXECUTABLE_KEY = "executable";
-    private static final String COMMAND = "script";
+    public static final String COMMAND = "script";
 
     @Override
     public String getCommand() {

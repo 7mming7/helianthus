@@ -1,4 +1,4 @@
-package com.ha.project;
+package com.ha.graph.project;
 
 import lombok.Getter;
 import lombok.Setter;

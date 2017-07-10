@@ -1,4 +1,4 @@
-package com.ha.flow;
+package com.ha.graph.flow;
 
 import com.ha.base.BaseService;
 import com.ha.inject.annotation.BaseComponent;

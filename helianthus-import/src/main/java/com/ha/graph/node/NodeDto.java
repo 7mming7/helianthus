@@ -1,4 +1,4 @@
-package com.ha.node;
+package com.ha.graph.node;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +37,8 @@ public class NodeDto implements Serializable {
 
     private String flowName;
 
+    private String level;
+
     private String dependsNode;
 
     public NodeDto(Node node){
@@ -46,6 +48,7 @@ public class NodeDto implements Serializable {
         this.active = node.getActive() == true ? "1" : "0";
         this.jobType = node.getJobType();
         this.dependsNode = node.getDepends();
+        this.level = node.getLevel().toString();
         this.projectId = node.getProject() == null ? "":node.getProject().getId().toString();
         this.projectName = node.getProject() == null ? "":node.getProject().getName();
         this.flowId = node.getFlow() == null ? "":node.getFlow().getId().toString();

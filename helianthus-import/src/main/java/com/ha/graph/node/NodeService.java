@@ -1,4 +1,4 @@
-package com.ha.node;
+package com.ha.graph.node;
 
 import com.ha.base.BaseService;
 import com.ha.inject.annotation.BaseComponent;

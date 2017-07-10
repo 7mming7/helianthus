@@ -6,6 +6,7 @@ CREATE TABLE t_Node (
   projectId int(11) NOT NULL,
   flowId int(11) NOT NULL,
   jobType int(2) NOT NULL,
+  level  int(10),
   depends varchar(1000),
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
