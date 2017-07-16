@@ -1,4 +1,4 @@
-package com.ha.graph;
+package com.ha.graph.flow;
 
 import com.ha.graph.node.Node;
 import lombok.Getter;
@@ -28,6 +28,10 @@ public class Edge {
     public Edge(String fromId, String toId) {
         this.sourceId = fromId;
         this.targetId = toId;
+    }
+
+    public String getId() {
+        return getSourceId() + ">>" + getTargetId();
     }
 
     public boolean hasError() {

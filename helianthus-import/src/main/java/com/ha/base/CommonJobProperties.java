@@ -53,4 +53,9 @@ public class CommonJobProperties {
      */
     public static final String PROJECT_VERSION = "import.flow.projectversion";
 
+    /**
+     * The nested flow id path
+     */
+    public static final String NESTED_FLOW_PATH = "import.flow.nested.path";
+
 }

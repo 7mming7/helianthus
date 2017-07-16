@@ -1,7 +1,6 @@
 package com.ha.graph.flow;
 
 import com.ha.entity.AbstractEntity;
-import com.ha.graph.Edge;
 import com.ha.graph.node.Node;
 import com.ha.graph.project.Project;
 import lombok.Getter;
@@ -12,10 +11,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 调度图对象
@@ -49,6 +45,9 @@ public class Flow extends AbstractEntity<Long> implements Serializable {
     private String description;
 
     private Boolean active = true;
+
+    @Transient
+    private ArrayList<String> errors;
 
     @Transient
     private int numLevels = -1;
@@ -114,11 +113,98 @@ public class Flow extends AbstractEntity<Long> implements Serializable {
         }
     }
 
+    public Node getNode(String nodeId) {
+        return nodes.get(nodeId);
+    }
+
+    public int getNumLevels() {
+        return numLevels;
+    }
+
+    public List<Node> getStartNodes() {
+        return startNodes;
+    }
+
+    public List<Node> getEndNodes() {
+        return endNodes;
+    }
+
+    public Set<Edge> getInEdges(String id) {
+        return inEdges.get(id);
+    }
+
+    public Set<Edge> getOutEdges(String id) {
+        return outEdges.get(id);
+    }
+
+    public void addAllNodes(Collection<Node> nodes) {
+        for (Node node : nodes) {
+            addNode(node);
+        }
+    }
+
+    public void addNode(Node node) {
+        nodes.put(node.getId().toString(), node);
+    }
+
     public Collection<Node> getNodes() {
         return nodes.values();
     }
 
     public Collection<Edge> getEdges() {
         return edges.values();
+    }
+
+    public void addAllEdges(Collection<Edge> edges) {
+        for (Edge edge : edges) {
+            addEdge(edge);
+        }
+    }
+
+    public void addError(String error) {
+        if (errors == null) {
+            errors = new ArrayList<String>();
+        }
+
+        errors.add(error);
+    }
+
+    public void addEdge(Edge edge) {
+        String source = edge.getSourceId();
+        String target = edge.getTargetId();
+
+        if (edge.hasError()) {
+            addError("Error on " + edge.getId() + ". " + edge.getError());
+        }
+
+        Set<Edge> sourceSet = getEdgeSet(outEdges, source);
+        sourceSet.add(edge);
+
+        Set<Edge> targetSet = getEdgeSet(inEdges, target);
+        targetSet.add(edge);
+
+        edges.put(edge.getId(), edge);
+    }
+
+    private Set<Edge> getEdgeSet(HashMap<String, Set<Edge>> map, String id) {
+        Set<Edge> edges = map.get(id);
+        if (edges == null) {
+            edges = new HashSet<Edge>();
+            map.put(id, edges);
+        }
+
+        return edges;
+    }
+
+    public Map<String, Node> getNodeMap() {
+        return nodes;
+    }
+
+    public Map<String, Set<Edge>> getOutEdgeMap() {
+        return outEdges;
+    }
+
+    public Map<String, Set<Edge>> getInEdgeMap() {
+        return inEdges;
     }
 }

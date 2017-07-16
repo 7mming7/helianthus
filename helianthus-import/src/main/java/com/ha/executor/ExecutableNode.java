@@ -1,14 +1,12 @@
-package com.ha.execute;
+package com.ha.executor;
 
 import com.ha.graph.node.Node;
+import com.ha.utils.Props;
 import com.ha.utils.TypedMapWrapper;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 可执行的Node节点
@@ -38,6 +36,9 @@ public class ExecutableNode {
     private Set<String> inNodes = new HashSet<String>();
     private Set<String> outNodes = new HashSet<String>();
 
+    private Props inputProps;
+    private Props outputProps;
+
     // Transient. These values aren't saved, but rediscovered.
     private ExecutableFlow parentFlow;
 
@@ -53,6 +54,16 @@ public class ExecutableNode {
         this.id = id;
         this.type = type;
         setParentFlow(parent);
+    }
+
+    public ExecutableNode() {
+    }
+
+    public Map<String, Object> toObject() {
+        Map<String, Object> mapObj = new HashMap<String, Object>();
+        fillMapFromExecutable(mapObj);
+
+        return mapObj;
     }
 
     protected void fillMapFromExecutable(Map<String, Object> objMap) {
@@ -82,6 +93,14 @@ public class ExecutableNode {
         this.outNodes.addAll(wrappedMap.getStringCollection(OUTNODES_PARAM,
                 Collections.<String> emptySet()));
 
+    }
+
+    public ExecutableFlow getExecutableFlow() {
+        if (parentFlow == null) {
+            return null;
+        }
+
+        return parentFlow.getExecutableFlow();
     }
 
     public void fillExecutableFromMapObject(Map<String, Object> objMap) {
@@ -116,5 +135,17 @@ public class ExecutableNode {
 
     public void addInNode(String exNode) {
         inNodes.add(exNode);
+    }
+
+    public String getNestedId() {
+        return getPrintableId(":");
+    }
+
+    public String getPrintableId(String delimiter) {
+        if (this.getParentFlow() == null
+                || this.getParentFlow() instanceof ExecutableFlow) {
+            return getId();
+        }
+        return getParentFlow().getPrintableId(delimiter) + delimiter + getId();
     }
 }

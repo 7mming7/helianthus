@@ -1,13 +1,13 @@
 package com.ha.hjob.hjobType;
 
 import com.ha.exception.HjobTypeManagerException;
-import com.ha.hjob.JavaProcessJob;
-import com.ha.hjob.NoopJob;
-import com.ha.hjob.ProcessJob;
-import com.ha.hjob.ScriptJob;
+import com.ha.exception.JobExecutionException;
+import com.ha.hjob.*;
+import com.ha.util.Utils;
 import com.ha.utils.Props;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
+import com.ha.utils.PropsUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: shuiqing
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 public class HjobTypeManager {
 
-    private static final Logger logger = Logger.getLogger(HjobTypeManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(HjobTypeManager.class);
 
     private HjobTypePluginSet pluginSet;
 
@@ -40,6 +40,63 @@ public class HjobTypeManager {
         plugins.addPluginClass("javaprocess", JavaProcessJob.class);
         plugins.addPluginClass("noop", NoopJob.class);
         plugins.addPluginClass("script", ScriptJob.class);
+    }
+
+    public Hjob buildJobExecutor(String jobId, Props jobProps, Logger logger)
+            throws HjobTypeManagerException {
+        // This is final because during build phase, you should never need to swap
+        // the pluginSet for safety reasons
+        final HjobTypePluginSet pluginSet = getHJobTypePluginSet();
+
+        Hjob hjob = null;
+        try {
+            String jobType = jobProps.getString("type");
+            if (jobType == null || jobType.length() == 0) {
+            /* throw an exception when job name is null or empty */
+                throw new JobExecutionException(String.format(
+                        "The 'type' parameter for job[%s] is null or empty", jobProps));
+            }
+
+            logger.info("Building " + jobType + " job executor. ");
+
+            Class<? extends Object> executorClass = pluginSet.getPluginClass(jobType);
+            if (executorClass == null) {
+                throw new JobExecutionException(String.format("Job type '" + jobType
+                                + "' is unrecognized. Could not construct job[%s] of type[%s].",
+                        jobProps, jobType));
+            }
+
+            Props pluginJobProps = pluginSet.getPluginJobProps(jobType);
+            // For default jobtypes, even though they don't have pluginJobProps configured,
+            // they still need to load properties from common.properties file if it's present
+            // because common.properties file is global to all jobtypes.
+            if(pluginJobProps == null) {
+                pluginJobProps = pluginSet.getCommonPluginJobProps();
+            }
+            if (pluginJobProps != null) {
+                for (String k : pluginJobProps.getKeySet()) {
+                    if (!jobProps.containsKey(k)) {
+                        jobProps.put(k, pluginJobProps.get(k));
+                    }
+                }
+            }
+            jobProps = PropsUtils.resolveProps(jobProps);
+
+
+            hjob = (Hjob) Utils.callConstructor(executorClass, jobId, jobProps, logger);
+        } catch (Exception e) {
+            logger.error("Failed to build job executor for job " + jobId
+                    + e.getMessage());
+            throw new HjobTypeManagerException("Failed to build job executor for job "
+                    + jobId, e);
+        } catch (Throwable t) {
+            logger.error(
+                    "Failed to build job executor for job " + jobId + t.getMessage(), t);
+            throw new HjobTypeManagerException("Failed to build job executor for job "
+                    + jobId, t);
+        }
+
+        return hjob;
     }
 
     /**
