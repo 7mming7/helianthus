@@ -43,7 +43,7 @@ public class ProcessJobExecuteTest extends TestCase {
         props.put(ProcessJob.WORKING_DIR, workingDir.getCanonicalPath());
         props.put("type", "command");
 
-        job = new ProcessJob("TestProcess", props, props, log);
+        job = new ProcessJob("TestProcess", props);
     }
 
     @Test

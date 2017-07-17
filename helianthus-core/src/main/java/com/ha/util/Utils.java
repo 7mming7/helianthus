@@ -22,8 +22,6 @@ import java.text.ParseException;
 
 import org.apache.commons.io.IOUtils;
 
-import org.apache.log4j.Logger;
-
 import org.joda.time.DateTimeZone;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -37,6 +35,8 @@ import org.joda.time.Weeks;
 import org.joda.time.Years;
 
 import org.quartz.CronExpression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: shuiqing
@@ -53,8 +53,7 @@ import org.quartz.CronExpression;
  */
 public class Utils {
 
-    private static Logger logger = Logger
-            .getLogger(Utils.class);
+    private static Logger logger = LoggerFactory.getLogger(Utils.class);
     public static final Random RANDOM = new Random();
 
     /**

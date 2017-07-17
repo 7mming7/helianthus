@@ -2,6 +2,7 @@ package com.ha.hjob;
 
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: shuiqing
@@ -15,17 +16,18 @@ import org.slf4j.Logger;
  */
 public abstract class AbstractJob implements Hjob {
 
+    private final Logger _log = LoggerFactory.getLogger(AbstractJob.class);
+
     public static final String JOB_ID = "job.id";
     public static final String JOB_TYPE = "type";
     public static final String JOB_CLASS = "job.class";
 
     private final String _id;
-    private final Logger _log;
+
     private volatile double _progress;
 
-    protected AbstractJob(String id, Logger log) {
+    protected AbstractJob(String id) {
         _id = id;
-        _log = log;
         _progress = 0.0;
     }
 

@@ -30,7 +30,18 @@ public class HjobTypeManager {
     public HjobTypeManager(Props globalProperties) {
         this.globalProperties = globalProperties;
 
-        loadDefaultTypes(pluginSet);
+        loadPlugins();
+    }
+
+    public void loadPlugins() throws HjobTypeManagerException {
+        HjobTypePluginSet plugins = new HjobTypePluginSet();
+
+        loadDefaultTypes(plugins);
+
+        // Swap the plugin set. If exception is thrown, then plugin isn't swapped.
+        synchronized (this) {
+            pluginSet = plugins;
+        }
     }
 
     private void loadDefaultTypes(HjobTypePluginSet plugins)
@@ -42,7 +53,7 @@ public class HjobTypeManager {
         plugins.addPluginClass("script", ScriptJob.class);
     }
 
-    public Hjob buildJobExecutor(String jobId, Props jobProps, Logger logger)
+    public Hjob buildJobExecutor(String jobId, Props jobProps)
             throws HjobTypeManagerException {
         // This is final because during build phase, you should never need to swap
         // the pluginSet for safety reasons
@@ -82,8 +93,7 @@ public class HjobTypeManager {
             }
             jobProps = PropsUtils.resolveProps(jobProps);
 
-
-            hjob = (Hjob) Utils.callConstructor(executorClass, jobId, jobProps, logger);
+            hjob = (Hjob) Utils.callConstructor(executorClass, jobId, jobProps);
         } catch (Exception e) {
             logger.error("Failed to build job executor for job " + jobId
                     + e.getMessage());

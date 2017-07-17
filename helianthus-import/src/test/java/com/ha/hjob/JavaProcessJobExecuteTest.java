@@ -26,6 +26,8 @@ import java.util.Properties;
  */
 public class JavaProcessJobExecuteTest {
 
+    private static Logger log = LoggerFactory.getLogger(JavaProcessJob.class);
+
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
@@ -33,8 +35,6 @@ public class JavaProcessJobExecuteTest {
     private Props props = new Props();
 
     private static String classPaths;
-
-    private static Logger log = LoggerFactory.getLogger(JavaProcessJob.class);
 
     @BeforeClass
     public static void init() throws IOException {
@@ -46,8 +46,8 @@ public class JavaProcessJobExecuteTest {
 
     @Before
     public void setUp() throws Exception {
-        File workingDir = temp.newFolder("TestProcess");
-
+        File workingDir = temp.newFolder("TestProcess1");
+        System.out.println("workingDir->>" + temp.getRoot().getCanonicalPath());
         props.put("fullPath", ".");
         props.put(CommonJobProperties.PROJECT_NAME, "test_project");
         props.put(CommonJobProperties.FLOW_ID, "test_flow");
@@ -55,7 +55,7 @@ public class JavaProcessJobExecuteTest {
         props.put(JavaProcessJob.WORKING_DIR, workingDir.getCanonicalPath());
         props.put("type", "java");
 
-        job = new JavaProcessJob("TestProcess", props, props, log);
+        job = new JavaProcessJob("TestProcess", props);
     }
 
     @Test

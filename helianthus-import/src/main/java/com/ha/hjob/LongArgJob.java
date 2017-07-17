@@ -14,7 +14,6 @@ package com.ha.hjob;
 import com.ha.hjob.process.ImportProcess;
 import com.ha.hjob.process.ImportProcessBuilder;
 import com.ha.utils.Props;
-import org.slf4j.Logger;
 
 import java.io.File;
 import java.util.HashSet;
@@ -31,14 +30,12 @@ public abstract class LongArgJob extends ProcessJob {
     private final ImportProcessBuilder builder;
     private volatile ImportProcess process;
 
-    public LongArgJob(String jobid, String[] command, Props sysProps,
-                      Props jobProps, Logger log) {
-        this(jobid, command, sysProps, jobProps, log, new HashSet<String>(0));
+    public LongArgJob(String jobid, String[] command, Props jobProps) {
+        this(jobid, command, jobProps, new HashSet<String>(0));
     }
 
-    public LongArgJob(String jobid, String[] command, Props sysProps,
-                      Props jobProp, Logger log, Set<String> suppressedKeys) {
-        super(jobid, sysProps, jobProp, log);
+    public LongArgJob(String jobid, String[] command, Props jobProp, Set<String> suppressedKeys) {
+        super(jobid, jobProp);
 
         this.builder =
                 new ImportProcessBuilder(command)

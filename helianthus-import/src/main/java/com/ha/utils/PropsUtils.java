@@ -21,10 +21,10 @@ import org.apache.commons.jexl2.JexlException;
 import org.apache.commons.jexl2.MapContext;
 import org.apache.commons.lang.StringUtils;
 
-import org.apache.log4j.Logger;
-
 import com.google.common.collect.Maps;
 import com.google.common.collect.MapDifference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: shuiqing
@@ -38,7 +38,7 @@ import com.google.common.collect.MapDifference;
  */
 public class PropsUtils {
 
-    private static final Logger logger = Logger.getLogger(PropsUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(PropsUtils.class);
     /**
      * Load job schedules from the given directories ] * @param dir The directory
      * to look in

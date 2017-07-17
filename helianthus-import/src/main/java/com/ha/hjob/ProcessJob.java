@@ -5,6 +5,7 @@ import com.ha.hjob.process.ImportProcess;
 import com.ha.hjob.process.ImportProcessBuilder;
 import com.ha.utils.Props;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ProcessJob extends AbstractJob{
 
-    private static Logger _log;
+    private static Logger _log = LoggerFactory.getLogger(ProcessJob.class);
 
     private volatile ImportProcess process;
 
@@ -48,21 +49,17 @@ public class ProcessJob extends AbstractJob{
     protected String _cwd;
 
     protected volatile Props jobProps;
-    protected volatile Props sysProps;
 
     @Override
     public String getCommand() {
         return COMMAND;
     }
 
-    public ProcessJob(final String jobId,final Props sysProps,
-                      final Props jobProps, final Logger log) {
-        super(jobId, log);
+    public ProcessJob(final String jobId, final Props jobProps) {
+        super(jobId);
 
         this.jobProps = jobProps;
-        this.sysProps = sysProps;
 
-        _log = log;
         this._cwd = getWorkingDirectory();
 
         jobProps.put(CommonJobProperties.JOB_ID, jobId);
@@ -296,10 +293,6 @@ public class ProcessJob extends AbstractJob{
 
     public Props getJobProps() {
         return jobProps;
-    }
-
-    public Props getSysProps() {
-        return sysProps;
     }
 
     public String getWorkingDirectory() {

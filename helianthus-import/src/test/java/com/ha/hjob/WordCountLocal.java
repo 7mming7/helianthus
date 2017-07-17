@@ -32,7 +32,7 @@ public class WordCountLocal extends AbstractJob {
   }
 
   private WordCountLocal(String id, Props prop) {
-    super(id, log);
+    super(id);
   }
 
   @Override

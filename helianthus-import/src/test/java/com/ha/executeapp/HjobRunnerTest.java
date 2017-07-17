@@ -30,7 +30,6 @@ public class HjobRunnerTest {
 
     }
 
-    @Ignore
     @Test
     public void testBasicRun() {
         HjobRunner runner =

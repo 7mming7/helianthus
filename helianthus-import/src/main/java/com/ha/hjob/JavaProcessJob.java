@@ -1,7 +1,6 @@
 package com.ha.hjob;
 
 import com.ha.utils.Props;
-import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +37,8 @@ public class JavaProcessJob extends ProcessJob{
         return COMMAND;
     }
 
-    public JavaProcessJob(String jobid, Props sysProps, Props jobProps,
-                          Logger logger) {
-        super(jobid, sysProps, jobProps, logger);
+    public JavaProcessJob(String jobid, Props jobProps) {
+        super(jobid, jobProps);
     }
 
     @Override

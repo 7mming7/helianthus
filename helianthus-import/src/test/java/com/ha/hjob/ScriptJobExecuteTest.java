@@ -41,14 +41,15 @@ public class ScriptJobExecuteTest {
         props.put(CommonJobProperties.JOB_ID, "test_job");
         props.put(ScriptJob.WORKING_DIR, workingDir.getCanonicalPath());
         props.put("type", "script");
+        props.put("script", "script");
+        props.put("executable", "true");
 
-        job = new ScriptJob("TestProcess", props, props, log);
+        job = new ScriptJob("TestProcess", props);
     }
 
     @Test
     public void testOneUnixCommand() throws Exception {
         // Initialize the Props
-        props.put(ScriptJob.COMMAND, "df -h");
         job.run();
     }
 }
