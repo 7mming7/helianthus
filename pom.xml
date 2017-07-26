@@ -14,12 +14,12 @@
     <modules>
         <module>helianthus-core</module>
         <module>helianthus-api</module>
-        <module>helianthus-admin</module>
         <module>helianthus-init</module>
         <module>helianthus-hive</module>
         <module>helianthus-disruptor</module>
-        <module>helianthus-import</module>
-        <module>helianthus-bdrt</module>
+        <module>helianthus-pnc2admin</module>
+        <module>helianthus-pnc2job</module>
+        <module>helianthus-pnc2search</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -5860,77 +5860,79 @@ module.exports = function inflate_fast(strm, start) {
 
     here = lcode[hold & lmask];
 
-    dolen:
-    for (;;) { // Goto emulation
-      op = here >>> 24/*here.bits*/;
-      hold >>>= op;
-      bits -= op;
-      op = (here >>> 16) & 0xff/*here.op*/;
-      if (op === 0) {                          /* literal */
-        //Tracevv((stderr, here.val >= 0x20 && here.val < 0x7f ?
-        //        "inflate:         literal '%c'\n" :
-        //        "inflate:         literal 0x%02x\n", here.val));
-        output[_out++] = here & 0xffff/*here.val*/;
-      }
-      else if (op & 16) {                     /* length base */
-        len = here & 0xffff/*here.val*/;
-        op &= 15;                           /* number of extra bits */
-        if (op) {
-          if (bits < op) {
-            hold += input[_in++] << bits;
-            bits += 8;
-          }
-          len += hold & ((1 << op) - 1);
-          hold >>>= op;
-          bits -= op;
+    for (; ;) { // Goto emulation
+        op = here >>> 24/*here.bits*/;
+        hold >>>= op;
+        bits -= op;
+        op = (here >>> 16) & 0xff/*here.op*/;
+        if (op === 0) {                          /* literal */
+            //Tracevv((stderr, here.val >= 0x20 && here.val < 0x7f ?
+            //        "inflate:         literal '%c'\n" :
+            //        "inflate:         literal 0x%02x\n", here.val));
+            output[_out++] = here & 0xffff/*here.val*/;
         }
-        //Tracevv((stderr, "inflate:         length %u\n", len));
-        if (bits < 15) {
-          hold += input[_in++] << bits;
-          bits += 8;
-          hold += input[_in++] << bits;
-          bits += 8;
-        }
-        here = dcode[hold & dmask];
-
-        dodist:
-        for (;;) { // goto emulation
-          op = here >>> 24/*here.bits*/;
-          hold >>>= op;
-          bits -= op;
-          op = (here >>> 16) & 0xff/*here.op*/;
-
-          if (op & 16) {                      /* distance base */
-            dist = here & 0xffff/*here.val*/;
-            op &= 15;                       /* number of extra bits */
-            if (bits < op) {
-              hold += input[_in++] << bits;
-              bits += 8;
-              if (bits < op) {
+        else if (op & 16) {                     /* length base */
+            len = here & 0xffff/*here.val*/;
+            op &= 15;
+            /* number of extra bits */
+            if (op) {
+                if (bits < op) {
+                    hold += input[_in++] << bits;
+                    bits += 8;
+                }
+                len += hold & ((1 << op) - 1);
+                hold >>>= op;
+                bits -= op;
+            }
+            //Tracevv((stderr, "inflate:         length %u\n", len));
+            if (bits < 15) {
                 hold += input[_in++] << bits;
                 bits += 8;
-              }
+                hold += input[_in++] << bits;
+                bits += 8;
             }
-            dist += hold & ((1 << op) - 1);
+            here = dcode[hold & dmask];
+
+            for (; ;) { // goto emulation
+                op = here >>> 24/*here.bits*/;
+                hold >>>= op;
+                bits -= op;
+                op = (here >>> 16) & 0xff/*here.op*/;
+
+                if (op & 16) {                      /* distance base */
+                    dist = here & 0xffff/*here.val*/;
+                    op &= 15;
+                    /* number of extra bits */
+                    if (bits < op) {
+                        hold += input[_in++] << bits;
+                        bits += 8;
+                        if (bits < op) {
+                            hold += input[_in++] << bits;
+                            bits += 8;
+                        }
+                    }
+                    dist += hold & ((1 << op) - 1);
 //#ifdef INFLATE_STRICT
-            if (dist > dmax) {
-              strm.msg = 'invalid distance too far back';
-              state.mode = BAD;
-              break top;
-            }
+                    if (dist > dmax) {
+                        strm.msg = 'invalid distance too far back';
+                        state.mode = BAD;
+                        break top;
+                    }
 //#endif
-            hold >>>= op;
-            bits -= op;
-            //Tracevv((stderr, "inflate:         distance %u\n", dist));
-            op = _out - beg;                /* max distance in output */
-            if (dist > op) {                /* see if copy from window */
-              op = dist - op;               /* distance back in window */
-              if (op > whave) {
-                if (state.sane) {
-                  strm.msg = 'invalid distance too far back';
-                  state.mode = BAD;
-                  break top;
-                }
+                    hold >>>= op;
+                    bits -= op;
+                    //Tracevv((stderr, "inflate:         distance %u\n", dist));
+                    op = _out - beg;
+                    /* max distance in output */
+                    if (dist > op) {                /* see if copy from window */
+                        op = dist - op;
+                        /* distance back in window */
+                        if (op > whave) {
+                            if (state.sane) {
+                                strm.msg = 'invalid distance too far back';
+                                state.mode = BAD;
+                                break top;
+                            }
 
 // (!) This block is disabled in zlib defailts,
 // don't enable it for binary compatibility
@@ -5953,109 +5955,113 @@ module.exports = function inflate_fast(strm, start) {
 //                  continue top;
 //                }
 //#endif
-              }
-              from = 0; // window index
-              from_source = window;
-              if (wnext === 0) {           /* very common case */
-                from += wsize - op;
-                if (op < len) {         /* some from window */
-                  len -= op;
-                  do {
-                    output[_out++] = window[from++];
-                  } while (--op);
-                  from = _out - dist;  /* rest from output */
-                  from_source = output;
+                        }
+                        from = 0; // window index
+                        from_source = window;
+                        if (wnext === 0) {           /* very common case */
+                            from += wsize - op;
+                            if (op < len) {         /* some from window */
+                                len -= op;
+                                do {
+                                    output[_out++] = window[from++];
+                                } while (--op);
+                                from = _out - dist;
+                                /* rest from output */
+                                from_source = output;
+                            }
+                        }
+                        else if (wnext < op) {      /* wrap around window */
+                            from += wsize + wnext - op;
+                            op -= wnext;
+                            if (op < len) {         /* some from end of window */
+                                len -= op;
+                                do {
+                                    output[_out++] = window[from++];
+                                } while (--op);
+                                from = 0;
+                                if (wnext < len) {  /* some from start of window */
+                                    op = wnext;
+                                    len -= op;
+                                    do {
+                                        output[_out++] = window[from++];
+                                    } while (--op);
+                                    from = _out - dist;
+                                    /* rest from output */
+                                    from_source = output;
+                                }
+                            }
+                        }
+                        else {                      /* contiguous in window */
+                            from += wnext - op;
+                            if (op < len) {         /* some from window */
+                                len -= op;
+                                do {
+                                    output[_out++] = window[from++];
+                                } while (--op);
+                                from = _out - dist;
+                                /* rest from output */
+                                from_source = output;
+                            }
+                        }
+                        while (len > 2) {
+                            output[_out++] = from_source[from++];
+                            output[_out++] = from_source[from++];
+                            output[_out++] = from_source[from++];
+                            len -= 3;
+                        }
+                        if (len) {
+                            output[_out++] = from_source[from++];
+                            if (len > 1) {
+                                output[_out++] = from_source[from++];
+                            }
+                        }
+                    }
+                    else {
+                        from = _out - dist;
+                        /* copy direct from output */
+                        do {                        /* minimum length is three */
+                            output[_out++] = output[from++];
+                            output[_out++] = output[from++];
+                            output[_out++] = output[from++];
+                            len -= 3;
+                        } while (len > 2);
+                        if (len) {
+                            output[_out++] = output[from++];
+                            if (len > 1) {
+                                output[_out++] = output[from++];
+                            }
+                        }
+                    }
                 }
-              }
-              else if (wnext < op) {      /* wrap around window */
-                from += wsize + wnext - op;
-                op -= wnext;
-                if (op < len) {         /* some from end of window */
-                  len -= op;
-                  do {
-                    output[_out++] = window[from++];
-                  } while (--op);
-                  from = 0;
-                  if (wnext < len) {  /* some from start of window */
-                    op = wnext;
-                    len -= op;
-                    do {
-                      output[_out++] = window[from++];
-                    } while (--op);
-                    from = _out - dist;      /* rest from output */
-                    from_source = output;
-                  }
+                else if ((op & 64) === 0) {          /* 2nd level distance code */
+                    here = dcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
+                    continue;
                 }
-              }
-              else {                      /* contiguous in window */
-                from += wnext - op;
-                if (op < len) {         /* some from window */
-                  len -= op;
-                  do {
-                    output[_out++] = window[from++];
-                  } while (--op);
-                  from = _out - dist;  /* rest from output */
-                  from_source = output;
+                else {
+                    strm.msg = 'invalid distance code';
+                    state.mode = BAD;
+                    break top;
                 }
-              }
-              while (len > 2) {
-                output[_out++] = from_source[from++];
-                output[_out++] = from_source[from++];
-                output[_out++] = from_source[from++];
-                len -= 3;
-              }
-              if (len) {
-                output[_out++] = from_source[from++];
-                if (len > 1) {
-                  output[_out++] = from_source[from++];
-                }
-              }
+
+                break; // need to emulate goto via "continue"
             }
-            else {
-              from = _out - dist;          /* copy direct from output */
-              do {                        /* minimum length is three */
-                output[_out++] = output[from++];
-                output[_out++] = output[from++];
-                output[_out++] = output[from++];
-                len -= 3;
-              } while (len > 2);
-              if (len) {
-                output[_out++] = output[from++];
-                if (len > 1) {
-                  output[_out++] = output[from++];
-                }
-              }
-            }
-          }
-          else if ((op & 64) === 0) {          /* 2nd level distance code */
-            here = dcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
+        }
+        else if ((op & 64) === 0) {              /* 2nd level length code */
+            here = lcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
             continue;
-          }
-          else {
-            strm.msg = 'invalid distance code';
+        }
+        else if (op & 32) {                     /* end-of-block */
+            //Tracevv((stderr, "inflate:         end of block\n"));
+            state.mode = TYPE;
+            break top;
+        }
+        else {
+            strm.msg = 'invalid literal/length code';
             state.mode = BAD;
             break top;
-          }
-
-          break; // need to emulate goto via "continue"
         }
-      }
-      else if ((op & 64) === 0) {              /* 2nd level length code */
-        here = lcode[(here & 0xffff)/*here.val*/ + (hold & ((1 << op) - 1))];
-        continue;
-      }
-      else if (op & 32) {                     /* end-of-block */
-        //Tracevv((stderr, "inflate:         end of block\n"));
-        state.mode = TYPE;
-        break top;
-      }
-      else {
-        strm.msg = 'invalid literal/length code';
-        state.mode = BAD;
-        break top;
-      }
 
-      break; // need to emulate goto via "continue"
+        break; // need to emulate goto via "continue"
     }
   } while (_in < last && _out < end);
 
