@@ -13,7 +13,6 @@ package com.ha.hjob;
 
 import com.google.common.collect.ImmutableSet;
 import com.ha.utils.Props;
-import org.slf4j.Logger;
 
 /**
  * A script job issues a command of the form [EXECUTABLE] [SCRIPT] --key1 val1
