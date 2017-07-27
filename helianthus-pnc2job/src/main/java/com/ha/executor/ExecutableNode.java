@@ -72,7 +72,7 @@ public class ExecutableNode {
         Map<String,String> paramsMap = new HashMap<String,String>();
         String[] paramsArray = params.split(";");
         for(String param:paramsArray){
-            String[] pa = param.split(",");
+            String[] pa = param.split(":");
             paramsMap.put(pa[0],pa[1]);
         }
 

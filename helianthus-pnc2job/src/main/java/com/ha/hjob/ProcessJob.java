@@ -60,8 +60,6 @@ public class ProcessJob extends AbstractJob{
 
         this.jobProps = jobProps;
 
-        this._cwd = getWorkingDirectory();
-
         jobProps.put(CommonJobProperties.JOB_ID, jobId);
     }
 

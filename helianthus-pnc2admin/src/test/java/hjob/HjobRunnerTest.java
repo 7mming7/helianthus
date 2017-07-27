@@ -1,15 +1,18 @@
-package com.ha.executeapp;
+package hjob;
 
-import com.ha.TestCase;
+import base.TestCase;
 import com.ha.execapp.HjobRunner;
 import com.ha.executor.ExecutableFlow;
 import com.ha.executor.ExecutableNode;
+import com.ha.graph.node.Node;
+import com.ha.graph.node.NodeService;
 import com.ha.hjob.ProcessJob;
 import com.ha.hjob.hjobType.HjobTypeManager;
 import com.ha.utils.Props;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 
@@ -23,11 +26,14 @@ import java.io.File;
  * |_)._ _
  * | o| (_
  */
-public class HjobRunnerTest extends TestCase{
+public class HjobRunnerTest extends TestCase {
 
     private HjobTypeManager jobtypeManager;
 
     private File workingDir;
+
+    @Autowired
+    private NodeService nodeService;
 
     @Before
     public void setUp() throws Exception {
@@ -65,14 +71,13 @@ public class HjobRunnerTest extends TestCase{
 
     private HjobRunner createJobRunner(String name, int t, boolean fail) {
         ExecutableFlow flow = new ExecutableFlow();
-        ExecutableNode node = new ExecutableNode();
-        node.setId(name);
-        node.setParentFlow(flow);
+        Node node = nodeService.findOne(1l);
+        ExecutableNode executableNode = new ExecutableNode(node);
+        executableNode.setParentFlow(flow);
 
-        Props props = createProps(t, fail);
-        node.setInputProps(props);
+        executableNode.setInputProps(executableNode.getInputProps());
 
-        HjobRunner runner = new HjobRunner(node, jobtypeManager);
+        HjobRunner runner = new HjobRunner(executableNode, jobtypeManager);
         return runner;
     }
 }

@@ -212,7 +212,7 @@ public class HjobRunner extends EventHandler implements Runnable{
             ExecuteStatus prepareStatus = prepareJob();
             if (prepareStatus != null) {
                 // Writes status to the db
-                writeStatus();
+                /*writeStatus();*/
                 fireEvent(Event.create(this, Event.Type.JOB_STATUS_CHANGED,
                         new EventData(prepareStatus, node.getNestedId())));
                 finalStatus = runJob();

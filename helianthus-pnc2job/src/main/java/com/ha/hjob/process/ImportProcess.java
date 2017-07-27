@@ -64,7 +64,7 @@ public class ImportProcess {
         }
 
         ProcessBuilder builder = new ProcessBuilder(cmd);
-        builder.directory(new File(workingDir));
+        /*builder.directory(new File(workingDir));*/
         builder.environment().putAll(env);
         builder.redirectErrorStream(true);
         this.process = builder.start();

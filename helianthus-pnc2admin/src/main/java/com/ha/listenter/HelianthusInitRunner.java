@@ -33,13 +33,13 @@ public class HelianthusInitRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        LOG.info(">>>>>>>>>>>>>>>Init ->> 服务启动执行，执行初始化配置等操作--START <<<<<<<<<<<<<");
+        /*LOG.info(">>>>>>>>>>>>>>>Init ->> 服务启动执行，执行初始化配置等操作--START <<<<<<<<<<<<<");
 
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg start<<<<<<<<<<<<<<<<<<<<<<<<");
         HelianthusConfig.loadConfig();
 
         LOG.info("Redis: " + HelianthusConfig.getRedisCluster().toString());
-        LOG.info("HdfsAddr: " + HelianthusConfig.getHdfsAddr());
+        LOG.info("HdfsAddr: " + HelianthusConfig.getHdfsAddr());*/
 
         /*JedisClusterBase jedisClusterBase = new JedisClusterBase();
         String o = (String)jedisClusterBase.handRedisClusetData("aaa", JedisClusterBase.RedisOperateType.GET_KV);
