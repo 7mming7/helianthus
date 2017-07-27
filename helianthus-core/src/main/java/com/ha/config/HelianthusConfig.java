@@ -92,34 +92,34 @@ public class HelianthusConfig implements Serializable {
         }
 
         //redis
-        this.redisCluster = props.getList("redis.cluster");
+        redisCluster = props.getList("redis.cluster");
 
-        this.apiThriftPort = props.getInt("web.stats.service.thrift.port", 55555);
+        apiThriftPort = props.getInt("web.stats.service.thrift.port", 55555);
 
         //hdfs
-        this.hdfsClusterName = props.getString("hdfs.cluster.name");
-        this.hdfsAddr = props.getString("hdfs.address");
+        hdfsClusterName = props.getString("hdfs.cluster.name");
+        hdfsAddr = props.getString("hdfs.address");
 
         //zookeeper
-        this.zookeeper = props.getString("hbase.zookeeper.quorum");
+        zookeeper = props.getString("hbase.zookeeper.quorum");
 
         //mapreduce
-        this.maxKpiMapSize=props.getInt("mapreduce.cacheMapper.maxKpiMapSize", 50000);//默认50000
-        this.maxDistinctMapSize=props.getInt("mapreduce.cacheMapper.maxDistinctMapSize", 5000);//默认5000
-        this.maxDistinctFieldSize=props.getInt("mapreduce.cacheMapper.maxDistinctFieldSize",1000000);//默认值100万
+        maxKpiMapSize=props.getInt("mapreduce.cacheMapper.maxKpiMapSize", 50000);//默认50000
+        maxDistinctMapSize=props.getInt("mapreduce.cacheMapper.maxDistinctMapSize", 5000);//默认5000
+        maxDistinctFieldSize=props.getInt("mapreduce.cacheMapper.maxDistinctFieldSize",1000000);//默认值100万
 
-        this.mrInputSplitSize = Long.parseLong(props.getString("mapreduce.input.split.size", "2000000000"));     //默认2G
-        this.mrMaxMapNum = props.getInt("mapreduce.map.tasks.maxnum", 8);	               						 //默认8个map
-        this.mrMapReduceNumRate = Float.parseFloat(props.getString("mapreduce.mapandreduce.tasks.rate", "0.3")); //默认0.3
+        mrInputSplitSize = Long.parseLong(props.getString("mapreduce.input.split.size", "2000000000"));     //默认2G
+        mrMaxMapNum = props.getInt("mapreduce.map.tasks.maxnum", 8);	               						 //默认8个map
+        mrMapReduceNumRate = Float.parseFloat(props.getString("mapreduce.mapandreduce.tasks.rate", "0.3")); //默认0.3
 
         //hive
-        this.hiveDatabaseName = props.getString("hive.database.name");
-        this.hiveDatabaseDir = props.getString("hive.database.dir");
-        this.hiveDatabaseTmpDir = props.getString("hive.database.tmpDir");
-        this.hiveSourceDir = props.getString("hive.source.dir");
-        this.hiveHdfsDir = props.getString("hive.hdfs.dir");
-        this.hiveTableLocation = props.getString("hive.table.location");
-        this.hiveTableTerminated = props.getString("hive.table.terminated");
+        hiveDatabaseName = props.getString("hive.database.name");
+        hiveDatabaseDir = props.getString("hive.database.dir");
+        hiveDatabaseTmpDir = props.getString("hive.database.tmpDir");
+        hiveSourceDir = props.getString("hive.source.dir");
+        hiveHdfsDir = props.getString("hive.hdfs.dir");
+        hiveTableLocation = props.getString("hive.table.location");
+        hiveTableTerminated = props.getString("hive.table.terminated");
     }
 
     /**
@@ -131,8 +131,11 @@ public class HelianthusConfig implements Serializable {
         //读取执行程序所在目录，获取配置文件路径
         File directory	= new File(".");
         String thisDirPath = directory.getCanonicalPath();
-
-        return new HelianthusConfig(thisDirPath + "/helianthus-init/src/main/resources/helianthus.properties");
+        if(thisDirPath.endsWith("helianthus")){
+            return new HelianthusConfig(thisDirPath + "/helianthus-init/src/main/resources/helianthus.properties");
+        } else {
+            return new HelianthusConfig("../helianthus-init/src/main/resources/helianthus.properties");
+        }
     }
 
     /**
