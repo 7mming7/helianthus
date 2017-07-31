@@ -22,8 +22,13 @@ public class SystemController {
 
     private static Logger LOG = LoggerFactory.getLogger(SystemController.class);
 
-    @RequestMapping("/dashbord")
+    @RequestMapping("/login")
     public ModelAndView login() {
+        return new ModelAndView("login");
+    }
+
+    @RequestMapping("/dashbord")
+    public ModelAndView dashbord() {
         return new ModelAndView("index");
     }
 
