@@ -3,6 +3,8 @@ package com.ha.system.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 系统管理controller
@@ -20,5 +22,9 @@ public class SystemController {
 
     private static Logger LOG = LoggerFactory.getLogger(SystemController.class);
 
+    @RequestMapping("/dashbord")
+    public ModelAndView login() {
+        return new ModelAndView("index");
+    }
 
 }

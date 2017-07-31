@@ -58,4 +58,9 @@ public class CommonJobProperties {
      */
     public static final String NESTED_FLOW_PATH = "import.flow.nested.path";
 
+    /**
+     * The split by node depends
+     */
+    public static final String NODE_DEPNEDS_SPLIT = ";";
+
 }

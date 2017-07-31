@@ -39,14 +39,18 @@ public class ExecutableFlow extends ExecutableNode {
     public ExecutableFlow() {
     }
 
-    public ExecutableFlow(Project project, Node node, Flow flow,
+    public ExecutableFlow(Flow flow) {
+        setFlow(flow);
+    }
+
+    public ExecutableFlow(Node node, Flow flow,
                               ExecutableFlow parent) {
         super(node, parent);
 
-        setFlow(project, flow);
+        setFlow(flow);
     }
 
-    protected void setFlow(Project project, Flow flow) {
+    protected void setFlow(Flow flow) {
         this.flowId = flow.getId().toString();
 
         for (Node node : flow.getNodes()) {

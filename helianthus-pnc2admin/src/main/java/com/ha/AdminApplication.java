@@ -32,7 +32,7 @@ public class AdminApplication extends SpringBootServletInitializer {
 
     @RequestMapping("/")
     public ModelAndView greeting() {
-        return new ModelAndView("index");
+        return new ModelAndView("login");
     }
 
     public static void main(String[] args) {
