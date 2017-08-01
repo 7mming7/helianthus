@@ -94,7 +94,6 @@ public class NodeController {
     @RequestMapping(value = "/executeSingleNode", method = RequestMethod.POST)
     @ResponseBody
     public Object executeSingleNode(@RequestBody Map<String,String> nodeMap) {
-        System.out.println("nodeId ->>" + nodeMap.get("nodeId"));
         Node node = nodeService.findOne(Long.parseLong(nodeMap.get("nodeId")));
         log.error("Start execute node:" + node.toString());
 
