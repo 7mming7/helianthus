@@ -26,6 +26,9 @@
                 <button id="btn_delete" type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                 </button>
+                <button id="btn_run" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>执行
+                </button>
             </div>
             <table id="tb_nodes"></table>
         </div>
@@ -134,13 +137,7 @@
                 keyboard: false
             });
         });
-        $("#btn_setparams").click(function () {
-            $('#nodeSetParamsForm')[0].reset();
-            $('#nodeId').attr("value","");
-            $('#nodeEditParamsModal').modal({
-                keyboard: false
-            });
-        });
+
         $("#btn_edit").click(function () {
             var selectedRows = $('#tb_nodes').bootstrapTable('getSelections');
             if (selectedRows.length == 0){
@@ -171,6 +168,45 @@
                 $('#nodeAddModal').modal({
                     keyboard: false
                 });
+            }
+        });
+
+        $("#btn_run").click(function () {
+            var selectedRows = $('#tb_nodes').bootstrapTable('getSelections');
+            if (selectedRows.length == 0){
+                bootbox.alert({
+                    size:'small',
+                    message: '请选择需要修改的记录'
+                });
+
+            } else if (selectedRows.length >= 2){
+                bootbox.alert({
+                    size:'small',
+                    message: '只能选择1条需要修改的记录'
+                });
+
+            } else {
+                var node = selectedRows[0];
+                $.ajax({
+                    type: "Post",
+                    cache: false,
+                    contentType: "application/json",
+                    url: global.contextPath + "/executeSingleNode",
+                    data: JSON.stringify(node),
+                    dataType: 'json',
+                    success: function (result) {     //回调函数，result，返回值
+                        if (result.success == true){
+                            bootbox.alert(result.msg);
+                            $('#tb_nodes').bootstrapTable('refresh');
+                        }
+                        else
+                            bootbox.alert("执行失败" + result.msg);
+                    },
+                    error: function (msg) {
+                        bootbox.alert(JSON.stringify(msg));
+                    }
+                });
+
             }
         });
 

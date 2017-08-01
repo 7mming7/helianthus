@@ -3,10 +3,8 @@ package com.ha.quartz.controller;
 import com.ha.quartz.domain.AbstractExecutableJob;
 import com.ha.quartz.domain.ScheduleJobInfo;
 import com.ha.quartz.domain.SimpleExecutableJob;
-import com.ha.quartz.domain.YearBillEmailSendJob;
 import com.ha.quartz.service.QuartzScheduleService;
 import com.ha.quartz.util.CronExpressionUtil;
-import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 /**
  * 计划任务controller
@@ -80,8 +76,6 @@ public class SchedulingJobController {
             Class<?> executableJob = Class.forName(jobInfo.getJobClass());
             if(executableJob == SimpleExecutableJob.class){
                 abstractExecutableJob = new SimpleExecutableJob(jobInfo);
-            }else if(executableJob == YearBillEmailSendJob.class){
-                abstractExecutableJob = new YearBillEmailSendJob(jobInfo);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

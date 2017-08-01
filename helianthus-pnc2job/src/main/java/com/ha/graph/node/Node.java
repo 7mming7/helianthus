@@ -62,4 +62,20 @@ public class Node extends AbstractEntity<Long> implements Serializable {
 
     //node 执行参数
     private String params;
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", active=" + active +
+                ", project=" + project +
+                ", flow=" + flow +
+                ", jobType='" + jobType + '\'' +
+                ", level=" + level +
+                ", depends='" + depends + '\'' +
+                ", params='" + params + '\'' +
+                '}';
+    }
 }

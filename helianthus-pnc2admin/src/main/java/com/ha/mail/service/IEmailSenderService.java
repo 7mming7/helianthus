@@ -1,6 +1,5 @@
 package com.ha.mail.service;
 
-import com.ha.mail.domain.YearBillMailRecord;
 import org.simplejavamail.email.Email;
 
 /**
@@ -18,5 +17,4 @@ public interface IEmailSenderService {
 
     void sendMail(Email email);
 
-    void sendYearBillMail(YearBillMailRecord yearBillMailRecord);
 }

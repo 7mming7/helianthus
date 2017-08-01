@@ -1,9 +1,6 @@
 package com.ha.mail.service.impl;
 
-import com.ha.cache.ImageCacheHelper;
 import com.ha.mail.base.EmailHelper;
-import com.ha.mail.domain.ContentType;
-import com.ha.mail.domain.YearBillMailRecord;
 import com.ha.mail.service.IEmailSenderService;
 import org.simplejavamail.email.Email;
 import org.simplejavamail.mailer.Mailer;
@@ -12,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Message;
 import javax.transaction.Transactional;
 
 /**
@@ -51,30 +47,5 @@ public class IEmailSenderServiceImpl implements IEmailSenderService {
         LOG.info("send mail " + email.toString());
         mailer.sendMail(email);
         LOG.info("send mail success.");
-    }
-
-    /**
-     * 年度账单邮件发送
-     * @param yearBillMailRecord
-     */
-    @Override
-    public void sendYearBillMail(YearBillMailRecord yearBillMailRecord) {
-        Email email = new Email();
-        email.setFromAddress(emailHelper.getSendName(), emailHelper.getSmtpUsername());
-        email.addRecipient(yearBillMailRecord.getReciver(),yearBillMailRecord.getReciver(), Message.RecipientType.TO);
-        email.setSubject(yearBillMailRecord.getSubject());
-        if(yearBillMailRecord.getContentType() == ContentType.HTML){
-            email.setTextHTML(yearBillMailRecord.getContent());
-        }else if(yearBillMailRecord.getContentType() == ContentType.TEXT){
-            email.setText(yearBillMailRecord.getContent());
-        }
-
-        String cidContent = yearBillMailRecord.getCidContent();
-        String[] cidArr = cidContent.split(",");
-        for(String cid:cidArr){
-            byte[] buffer = ImageCacheHelper.getImageCache(cid);
-            email.addEmbeddedImage(cid,buffer,"image/png");
-        }
-        sendMail(email);
     }
 }

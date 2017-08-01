@@ -49,7 +49,7 @@ public class HflowRunnerTest extends TestCase{
         workingDir.mkdirs();
 
         jobtypeManager =
-                new HjobTypeManager(null);
+                new HjobTypeManager();
 
     }
 

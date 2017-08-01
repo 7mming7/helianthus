@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * User: shuiqing
  * DateTime: 17/6/7 下午2:27
@@ -25,5 +27,12 @@ public class NodeService extends BaseService<Node, Long> {
     @BaseComponent
     @Autowired
     private NodeRepository nodeRepository;
+
+    public Object deleteByIds(List<String> ids){
+        for(String id:ids){
+            delete(Long.parseLong(id));
+        }
+        return true;
+    }
 
 }

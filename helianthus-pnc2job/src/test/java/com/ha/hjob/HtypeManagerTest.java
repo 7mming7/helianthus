@@ -38,7 +38,7 @@ public class HtypeManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        manager = new HjobTypeManager(null);
+        manager = new HjobTypeManager();
 
         workingDir = temp.newFolder("TestProcess");
     }

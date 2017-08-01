@@ -8,6 +8,7 @@ import com.ha.utils.Props;
 import com.ha.utils.PropsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * User: shuiqing
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * |_)._ _
  * | o| (_
  */
+@Component
 public class HjobTypeManager {
 
     private static final Logger logger = LoggerFactory.getLogger(HjobTypeManager.class);
@@ -27,9 +29,7 @@ public class HjobTypeManager {
 
     private Props globalProperties;
 
-    public HjobTypeManager(Props globalProperties) {
-        this.globalProperties = globalProperties;
-
+    public HjobTypeManager() {
         loadPlugins();
     }
 
