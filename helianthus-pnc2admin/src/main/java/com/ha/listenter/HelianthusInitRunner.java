@@ -49,7 +49,8 @@ public class HelianthusInitRunner implements CommandLineRunner {
         String o2 = (String)jedisClusterBase.handRedisClusetData("ccc", JedisClusterBase.RedisOperateType.GET_KV);
         LOG.info("ccc->>>>" + o2);
         LOG.info(">>>>>>>>>>>>>>>Init HelianthusConifg end<<<<<<<<<<<<<<<<<<<<<<<<<<");
-*/
+        */
+
        /* ScheduleJobInfo scheduleJobInfo = new ScheduleJobInfo("data_import","dataWork","0/5 22 * * * ?");
         SimpleExecutableJob simpleExecutableJob = new SimpleExecutableJob(scheduleJobInfo);
         quartzScheduleService.addJob(simpleExecutableJob);*/
@@ -60,14 +61,6 @@ public class HelianthusInitRunner implements CommandLineRunner {
         for(ScheduleJobInfo sji:scheduleJobInfoList){
             System.out.println(sji.toString());
         }*/
-
-        /*FileStore fileStore = new FileStore();
-        fileStore.setFileType(FileType.IMAGE.getValue());
-        fileStore.setUploadTime(Calendar.getInstance());
-        fileStore.setCid("thumbsup");
-        fileStore.setContent(FileUtil.file2byte("/Users/gemingming/Downloads/88E58PICixT_1024.jpg"));
-
-        iFileStoreService.addOrUpdateFileStore(fileStore);*/
 
         LOG.info(">>>>>>>>>>>>>>>Init ->> 服务启动执行，执行初始化配置等操作--END <<<<<<<<<<<<<");
     }

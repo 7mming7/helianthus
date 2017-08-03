@@ -4,12 +4,14 @@ import com.ha.graph.flow.Edge;
 import com.ha.graph.flow.Flow;
 import com.ha.graph.node.Node;
 import com.ha.graph.project.Project;
+import com.ha.utils.TypedMapWrapper;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 可执行的flow
@@ -212,5 +214,48 @@ public class ExecutableFlow extends ExecutableNode {
         }
 
         return jobsToRun;
+    }
+
+    @Override
+    protected void fillMapFromExecutable(Map<String, Object> flowObjMap) {
+        super.fillMapFromExecutable(flowObjMap);
+
+        flowObjMap.put(FLOW_ID_PARAM, flowId);
+
+        ArrayList<Object> nodes = new ArrayList<Object>();
+        for (ExecutableNode node : executableNodes.values()) {
+            nodes.add(node.toObject());
+        }
+        flowObjMap.put(NODES_PARAM, nodes);
+    }
+
+    @Override
+    public void fillExecutableFromMapObject(
+            TypedMapWrapper<String, Object> flowObjMap) {
+        super.fillExecutableFromMapObject(flowObjMap);
+
+        this.flowId = flowObjMap.getString(FLOW_ID_PARAM);
+        List<Object> nodes = flowObjMap.getList(NODES_PARAM);
+
+        if (nodes != null) {
+            for (Object nodeObj : nodes) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> nodeObjMap = (Map<String, Object>) nodeObj;
+
+                ExecutableNode exJob = new ExecutableNode();
+                exJob.fillExecutableFromMapObject(nodeObjMap);
+                exJob.setParentFlow(this);
+
+                executableNodes.put(exJob.getId(), exJob);
+            }
+        }
+    }
+
+    public static ExecutableFlow createExecutableFlowFromObject(Object obj) {
+        ExecutableFlow exFlow = new ExecutableFlow();
+        HashMap<String, Object> flowObj = (HashMap<String, Object>) obj;
+        exFlow.fillExecutableFromMapObject(flowObj);
+
+        return exFlow;
     }
 }

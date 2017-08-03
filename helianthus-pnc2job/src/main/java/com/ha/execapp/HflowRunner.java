@@ -43,7 +43,7 @@ public class HflowRunner extends EventHandler implements Runnable {
 
     // We check update every 5 minutes, just in case things get stuck. But for the
     // most part, we'll be idling.
-    private static final long CHECK_WAIT_MS = 5 * 60 * 1000;
+    private static final long CHECK_WAIT_MS = 5 * 60 * 1;
 
     private final ExecutableFlow flow;
     private Thread flowRunnerThread;
@@ -185,6 +185,7 @@ public class HflowRunner extends EventHandler implements Runnable {
                         try {
                             mainSyncObj.wait(CHECK_WAIT_MS);
                         } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -467,6 +468,8 @@ public class HflowRunner extends EventHandler implements Runnable {
             jobSource.setParent(props);
             props = jobSource;
         }*/
+
+        System.out.println("Node inputProps ->>" + node.getInputProps());
 
         node.setInputProps(node.getInputProps());
     }

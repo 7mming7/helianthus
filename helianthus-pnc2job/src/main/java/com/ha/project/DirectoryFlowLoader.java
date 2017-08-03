@@ -41,6 +41,7 @@ public class DirectoryFlowLoader {
 
     private Props props;
     private HashSet<String> rootNodes;
+    private HashSet<String> flows;
     private HashMap<String, Flow> flowMap;
     private HashMap<String, Node> nodeMap;
     private HashMap<String, Map<String, Edge>> nodeDependencies;
@@ -99,6 +100,7 @@ public class DirectoryFlowLoader {
         duplicateJobs = new HashSet<String>();
         nodeDependencies = new HashMap<String, Map<String, Edge>>();
         rootNodes = new HashSet<String>();
+        flows = new HashSet<String>();
 
         //Load project nodes.
         loadProjectNodes(project);
@@ -117,6 +119,7 @@ public class DirectoryFlowLoader {
         List<Flow> flowList = flowService.findAllWithNoPageNoSort(searchable);
         for(Flow flow:flowList){
             flowMap.put(flow.getId().toString(),flow);
+            flows.add(flow.getId().toString());
         }
         List<Node> nodeList = nodeService.findAllWithNoPageNoSort(searchable);
         for(Node node:nodeList){
@@ -200,20 +203,30 @@ public class DirectoryFlowLoader {
             }
         }
 
-        // Now create flows. Bad flows are marked invalid
         Set<String> visitedNodes = new HashSet<String>();
+        for(Flow flow:flowMap.values()){
+            Searchable searchable = Searchable.newSearchable()
+                    .addSearchFilter("flow.id", MatchType.EQ, flow.getId().toString());
+            List<Node> nodeList = nodeService.findAllWithNoPageNoSort(searchable);
+            for(Node base:nodeList){
+                constructFlow(flow, base, visitedNodes);
+                flow.initialize();
+            }
+        }
+        // Now create flows. Bad flows are marked invalid
+        /*Set<String> visitedNodes = new HashSet<String>();
         for (Node base : nodeMap.values()) {
             // Root nodes can be discovered when parsing jobs
             if (rootNodes.contains(base.getId())
                     || !nonRootNodes.contains(base.getId())) {
                 rootNodes.add(base.getId().toString());
-                Flow flow = new Flow(base.getId().toString());
+                Flow flow = flowService.findOne(base.getId());
 
                 constructFlow(flow, base, visitedNodes);
                 flow.initialize();
                 flowMap.put(base.getId().toString(), flow);
             }
-        }
+        }*/
     }
 
     /**

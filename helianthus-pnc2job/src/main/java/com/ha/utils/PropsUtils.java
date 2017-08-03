@@ -386,4 +386,15 @@ public class PropsUtils {
         }
         return builder.toString();
     }*/
+
+    public static Map<String,String> paramsStringToMap(String params){
+        Map<String,String> paramsMap = new HashMap<String,String>();
+        String[] paramsArray = params.split(";");
+        for(String param:paramsArray){
+            String[] pa = param.split(":");
+            paramsMap.put(pa[0],pa[1]);
+        }
+
+        return paramsMap;
+    }
 }

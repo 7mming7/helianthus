@@ -2,6 +2,7 @@ package com.ha.executor;
 
 import com.ha.graph.node.Node;
 import com.ha.utils.Props;
+import com.ha.utils.PropsUtils;
 import com.ha.utils.TypedMapWrapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,16 +53,17 @@ public class ExecutableNode {
     public ExecutableNode(Node node){
         this.id = node.getId().toString();
         this.type = node.getJobType();
-        inputProps = new Props(null,paramsStringToMap(node.getParams()));
+        inputProps = new Props(null, PropsUtils.paramsStringToMap(node.getParams()));
     }
 
     public ExecutableNode(Node node, ExecutableFlow parent) {
-        this(node.getId().toString(), node.getJobType(), parent);
+        this(node.getId().toString(), node.getJobType(), node.getParams(), parent);
     }
 
-    public ExecutableNode(String id, String type, ExecutableFlow parent) {
+    public ExecutableNode(String id, String type, String params, ExecutableFlow parent) {
         this.id = id;
         this.type = type;
+        inputProps = new Props(null, PropsUtils.paramsStringToMap(params));
         setParentFlow(parent);
     }
 
@@ -105,6 +107,10 @@ public class ExecutableNode {
         this.type = wrappedMap.getString(TYPE_PARAM);
         this.status = ExecuteStatus.valueOf(wrappedMap.getString(EXECUTESTATUSPA_PARAM));
 
+        this.startTime = wrappedMap.getLong(STARTTIME_PARAM);
+        this.endTime = wrappedMap.getLong(ENDTIME_PARAM);
+        this.updateTime = wrappedMap.getLong(UPDATETIME_PARAM);
+
         this.inNodes = new HashSet<String>();
         this.inNodes.addAll(wrappedMap.getStringCollection(INNODES_PARAM,
                 Collections.<String> emptySet()));
@@ -112,6 +118,7 @@ public class ExecutableNode {
         this.outNodes = new HashSet<String>();
         this.outNodes.addAll(wrappedMap.getStringCollection(OUTNODES_PARAM,
                 Collections.<String> emptySet()));
+
 
     }
 
