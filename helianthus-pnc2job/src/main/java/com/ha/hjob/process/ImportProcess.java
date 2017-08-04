@@ -88,8 +88,6 @@ public class ImportProcess {
             outputGobbler.start();
             errorGobbler.start();
 
-            System.out.println(outputGobbler.getRecentLog());
-
             int exitCode = -1;
             try {
                 exitCode = process.waitFor();

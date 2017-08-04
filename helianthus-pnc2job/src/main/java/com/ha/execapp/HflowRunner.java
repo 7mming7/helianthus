@@ -1,9 +1,7 @@
 package com.ha.execapp;
 
-import com.ha.event.Event;
-import com.ha.event.EventData;
-import com.ha.event.EventHandler;
-import com.ha.event.FlowWatcher;
+import com.ha.event.*;
+import com.ha.event.EventListener;
 import com.ha.exception.ExecutorManagerException;
 import com.ha.executor.ExecutableFlow;
 import com.ha.executor.ExecutableNode;
@@ -57,6 +55,8 @@ public class HflowRunner extends EventHandler implements Runnable {
     private Props importProps;
     private Map<String, Props> sharedProps = new HashMap<String, Props>();
     private final HjobTypeManager hjobTypeManager;
+
+    private JobRunnerEventListener listener = new JobRunnerEventListener();
 
     private ExecutorService executorService;
 
@@ -477,7 +477,7 @@ public class HflowRunner extends EventHandler implements Runnable {
     private HjobRunner createJobRunner(ExecutableNode node) {
         HjobRunner jobRunner =
                 new HjobRunner(node, hjobTypeManager);
-
+        jobRunner.addListener(listener);
         return jobRunner;
     }
 
@@ -674,4 +674,41 @@ public class HflowRunner extends EventHandler implements Runnable {
     public ExecutableFlow getExecutableFlow() {
         return flow;
     }
+
+    private class JobRunnerEventListener implements EventListener {
+        public JobRunnerEventListener() {
+        }
+
+        @Override
+        public synchronized void handleEvent(Event event) {
+
+            if (event.getType() == Event.Type.JOB_STATUS_CHANGED) {
+                updateFlow();
+            }
+            else if (event.getType() == Event.Type.JOB_FINISHED) {
+                HjobRunner runner = (HjobRunner) event.getRunner();
+                ExecutableNode node = runner.getNode();
+                EventData eventData = event.getData();
+                long seconds = (node.getEndTime() - node.getStartTime()) / 1000;
+                synchronized (mainSyncObj) {
+                    logger.info("Job " + eventData.getNestedId() + " finished with status "
+                            + eventData.getExecuteStatus() + " in " + seconds + " seconds");
+
+                    // Cancellation is handled in the main thread, but if the flow is
+                    // paused, the main thread is paused too.
+                    // This unpauses the flow for cancellation.
+                    if (flowPaused && eventData.getExecuteStatus() == ExecuteStatus.FAILED
+                            && failureAction == ExecutionOptions.FailureAction.CANCEL_ALL) {
+                        flowPaused = false;
+                    }
+
+                    finishedNodes.add(node);
+                    node.getParentFlow().setUpdateTime(System.currentTimeMillis());
+                    /*interrupt();*/
+                    fireEventListeners(event);
+                }
+            }
+        }
+    }
 }
+

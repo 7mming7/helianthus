@@ -119,6 +119,7 @@ public class HjobRunner extends EventHandler implements Runnable{
 
     private ExecuteStatus changeStatus(ExecuteStatus executeStatus, long time) {
         node.setStatus(executeStatus);
+        node.setUpdateTime(time);
         return executeStatus;
     }
 
@@ -127,6 +128,9 @@ public class HjobRunner extends EventHandler implements Runnable{
     }
 
     private void fireEvent(Event event, boolean updateTime) {
+        if (updateTime) {
+            node.setUpdateTime(System.currentTimeMillis());
+        }
         this.fireEventListeners(event);
     }
 
@@ -198,6 +202,8 @@ public class HjobRunner extends EventHandler implements Runnable{
         Thread.currentThread().setName(
                 "JobRunner-" + this.jobId);
 
+        logError("------------------------ Start " + this.jobId + "! ---------------------------");
+
         // If the job is cancelled, disabled, killed. No log is created in this case
         if (handleNonReadyStatus()) {
             return;
@@ -221,6 +227,12 @@ public class HjobRunner extends EventHandler implements Runnable{
                 logError("Job run failed preparing the job.");
             }
         }
+        this.changeStatus(finalStatus);
+        fireEvent(Event.create(this, Event.Type.JOB_FINISHED,
+                new EventData(finalStatus, node.getNestedId())), false);
+        writeStatus();
+
+        logError("------------------------ End " + this.jobId + "! ---------------------------");
     }
 
     private void writeStatus() {

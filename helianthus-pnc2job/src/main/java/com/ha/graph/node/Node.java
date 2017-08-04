@@ -1,6 +1,7 @@
 package com.ha.graph.node;
 
 import com.ha.entity.AbstractEntity;
+import com.ha.executor.ExecuteStatus;
 import com.ha.graph.flow.Flow;
 import com.ha.graph.project.Project;
 import lombok.Getter;
@@ -53,6 +54,9 @@ public class Node extends AbstractEntity<Long> implements Serializable {
     private Flow flow;
 
     private String jobType;
+
+    //node exec status.
+    private ExecuteStatus executeStatus;
 
     //node level
     private Integer level;
