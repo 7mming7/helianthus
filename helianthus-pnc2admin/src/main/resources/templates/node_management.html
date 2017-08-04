@@ -157,6 +157,7 @@
                 $('#id').val(node.nodeId);
                 $('#name').val(node.nodeName);
                 $('#description').val(node.nodeDesc);
+                $('#executeStatus').val(node.executeStatus);
                 $('#flowId').val(node.flowId);
                 $('#flowName').val(node.flowName);
                 $('#projectId').val(node.projectId);
@@ -223,6 +224,52 @@
                     }, {
                         field: 'nodeName',
                         title: 'Node名称'
+                    }, {
+                        field: 'executeStatus',
+                        title: '状态',
+                        formatter: function (value, row, index) {
+                            switch (value){
+                                case '10':
+                                    return "READY";
+                                    break;
+                                case '20':
+                                    return "PREPARING";
+                                    break;
+                                case '30':
+                                    return "RUNNING";
+                                    break;
+                                case '40':
+                                    return "PAUSED";
+                                    break;
+                                case '50':
+                                    return "SUCCEEDED";
+                                    break;
+                                case '60':
+                                    return "KILLED";
+                                    break;
+                                case '70':
+                                    return "FAILED";
+                                    break;
+                                case '80':
+                                    return "FAILED_FINISHING";
+                                    break;
+                                case '90':
+                                    return "SKIPPED";
+                                    break;
+                                case '100':
+                                    return "DISABLED";
+                                    break;
+                                case '110':
+                                    return "QUEUED";
+                                    break;
+                                case '120':
+                                    return "FAILED_SUCCEEDED";
+                                    break;
+                                case '130':
+                                    return "CANCELLED";
+                                    break;
+                            }
+                        }
                     }, {
                         field: 'projectName',
                         title: '所属Project'

@@ -28,7 +28,7 @@ import java.util.*;
 @Table(name = "t_Flow")
 @Getter
 @Setter
-public class Flow extends AbstractEntity<Long> implements Serializable {
+public class Flow extends AbstractEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

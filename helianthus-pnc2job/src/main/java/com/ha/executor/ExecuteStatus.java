@@ -25,17 +25,17 @@ public enum ExecuteStatus {
     FAILED_SUCCEEDED(120),
     CANCELLED(130);
 
-    private int numVal;
+    private Integer numVal;
 
-    ExecuteStatus(int numVal) {
+    ExecuteStatus(Integer numVal) {
         this.numVal = numVal;
     }
 
-    public int getNumVal() {
+    public Integer getNumVal() {
         return numVal;
     }
 
-    public static ExecuteStatus fromInteger(int x) {
+    public static ExecuteStatus fromInteger(Integer x) {
         switch (x) {
             case 10:
                 return READY;

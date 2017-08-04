@@ -45,6 +45,8 @@ public class NodeDto implements Serializable {
 
     private String params;
 
+    private String executeStatus;
+
     /*private Map<String,String> paramsMap = new HashMap<String,String>();*/
 
     public NodeDto(Node node){
@@ -60,6 +62,7 @@ public class NodeDto implements Serializable {
         this.flowId = node.getFlow() == null ? "":node.getFlow().getId().toString();
         this.flowName = node.getFlow() == null ? "":node.getFlow().getName();
         this.params = node.getParams() == null ? "":node.getParams();
+        this.executeStatus = node.getExecuteStatus() == null ? "":node.getExecuteStatus().toString();
 
         //node params
         /*if(null != node.getParams()){

@@ -56,7 +56,7 @@ public class Node extends AbstractEntity<Long> implements Serializable {
     private String jobType;
 
     //node exec status.
-    private ExecuteStatus executeStatus;
+    private Integer executeStatus;
 
     //node level
     private Integer level;
