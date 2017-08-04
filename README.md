@@ -4,3 +4,7 @@
 
 分布式统一调度管理系统
 -----------------
+
+- **helianthus-pnc2admin 添加字典管理功能**
+- **helianthus-pnc2admin 添加页面执行flow功能**
+- **helianthus-pnc2admin 添加页面kill pause cancle flow和node功能**
