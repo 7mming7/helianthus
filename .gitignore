@@ -8,7 +8,6 @@
 *.war
 *.ear
 target/
-log/
 .idea/
 */target/
 
