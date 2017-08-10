@@ -26,7 +26,8 @@ import java.util.List;
  * |_)._ _
  * | o| (_
  */
-public abstract class BaseService<M extends AbstractEntity, ID extends Serializable> implements InitializingBean {
+public abstract class BaseService<M extends AbstractEntity, ID extends Serializable>
+        implements InitializingBean,IBaseService<M,ID> {
 
 
     protected BaseRepository<M, ID> baseRepository;
@@ -88,6 +89,10 @@ public abstract class BaseService<M extends AbstractEntity, ID extends Serializa
      */
     public void delete(M m) {
         baseRepository.delete(m);
+    }
+
+    public void deleteInBatch(List<M> mList){
+        baseRepository.delete(mList);
     }
 
     /**
@@ -190,17 +195,5 @@ public abstract class BaseService<M extends AbstractEntity, ID extends Serializa
     public Long count(Searchable searchable) {
         return baseRepository.count(searchable);
     }
-
-    /**
-     * 按照id集合删除数据
-     *
-     * @param ids id集合
-     */
-    public void deleteByIds(List<ID> ids){
-        for(ID id:ids){
-            delete(id);
-        }
-    }
-
 }
 

@@ -1,5 +1,6 @@
 package com.ha.graph.flow;
 
+import com.ha.entity.search.MatchType;
 import com.ha.entity.search.Searchable;
 import com.ha.graph.project.Project;
 import com.ha.graph.project.ProjectService;
@@ -93,6 +94,8 @@ public class FlowController {
     @ResponseBody
     public Object deleteFlows(@RequestBody List<String> deleteIds) {
         Assert.notNull(deleteIds);
-        return flowService.deleteByIds(deleteIds);
+        Searchable searchable = Searchable.newSearchable().addSearchFilter("id", MatchType.IN, deleteIds);
+        flowService.deleteInBatch(flowService.findAllWithNoPageNoSort(searchable));
+        return true;
     }
 }

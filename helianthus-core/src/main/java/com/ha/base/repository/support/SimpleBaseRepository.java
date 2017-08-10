@@ -7,6 +7,7 @@ import com.ha.base.repository.callback.SearchCallback;
 import com.ha.entity.search.Searchable;
 import com.ha.plugin.entity.LogicDeleteable;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

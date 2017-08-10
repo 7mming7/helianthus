@@ -1,6 +1,7 @@
 package com.ha.graph.node;
 
 import com.ha.base.result.Result;
+import com.ha.entity.search.MatchType;
 import com.ha.entity.search.Searchable;
 import com.ha.execapp.HjobRunner;
 import com.ha.executor.ExecutableNode;
@@ -88,7 +89,9 @@ public class NodeController {
     @ResponseBody
     public Object deleteFlows(@RequestBody List<String> deleteIds) {
         Assert.notNull(deleteIds);
-        return nodeService.deleteByIds(deleteIds);
+        Searchable searchable = Searchable.newSearchable().addSearchFilter("id", MatchType.IN, deleteIds);
+        nodeService.deleteInBatch(nodeService.findAllWithNoPageNoSort(searchable));
+        return true;
     }
 
     @RequestMapping(value = "/executeSingleNode", method = RequestMethod.POST)

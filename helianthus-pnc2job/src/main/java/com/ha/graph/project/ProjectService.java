@@ -34,11 +34,4 @@ public class ProjectService extends BaseService<Project, Long> {
     public Page<Project> fetchAllProjects(int pageIndex, int pageSize) throws ProjectManagerException {
         return projectRepository.findAll(new PageRequest(pageIndex,pageSize));
     }
-
-    public Object deleteByIds(List<String> ids){
-        for(String id:ids){
-            delete(Long.parseLong(id));
-        }
-        return true;
-    }
 }

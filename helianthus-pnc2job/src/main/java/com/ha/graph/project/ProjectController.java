@@ -1,5 +1,7 @@
 package com.ha.graph.project;
 
+import com.ha.entity.search.MatchType;
+import com.ha.entity.search.Searchable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +63,8 @@ public class ProjectController {
     @ResponseBody
     public Object deleteProjects(@RequestBody List<String> deleteIds) {
         Assert.notNull(deleteIds);
-        return projectService.deleteByIds(deleteIds);
+        Searchable searchable = Searchable.newSearchable().addSearchFilter("id", MatchType.IN, deleteIds);
+        projectService.deleteInBatch(projectService.findAllWithNoPageNoSort(searchable));
+        return true;
     }
 }

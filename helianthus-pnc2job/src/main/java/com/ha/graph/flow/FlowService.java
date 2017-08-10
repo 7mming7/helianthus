@@ -28,10 +28,4 @@ public class FlowService extends BaseService<Flow, Long> {
     @Autowired
     private FlowRepository flowRepository;
 
-    public Object deleteByIds(List<String> ids){
-        for(String id:ids){
-            delete(Long.parseLong(id));
-        }
-        return true;
-    }
 }

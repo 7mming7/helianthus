@@ -31,6 +31,8 @@ public interface IBaseService<M extends AbstractEntity, ID extends Serializable>
 
     void delete(M m);
 
+    void deleteInBatch(List<M> mList);
+
     M findOne(ID id);
 
     boolean exists(ID id);
@@ -50,6 +52,4 @@ public interface IBaseService<M extends AbstractEntity, ID extends Serializable>
     List<M> findAllWithSort(Searchable searchable);
 
     Long count(Searchable searchable);
-
-    void deleteByIds(List<ID> ids);
 }
