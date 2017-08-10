@@ -1,6 +1,11 @@
 package com.ha.system.service.impl;
 
+import com.ha.base.BaseService;
+import com.ha.inject.annotation.BaseComponent;
+import com.ha.system.domain.Dictionary;
+import com.ha.system.repository.DictionaryRespository;
 import com.ha.system.service.IDictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +19,9 @@ import org.springframework.stereotype.Service;
  * | o| (_
  */
 @Service
-public class IDictionaryServiceImpl implements IDictionaryService {
+public class IDictionaryServiceImpl extends BaseService<Dictionary, Long> implements IDictionaryService {
 
+    @Autowired
+    @BaseComponent
+    private DictionaryRespository dictionaryRespository;
 }

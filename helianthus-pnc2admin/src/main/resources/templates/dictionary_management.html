@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head xmlns:th="http://www.thymeleaf.org" th:include="master::head">
+    <title>系统字典管理配置</title>
+    <style type="text/css">
+        table td {
+            max-width: 40px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <!--<div class="col-md-4">-->
+        <!--</div>-->
+        <div class="col-md-12">
+            <div id="toolbar" class="btn-group">
+                <button id="btn_add" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                </button>
+                <button id="btn_edit" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                </button>
+            </div>
+            <table id="tb_dictionarys"></table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dictionaryAddModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="siteModalLabel">
+                        添加字典
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="dictionaryForm" th:action="@{'addAndUpdateDictionary'}" method="post">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label">表名</label>
+                                <input type="text" class="form-control" id="tableName" name="tableName"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">属性</label>
+                                <input type="text" class="form-control" id="attribute" name="attribute"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">描述</label>
+                                <input type="text" class="form-control" id="description" name="description"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">值</label>
+                                <input type="text" class="form-control" id="value" name="value"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">序列</label>
+                                <input type="text" class="form-control" id="serialno" name="serialno"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>状态</label>
+                                <div class="radio-list">
+                                    <label>
+                                        <input type="radio" name="status" id="status1" value="1" checked="true"/> 有效</label>
+                                    <label>
+                                        <input type="radio" name="status" id="status2" value="0"/> 失效 </label>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="id" name="id"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button id="btnDictionarySubmit" type="button" class="btn btn-primary">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div th:include="master::itemDel"></div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function () {
+        $("#btnDictionarySubmit").click(function () {
+            $("#dictionaryForm").ajaxSubmit({
+                success: function (data) {
+                    $('#dictionaryAddModal').modal('hide');
+                    $('#tb_dictionarys').bootstrapTable('refresh');
+                }
+            });
+        });
+
+        $("#btn_add").click(function () {
+            $('#dictionaryForm')[0].reset();
+            $('#id').attr("value","");
+            $('#dictionaryAddModal').modal({
+                keyboard: false
+            });
+        });
+        $("#btn_edit").click(function () {
+            var selectedRows = $('#tb_dictionarys').bootstrapTable('getSelections');
+            if (selectedRows.length == 0){
+                bootbox.alert({
+                    size:'small',
+                    message: '请选择需要修改的记录'
+                });
+
+            } else if (selectedRows.length >= 2){
+                bootbox.alert({
+                    size:'small',
+                    message: '只能选择1条需要修改的记录'
+                });
+
+            } else {
+                var dictionary = selectedRows[0];
+                $('#id').val(dictionary.dicId);
+                $('#attribute').val(dictionary.attribute);
+                $('#description').val(dictionary.description);
+                $('#tableName').val(dictionary.tableName);
+                $('#serialno').val(dictionary.serialno);
+                $('#value').val(dictionary.value);
+                $('#status').val(dictionary.status);
+                $('#dictionaryAddModal').modal({
+                    keyboard: false
+                });
+            }
+        });
+
+        //1.初始化Table
+        var TableInit = function () {
+            var oTableInit = {};
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_dictionarys').bootstrapTable($.extend(global.bootstrapTableOptions, {
+                    url: global.contextPath + '/queryPageDictionarys',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）,
+                    columns: [{
+                        checkbox: true
+                    }, {
+                        field: 'tableName',
+                        title: '表名'
+                    }, {
+                        field: 'attribute',
+                        title: '属性'
+                    }, {
+                        field: 'description',
+                        title: '描述'
+                    }, {
+                        field: 'value',
+                        title: '值'
+                    }, {
+                        field: 'serialno',
+                        title: '序列'
+                    }, {
+                        field: 'status',
+                        title: '字典状态',
+                        formatter: function (value, row, index) {
+                            if (value == 1)
+                                return "有效";
+                            else
+                                return "失效";
+                        }
+                    }
+                    ]
+                }));
+            };
+            return oTableInit;
+        };
+        var oTable = new TableInit();
+        oTable.Init();
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

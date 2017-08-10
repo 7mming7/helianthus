@@ -1,5 +1,8 @@
 package com.ha.system.service;
 
+import com.ha.base.IBaseService;
+import com.ha.system.domain.Dictionary;
+
 /**
  * User: shuiqing
  * DateTime: 17/8/4 下午3:15
@@ -10,6 +13,5 @@ package com.ha.system.service;
  * |_)._ _
  * | o| (_
  */
-public interface IDictionaryService {
-
+public interface IDictionaryService extends IBaseService<Dictionary, Long>{
 }

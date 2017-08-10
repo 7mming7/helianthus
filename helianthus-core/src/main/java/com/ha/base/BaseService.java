@@ -191,5 +191,16 @@ public abstract class BaseService<M extends AbstractEntity, ID extends Serializa
         return baseRepository.count(searchable);
     }
 
+    /**
+     * 按照id集合删除数据
+     *
+     * @param ids id集合
+     */
+    public void deleteByIds(List<ID> ids){
+        for(ID id:ids){
+            delete(id);
+        }
+    }
+
 }
 

@@ -31,23 +31,19 @@ public class Dictionary extends AbstractEntity<Long> {
      * 数据表名
      */
     @Column(name="tableName", nullable=false, length=24)
-    private String objType;
+    private String tableName;
 
     @Column(nullable=false, length=24)
     private String attribute;
 
     @Column(nullable=false)
-    private int value;
+    private Integer value;
 
     @Column(nullable=false, length=32)
     private String description;
 
     //1:enable 2：disable
-    private int status;
+    private Integer status;
 
-    private Long parentId;
-
-    private String name;
-
-    private String remark;
+    private Integer serialno;
 }
