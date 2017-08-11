@@ -60,9 +60,10 @@
                                        required="required"/>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Job类型</label>
-                                <input type="text" class="form-control" id="jobType" name="jobType"
-                                       required="required"/>
+                                <label class="control-label">Job Type</label>
+                                <select class="selectpicker form-control" data-live-search="false" name="jobType" id="jobType">
+
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">所属Project</label>
@@ -281,7 +282,10 @@
                         title: '描述'
                     }, {
                         field: 'jobType',
-                        title: 'job类型'
+                        title: 'job类型',
+                        formatter:function(value, row, index) {
+                            return dictionaryRender(value, 'Node', 'jobType');
+                        }
                     }, {
                         field: 'dependsNode',
                         title: '任务依赖'
@@ -306,6 +310,7 @@
         var oTable = new TableInit();
         oTable.Init();
     });
+
 
     $(function() {
         $.ajax({
@@ -351,6 +356,30 @@
 
             error: function (data) {
                 alert("查询Flow失败" + data);
+            }
+        })
+    });
+
+    $(function() {
+        $.ajax({
+            url: global.contextPath + "/fetchDicByCondition",//写你自己的方法，返回map，我返回的map包含了两个属性：data：集合，total：集合记录数量，所以后边会有data.data的写法。。。
+            // 数据发送方式
+            type: "POST",
+            // 接受数据格式
+            dataType: "json",
+            // 要传递的数据
+            data: {"tableName":"Node","attribute":"jobType"},
+            // 回调函数，接受服务器端返回给客户端的值，即result值
+            success: function (data) {
+                $.each(data.dicList, function (i) {
+                    $('#jobType.selectpicker').append("<option value=" + data.dicList[i].value + ">" + data.dicList[i].description + "</option>");
+                });
+
+                $('#jobType').selectpicker('refresh');
+            },
+
+            error: function (data) {
+                alert("查询字典失败" + data);
             }
         })
     });

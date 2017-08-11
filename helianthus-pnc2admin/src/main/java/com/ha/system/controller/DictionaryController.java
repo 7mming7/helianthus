@@ -1,5 +1,6 @@
 package com.ha.system.controller;
 
+import com.ha.entity.search.MatchType;
 import com.ha.entity.search.Searchable;
 import com.ha.graph.node.Node;
 import com.ha.graph.node.NodeDto;
@@ -71,5 +72,41 @@ public class DictionaryController {
     public Object addAndUpdateDictionary(Dictionary dictionary) {
         return iDictionaryService.saveAndFlush(dictionary);
     }
+
+    @RequestMapping(value = "/fetchDicByCondition", method = RequestMethod.POST)
+    @ResponseBody
+    public Object fetchDicByCondition(String tableName,String attribute){
+        List<DictionaryDto> dictionaryDtoList = new ArrayList<DictionaryDto>();
+        Map<String, Object> result = new HashMap<String, Object>();
+        Searchable searchable = Searchable.newSearchable();
+        searchable.addSearchFilter("tableName", MatchType.EQ, tableName)
+                .addSearchFilter("attribute", MatchType.EQ, attribute);
+        List<Dictionary> data = iDictionaryService.findAllWithNoPageNoSort(searchable);
+        for(Dictionary dic:data){
+            dictionaryDtoList.add(new DictionaryDto(dic));
+        }
+        result.put("dicList", dictionaryDtoList);
+        result.put("total", data.size());
+        return result;
+    }
+
+    @RequestMapping(value = "/renderDictionaryValue", method = RequestMethod.POST)
+    @ResponseBody
+    public Object renderDictionaryValue(String value,String tableName,String attribute){
+        List<DictionaryDto> dictionaryDtoList = new ArrayList<DictionaryDto>();
+        Map<String, Object> result = new HashMap<String, Object>();
+        Searchable searchable = Searchable.newSearchable();
+        searchable.addSearchFilter("tableName", MatchType.EQ, tableName)
+                .addSearchFilter("attribute", MatchType.EQ, attribute)
+                .addSearchFilter("value", MatchType.EQ, value);
+        List<Dictionary> data = iDictionaryService.findAllWithNoPageNoSort(searchable);
+        for(Dictionary dic:data){
+            dictionaryDtoList.add(new DictionaryDto(dic));
+        }
+        result.put("dic", dictionaryDtoList.get(0));
+        result.put("total", data.size());
+        return result;
+    }
+
 
 }

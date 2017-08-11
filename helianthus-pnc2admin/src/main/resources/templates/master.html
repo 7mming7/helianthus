@@ -158,14 +158,14 @@
             undefinedText: "",
             escape: true,
             showColumns: true,                  //是否显示所有的列
-            showExport: true,                     //是否显示导出
+            showExport: false,                     //是否显示导出
             exportDataType: "basic",              //basic', 'all', 'selected'.
             showRefresh: true,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-            showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+            showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false          //是否显示父子表
         };
@@ -197,6 +197,28 @@
                 cancel: function () {
                 }
             });
+        }
+
+        function dictionaryRender(value, tableName, attribute){
+            var rv;
+            $.ajax({
+                url: global.contextPath + "/renderDictionaryValue",
+                // 数据发送方式
+                type: "post",
+                // 接受数据格式
+                dataType: "json",
+                async: false,
+                // 要传递的数据
+                data: {"value":value,"tableName":tableName,"attribute":attribute},
+                // 回调函数，接受服务器端返回给客户端的值，即result值
+                success: function (data) {
+                    rv = data.dic.description;
+                },
+                error: function (data) {
+                    alert("查询字典失败" + data);
+                }
+            });
+            return rv;
         }
         /*]]>*/
     </script>

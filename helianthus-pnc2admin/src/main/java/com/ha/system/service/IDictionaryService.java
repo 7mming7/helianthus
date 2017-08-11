@@ -2,6 +2,7 @@ package com.ha.system.service;
 
 import com.ha.base.IBaseService;
 import com.ha.system.domain.Dictionary;
+import org.springframework.data.domain.Page;
 
 /**
  * User: shuiqing
@@ -14,4 +15,6 @@ import com.ha.system.domain.Dictionary;
  * | o| (_
  */
 public interface IDictionaryService extends IBaseService<Dictionary, Long>{
+
+    Dictionary fetchDicByCondition(String tableName, String attribute, String value);
 }
