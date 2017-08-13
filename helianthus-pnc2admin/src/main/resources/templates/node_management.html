@@ -228,7 +228,10 @@
                     }, {
                         field: 'executeStatus',
                         title: '状态',
-                        formatter: function (value, row, index) {
+                        formatter:function(value, row, index) {
+                            return dictionaryRender(value, 'Node', 'ExecuteStatus');
+                        }
+                        /*formatter: function (value, row, index) {
                             switch (value){
                                 case '10':
                                     return "READY";
@@ -270,7 +273,7 @@
                                     return "CANCELLED";
                                     break;
                             }
-                        }
+                        }*/
                     }, {
                         field: 'projectName',
                         title: '所属Project'
