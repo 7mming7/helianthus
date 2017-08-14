@@ -220,6 +220,7 @@
                 $('#tb_nodes').bootstrapTable($.extend(global.bootstrapTableOptions, {
                     url: global.contextPath + '/queryPageNodes',         //请求后台的URL（*）
                     method: 'get',                      //请求方式（*）,
+                    clickToSelect: false,
                     columns: [{
                         checkbox: true
                     }, {
@@ -231,49 +232,6 @@
                         formatter:function(value, row, index) {
                             return dictionaryRender(value, 'Node', 'ExecuteStatus');
                         }
-                        /*formatter: function (value, row, index) {
-                            switch (value){
-                                case '10':
-                                    return "READY";
-                                    break;
-                                case '20':
-                                    return "PREPARING";
-                                    break;
-                                case '30':
-                                    return "RUNNING";
-                                    break;
-                                case '40':
-                                    return "PAUSED";
-                                    break;
-                                case '50':
-                                    return "SUCCEEDED";
-                                    break;
-                                case '60':
-                                    return "KILLED";
-                                    break;
-                                case '70':
-                                    return "FAILED";
-                                    break;
-                                case '80':
-                                    return "FAILED_FINISHING";
-                                    break;
-                                case '90':
-                                    return "SKIPPED";
-                                    break;
-                                case '100':
-                                    return "DISABLED";
-                                    break;
-                                case '110':
-                                    return "QUEUED";
-                                    break;
-                                case '120':
-                                    return "FAILED_SUCCEEDED";
-                                    break;
-                                case '130':
-                                    return "CANCELLED";
-                                    break;
-                            }
-                        }*/
                     }, {
                         field: 'projectName',
                         title: '所属Project'
@@ -292,10 +250,10 @@
                     }, {
                         field: 'dependsNode',
                         title: '任务依赖'
-                    }, {
+                    }/*, {
                         field: 'params',
                         title: '节点属性'
-                    }, {
+                    }*/, {
                         field: 'active',
                         title: '是否可用',
                         formatter: function (value, row, index) {
@@ -304,9 +262,56 @@
                             else
                                 return "不可用";
                         }
+                    }, {
+                        field: 'action',
+                        title: '操作',
+                        formatter: oTableInit.actionFormatter,
+                        events: oTableInit.actionEvents
                     }
                     ]
                 }));
+            };
+
+            oTableInit.actionFormatter = function (value, row, index) {
+                var btnArray = [
+                    '<a  href="javascript:void(0)" class="execute btn btn-sm red" title="执行">',
+                    '<i class="fa  fa-play">执行</i>',
+                    '</a>'
+                ];
+
+                /*btnArray.push(
+                        '<a  href="javascript:void(0)" class="kill btn btn-sm dark" title="暂停">',
+                        '<i class="fa fa-pause">暂停</i>',
+                        '</a>');
+
+                btnArray.push(
+                        '<a  href="javascript:void(0)" class="kill btn btn-sm green" title="强制终止">',
+                        '<i class="fa fa-link">强制终止</i>',
+                        '</a>');*/
+                return btnArray.join('');
+            };
+            oTableInit.actionEvents = {
+                'click .execute': function (e, value, row, index) {
+                    $.ajax({
+                        type: "Post",
+                        cache: false,
+                        contentType: "application/json",
+                        url: global.contextPath + "/executeSingleNode",
+                        data: JSON.stringify(row),
+                        dataType: 'json',
+                        success: function (result) {     //回调函数，result，返回值
+                            if (result.success == true){
+                                bootbox.alert(result.msg);
+                                $('#tb_nodes').bootstrapTable('refresh');
+                            }
+                            else
+                                bootbox.alert("执行失败" + result.msg);
+                        },
+                        error: function (msg) {
+                            bootbox.alert(JSON.stringify(msg));
+                        }
+                    });
+                }
             };
             return oTableInit;
         };

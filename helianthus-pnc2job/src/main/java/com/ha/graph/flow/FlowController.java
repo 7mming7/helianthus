@@ -1,9 +1,17 @@
 package com.ha.graph.flow;
 
+import com.ha.base.result.Result;
 import com.ha.entity.search.MatchType;
 import com.ha.entity.search.Searchable;
+import com.ha.exception.ExecutorManagerException;
+import com.ha.execapp.HflowRunner;
+import com.ha.execapp.HjobRunner;
+import com.ha.executor.ExecutableFlow;
+import com.ha.executor.ExecutableNode;
 import com.ha.graph.project.Project;
 import com.ha.graph.project.ProjectService;
+import com.ha.hjob.hjobType.HjobTypeManager;
+import com.ha.project.DirectoryFlowLoader;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +48,12 @@ public class FlowController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private DirectoryFlowLoader directoryFlowLoader;
+
+    @Autowired
+    private HjobTypeManager hjobTypeManager;
 
     @RequestMapping("/flowManagement")
     public ModelAndView flowManagement() {
@@ -97,5 +111,29 @@ public class FlowController {
         Searchable searchable = Searchable.newSearchable().addSearchFilter("id", MatchType.IN, deleteIds);
         flowService.deleteInBatch(flowService.findAllWithNoPageNoSort(searchable));
         return true;
+    }
+
+    @RequestMapping(value = "/executeSingleFlow", method = RequestMethod.POST)
+    @ResponseBody
+    public Object executeSingleFlow(@RequestBody Map<String,String> flowMap) {
+        Flow flow = flowService.findOne(Long.parseLong(flowMap.get("flowId")));
+        log.error("Start execute flow:" + flow.toString());
+
+        directoryFlowLoader.loadProjectFlow(flow.getProject());
+        flow.getProject().setFlows(directoryFlowLoader.getFlowMap());
+
+        ExecutableFlow executableFlow = new ExecutableFlow(flow);
+
+        try {
+            HflowRunner hflowRunner = new HflowRunner(executableFlow,hjobTypeManager,null);
+            hflowRunner.run();
+        } catch (ExecutorManagerException e) {
+            e.printStackTrace();
+        }
+
+        Result result = new Result();
+        result.setSuccess(true);
+        result.setMsg("Execute flow:" + flow.getName() + " Successed!");
+        return result;
     }
 }

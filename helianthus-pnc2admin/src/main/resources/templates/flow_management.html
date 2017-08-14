@@ -170,9 +170,46 @@
                             else
                                 return "不可用";
                         }
+                    }, {
+                        field: 'action',
+                        title: '操作',
+                        formatter: oTableInit.actionFormatter,
+                        events: oTableInit.actionEvents
                     }
                     ]
                 }));
+            };
+
+            oTableInit.actionFormatter = function (value, row, index) {
+                var btnArray = [
+                    '<a  href="javascript:void(0)" class="execute btn btn-sm red" title="执行">',
+                    '<i class="fa  fa-play">执行</i>',
+                    '</a>'
+                ];
+                return btnArray.join('');
+            };
+            oTableInit.actionEvents = {
+                'click .execute': function (e, value, row, index) {
+                    $.ajax({
+                        type: "Post",
+                        cache: false,
+                        contentType: "application/json",
+                        url: global.contextPath + "/executeSingleFlow",
+                        data: JSON.stringify(row),
+                        dataType: 'json',
+                        success: function (result) {     //回调函数，result，返回值
+                            if (result.success == true){
+                                bootbox.alert(result.msg);
+                                $('#tb_flows').bootstrapTable('refresh');
+                            }
+                            else
+                                bootbox.alert("执行失败" + result.msg);
+                        },
+                        error: function (msg) {
+                            bootbox.alert(JSON.stringify(msg));
+                        }
+                    });
+                }
             };
             return oTableInit;
         };
