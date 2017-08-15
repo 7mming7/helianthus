@@ -1,4 +1,4 @@
-package com.ha;
+package com.ha.tool;
 
 import com.ha.base.AbstractTableCreate;
 import com.ha.base.HiveTableCreate;
