@@ -48,6 +48,8 @@ public class ProcessJob extends AbstractJob{
 
     protected String _cwd;
 
+    protected volatile Props sysProps;
+
     protected volatile Props jobProps;
 
     @Override
@@ -55,8 +57,10 @@ public class ProcessJob extends AbstractJob{
         return COMMAND;
     }
 
-    public ProcessJob(final String jobId, final Props jobProps) {
+    public ProcessJob(final String jobId, final Props sysProps, final Props jobProps) {
         super(jobId);
+
+        this.sysProps = sysProps;
 
         this.jobProps = jobProps;
 
@@ -292,6 +296,11 @@ public class ProcessJob extends AbstractJob{
     public Props getJobProps() {
         return jobProps;
     }
+
+    public Props getSysProps() {
+        return sysProps;
+    }
+
 
     public String getWorkingDirectory() {
         String workingDir = getJobProps().getString(WORKING_DIR);

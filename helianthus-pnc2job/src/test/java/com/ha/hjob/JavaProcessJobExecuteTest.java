@@ -55,7 +55,7 @@ public class JavaProcessJobExecuteTest {
         props.put(JavaProcessJob.WORKING_DIR, workingDir.getCanonicalPath());
         props.put("type", "java");
 
-        job = new JavaProcessJob("TestProcess", props);
+        job = new JavaProcessJob("TestProcess", null, props);
     }
 
     @Test

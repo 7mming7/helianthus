@@ -30,9 +30,9 @@ public class HadoopHiveJob extends JavaProcessJob {
 
     private boolean debug = false;
 
-    public HadoopHiveJob(String jobid, Props jobProps)
+    public HadoopHiveJob(String jobid, Props sysProps, Props jobProps)
             throws IOException {
-        super(jobid, jobProps);
+        super(jobid, sysProps, jobProps);
 
         getJobProps().put(CommonJobProperties.JOB_ID, jobid);
 

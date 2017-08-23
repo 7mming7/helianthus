@@ -37,8 +37,8 @@ public class JavaProcessJob extends ProcessJob{
         return COMMAND;
     }
 
-    public JavaProcessJob(String jobid, Props jobProps) {
-        super(jobid, jobProps);
+    public JavaProcessJob(String jobid, Props sysProps, Props jobProps) {
+        super(jobid, sysProps, jobProps);
     }
 
     @Override

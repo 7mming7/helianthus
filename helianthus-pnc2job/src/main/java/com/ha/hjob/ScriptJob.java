@@ -30,12 +30,13 @@ public class ScriptJob extends LongArgJob {
         return COMMAND;
     }
 
-    public ScriptJob(String jobid, Props jobProps) {
+    public ScriptJob(String jobid, Props sysProps, Props jobProps) {
         super(jobid,
                 new String[] {
                         jobProps.getString(DEFAULT_EXECUTABLE_KEY),
                         jobProps.getString(COMMAND)
                 },
+                sysProps,
                 jobProps,
                 ImmutableSet.of(DEFAULT_EXECUTABLE_KEY, COMMAND, JOB_TYPE));
     }

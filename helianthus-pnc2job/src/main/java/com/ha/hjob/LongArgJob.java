@@ -30,12 +30,12 @@ public abstract class LongArgJob extends ProcessJob {
     private final ImportProcessBuilder builder;
     private volatile ImportProcess process;
 
-    public LongArgJob(String jobid, String[] command, Props jobProps) {
-        this(jobid, command, jobProps, new HashSet<String>(0));
+    public LongArgJob(String jobid, String[] command, Props sysProps, Props jobProps) {
+        this(jobid, command, sysProps, jobProps, new HashSet<String>(0));
     }
 
-    public LongArgJob(String jobid, String[] command, Props jobProp, Set<String> suppressedKeys) {
-        super(jobid, jobProp);
+    public LongArgJob(String jobid, String[] command, Props sysProps, Props jobProp, Set<String> suppressedKeys) {
+        super(jobid, sysProps, jobProp);
 
         this.builder =
                 new ImportProcessBuilder(command)

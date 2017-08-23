@@ -44,7 +44,7 @@ public class ScriptJobExecuteTest {
         props.put("script", "script");
         props.put("executable", "true");
 
-        job = new ScriptJob("TestProcess", props);
+        job = new ScriptJob("TestProcess", null, props);
     }
 
     @Test
