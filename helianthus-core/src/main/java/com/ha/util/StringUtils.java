@@ -113,17 +113,6 @@ public class StringUtils {
         return buf.toString();
     }
 
-    @Deprecated
-    public static String join(List<String> list, String delimiter) {
-        StringBuffer buffer = new StringBuffer();
-        for (String str : list) {
-            buffer.append(str);
-            buffer.append(delimiter);
-        }
-
-        return buffer.toString();
-    }
-
     /**
      * Use this when you don't want to include Apache Common's string for plugins.
      *

@@ -58,7 +58,7 @@ public class HflowRunnerTest extends TestCase{
         HflowRunner runner = createFlowRunner(1l);
 
         Assert.assertTrue(!runner.isKilled());
-        runner.run();
+        /*runner.run();*/
     }
 
     private HflowRunner createFlowRunner(Long flowId) throws Exception {
