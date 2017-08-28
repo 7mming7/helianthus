@@ -57,7 +57,9 @@ public class HtypeManagerTest {
         jobProps.put(JavaProcessJob.WORKING_DIR, "/Users/gemingming/Downloads/import_test");
         jobProps.put(JavaProcessJob.JAVA_CLASS, "com.ha.hjob.WordCountLocal");
         jobProps.put("classpath", classPaths);
-        Hjob job = manager.buildJobExecutor("javaprocess", jobProps);
+
+        Props sysProps = new Props();
+        Hjob job = manager.buildJobExecutor("javaprocess", sysProps, jobProps);
 
         job.run();
     }
@@ -70,7 +72,9 @@ public class HtypeManagerTest {
         jobProps.put("pluginprops3", "4");
         jobProps.put(ProcessJob.WORKING_DIR, workingDir.getCanonicalPath());
         jobProps.put(ProcessJob.COMMAND, "df -h");
-        Hjob job = manager.buildJobExecutor("command", jobProps);
+
+        Props sysProps = new Props();
+        Hjob job = manager.buildJobExecutor("command", sysProps, jobProps);
 
         job.run();
     }

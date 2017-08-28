@@ -267,8 +267,10 @@ public class HjobRunner extends EventHandler implements Runnable{
             props.put(CommonJobProperties.JOB_ID, this.jobId);
             finalStatus = changeStatus(ExecuteStatus.RUNNING);
 
+            Props sysProps = new Props();
+
             try {
-                job = hjobTypeManager.buildJobExecutor(this.jobId, props);
+                job = hjobTypeManager.buildJobExecutor(this.jobId, sysProps, props);
             } catch (HjobTypeManagerException e) {
                 logger.error("Failed to build job type", e);
                 return null;

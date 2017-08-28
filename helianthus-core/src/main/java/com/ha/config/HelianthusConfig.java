@@ -25,7 +25,7 @@ public class HelianthusConfig implements Serializable {
 
     private static final long serialVersionUID = 6211344970724898565L;
 
-    public final static int SESSION_TIMEOUT_TIME = 30 * 60;  			    		//秒级别， 会话超时时间，默认30分钟
+    public final static int SESSION_TIMEOUT_TIME = 30 * 60;  //秒级别,会话超时时间，默认30分钟
 
     /**
      * redis集群
@@ -100,8 +100,10 @@ public class HelianthusConfig implements Serializable {
         hdfsClusterName = props.getString("hdfs.cluster.name");
         hdfsAddr = props.getString("hdfs.address");
 
-        //zookeeper
+        //hbase
         zookeeper = props.getString("hbase.zookeeper.quorum");
+        hbasePoolSize = props.getInt("hbase.connect.poolSize", 50);
+        hbaseHConnectionNum = props.getInt("hbase.connect.num", 20);
 
         //mapreduce
         maxKpiMapSize=props.getInt("mapreduce.cacheMapper.maxKpiMapSize", 50000);//默认50000

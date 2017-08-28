@@ -53,7 +53,7 @@ public class HjobTypeManager {
         plugins.addPluginClass("script", ScriptJob.class);
     }
 
-    public Hjob buildJobExecutor(String jobId, Props jobProps)
+    public Hjob buildJobExecutor(String jobId, Props sysProps, Props jobProps)
             throws HjobTypeManagerException {
         // This is final because during build phase, you should never need to swap
         // the pluginSet for safety reasons
@@ -93,7 +93,8 @@ public class HjobTypeManager {
             }
             jobProps = PropsUtils.resolveProps(jobProps);
 
-            hjob = (Hjob) Utils.callConstructor(executorClass, jobId, jobProps);
+            //@TODO 需要设置sys props.
+            hjob = (Hjob) Utils.callConstructor(executorClass, jobId, sysProps, jobProps);
         } catch (Exception e) {
             logger.error("Failed to build job executor for job " + jobId
                     + e.getMessage());
